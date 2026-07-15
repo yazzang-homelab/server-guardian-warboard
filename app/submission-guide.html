@@ -32,30 +32,31 @@
   <section class="band">
     <h2 data-lang="ko">현재 준비 상태</h2><h2 data-lang="en">Current Readiness</h2>
     <div class="grid">
-      <article class="item"><span class="status done">READY</span><h3>Public demo</h3><p>계정 없이 접속 가능한 HTTPS 데모와 반복 가능한 장면이 준비됐습니다.</p></article>
-      <article class="item"><span class="status done">READY</span><h3>English + Korean</h3><p>영어 심사 화면과 한/영 전환 버튼이 적용됐습니다.</p></article>
-      <article class="item"><span class="status done">READY</span><h3>Privacy boundary</h3><p>IP·로그인·호스트는 별칭 처리하고 명령 원문은 위험 신호 요약으로 제한합니다.</p></article>
-      <article class="item"><span class="status done">READY</span><h3>GPT-5.6 record</h3><p>Codex와 GPT-5.6의 기여 범위, 대표 요청, 검증 항목을 비식별 기록으로 남겼습니다.</p></article>
-      <article class="item"><span class="status done">READY</span><h3>Public repository</h3><p><a href="https://github.com/yazzang-homelab/server-guardian-warboard" target="_blank" rel="noopener">GitHub 공개 저장소</a>가 준비됐습니다.</p></article>
-      <article class="item"><span class="status todo">ACTION</span><h3>3-minute video</h3><p>3분 이내 영어 또는 영어 자막 데모를 YouTube에 올리고 URL을 입력해야 합니다.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>Public demo</h3><p data-lang="ko">계정 없이 접속 가능한 HTTPS 데모와 반복 가능한 장면이 준비됐습니다.</p><p data-lang="en">The HTTPS demo and repeatable judge scenes require no account.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>English + Korean</h3><p data-lang="ko">영어 심사 화면과 한/영 전환 버튼이 적용됐습니다.</p><p data-lang="en">The complete judging surface supports English and Korean.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>Privacy boundary</h3><p data-lang="ko">IP·로그인·호스트를 별칭 처리하고 의심스러운 명령과 URL을 무해화합니다.</p><p data-lang="en">Addresses, logins, and host identity are aliased; suspicious commands and URLs are defanged.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>GPT-5.6 record</h3><p data-lang="ko">Codex와 GPT-5.6의 기여 범위, 대표 요청, 검증 항목을 비식별 기록으로 남겼습니다.</p><p data-lang="en">The repository records Codex and GPT-5.6 contributions and verification without private session content.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>Public repository</h3><p data-lang="ko"><a href="https://github.com/yazzang-homelab/server-guardian-warboard" target="_blank" rel="noopener">GitHub 공개 저장소</a>가 준비됐습니다.</p><p data-lang="en">The <a href="https://github.com/yazzang-homelab/server-guardian-warboard" target="_blank" rel="noopener">public GitHub repository</a> is ready for judging.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>Video + thumbnail package</h3><p data-lang="ko">승인된 2분 55초 영상, 영어 자막, 업로드 메타데이터, SERVER GUARDIAN 썸네일이 준비됐습니다.</p><p data-lang="en">The approved 2:55 video, English captions, upload metadata, and SERVER GUARDIAN thumbnail are ready.</p></article>
     </div>
   </section>
 
-  <section class="band" data-lang="ko"><h2>제출 순서</h2><ol><li>공개 저장소를 만들고 README, 소스, <code>DEVPOST_SUBMISSION.md</code>, <code>docs/GPT-5.6-USAGE.md</code>를 포함합니다.</li><li>저장소 전체에서 키·토큰·사설 IP·호스트명·원본 로그를 검색해 제거합니다.</li><li>아래 3분 스크립트로 화면을 녹화하고 영어 내레이션 또는 영어 자막을 넣습니다.</li><li>Devpost 설명에 프로젝트 개요, 트랙, 데모 URL, repo URL, YouTube URL을 입력합니다.</li><li>제출 직전 시크릿 창에서 세 링크가 로그인 없이 열리는지 확인합니다.</li></ol></section>
-  <section class="band" data-lang="en"><h2>Submission Order</h2><ol><li>Create a public or judge-shareable repository containing the README, source, <code>DEVPOST_SUBMISSION.md</code>, and <code>docs/GPT-5.6-USAGE.md</code>.</li><li>Scan it for keys, tokens, private addresses, hostnames, and raw logs.</li><li>Record the three-minute flow below with English narration or captions.</li><li>Add the overview, track, demo URL, repository URL, and YouTube URL to Devpost.</li><li>Verify all three links in a signed-out browser before submitting.</li></ol></section>
+  <section class="band" data-lang="ko"><h2>제출 순서</h2><ol><li>공식 규칙 기준 Developer Tools 트랙, 기존 작업과 Build Week 작업의 구분, 공개 저장소 라이선스를 확인합니다.</li><li>저장소와 영상 전체에서 키·토큰·사설 IP·호스트명·원본 로그를 검색해 제거합니다.</li><li>아래 2분 55초 흐름을 ElevenLabs 영어 내레이션과 큰 영어 자막으로 완성합니다.</li><li>Devpost 설명에 프로젝트 개요, 트랙, 데모 URL, repo URL, YouTube URL, <code>/feedback</code> 세션 ID를 입력합니다.</li><li>제출 직전 시크릿 창에서 세 링크가 로그인 없이 열리는지 확인합니다.</li></ol></section>
+  <section class="band" data-lang="en"><h2>Submission Order</h2><ol><li>Confirm the Developer Tools track, prior-work distinction, and public-repository licensing against the official rules.</li><li>Scan the repository and complete video for keys, tokens, private addresses, hostnames, and raw logs.</li><li>Finish the 2:55 flow below with ElevenLabs English narration and large English captions.</li><li>Add the overview, track, demo URL, repository URL, YouTube URL, and <code>/feedback</code> Session ID to Devpost.</li><li>Verify all three links in a signed-out browser before submitting.</li></ol></section>
 
-  <section class="band"><h2>3-minute demo</h2><div class="timeline">
-    <div class="time">0:00-0:25</div><div>문제와 읽기전용 제품 소개 / Problem and read-only product.</div>
-    <div class="time">0:25-0:55</div><div>대시보드와 비식별 별칭 설명 / Dashboard and redacted aliases.</div>
-    <div class="time">0:55-1:20</div><div>한국어 전환 후 영어로 복귀 / Switch Korean, then return to English.</div>
-    <div class="time">1:20-2:05</div><div>RPG, Map, NORAD 화면 / RPG, Map, and NORAD views.</div>
-    <div class="time">2:05-2:35</div><div><code>?demo=skirmish</code>와 FPS 데모 / Deterministic judging scenes.</div>
-    <div class="time">2:35-2:55</div><div>Codex + GPT-5.6 기여 기록 / Collaboration record.</div>
-    <div class="time">2:55-3:00</div><div>“A safer way to understand hostile automation.”</div>
+  <section class="band"><h2>2:55 cinematic demo</h2><div class="timeline">
+    <div class="time">0:00-0:10</div><div>해커 공격, 보호 서버, 가디언 방어 오프닝 / Hacker attack, protected server, and Guardian defense cold open.</div>
+    <div class="time">0:10-0:34</div><div>개인 서버 침입 시도와 방어를 게임으로 바꾼 계기 / Incident and defense-to-game concept.</div>
+    <div class="time">0:34-0:54</div><div>실제 전략 지도 / Live strategic map.</div>
+    <div class="time">0:54-1:24</div><div>브라우저 이전 개인정보 경계와 실제 NORAD 화면 / Pre-browser privacy boundary and live NORAD.</div>
+    <div class="time">1:24-1:38</div><div>기존 작업과 Codex + GPT-5.6 Build Week 확장 / Prior work versus Build Week extensions.</div>
+    <div class="time">1:38-2:39</div><div>스커미시, SRW 전투, FPS의 실제 결정적 장면 / Live deterministic skirmish, SRW battle, and FPS scenes.</div>
+    <div class="time">2:39-2:47</div><div>6/6 QA와 공개 결과 / Verified result and six-mode QA.</div>
+    <div class="time">2:47-2:55</div><div>라이브 데모와 공개 소스 / Live demo and public source.</div>
   </div></section>
 
   <section class="band"><h2 data-lang="ko">공개 저장소에 넣지 말 것</h2><h2 data-lang="en">Never Publish</h2><div class="note">API keys, <code>.env</code>, private IPs, real hostnames, SSH keys, service credentials, raw logs, account/request metadata, deployment inventory.</div></section>
-  <section class="band"><h2 data-lang="ko">완료 조건</h2><h2 data-lang="en">Definition of Done</h2><p data-lang="ko">데모, 저장소, 3분 영상이 모두 비로그인 상태에서 열리고 Devpost 제출이 완료되어야 최종 완료입니다. 현재 남은 외부 작업은 영상 업로드와 Devpost 제출입니다.</p><p data-lang="en">Completion requires an accessible demo, repository, three-minute video, and the final Devpost submission. Remaining external actions are video upload and the final Devpost submission.</p></section>
+  <section class="band"><h2 data-lang="ko">완료 조건</h2><h2 data-lang="en">Definition of Done</h2><p data-lang="ko">데모, 저장소, 3분 미만 공개 YouTube 영상이 비로그인 상태에서 열리고 <code>/feedback</code> 세션 ID를 포함한 Devpost 제출이 완료되어야 최종 완료입니다. 현재 남은 작업은 최신 저장소 변경 공개, YouTube 업로드, 세션 ID 입력, Devpost 제출입니다.</p><p data-lang="en">Completion requires a signed-out-accessible demo, repository, public sub-three-minute YouTube video, and a submitted Devpost entry containing the <code>/feedback</code> Session ID. Remaining work is publishing the latest repository changes, YouTube upload, Session ID entry, and Devpost submission.</p></section>
   <p class="small">This guide summarizes preparation work; the official rules remain authoritative.</p>
 </main>
 <script>const b=document.body,x=document.getElementById('lang');x.onclick=()=>{b.classList.toggle('en');x.textContent=b.classList.contains('en')?'한국어':'English';document.documentElement.lang=b.classList.contains('en')?'en':'ko'};</script>

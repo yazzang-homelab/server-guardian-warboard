@@ -11,21 +11,30 @@ Produce a public YouTube demo for the OpenAI Build Week submission that:
 - exposes no credentials, private infrastructure, or raw security events; and
 - uses only original or properly licensed visual and audio material.
 
-Target duration: **2 minutes 45 seconds**.
+Target duration: **2 minutes 55 seconds**.
 
-## Recommended Approach
+## Production Approach
 
-Use real browser capture as the core of the video. Higgsfield is optional and
-limited to a short, clearly stylized opening or transition. The project demo
-must remain the main visual evidence.
+Use a cinematic seven-slide presentation to establish the incident, product
+concept, privacy architecture, Build Week contribution, game composition, verified
+result, and call to action. Intercut those slides with real 1080p browser captures
+of the working map, NORAD, skirmish, SRW, and FPS views. The application remains
+the primary visual evidence rather than serving as a repeated dashboard backdrop.
+
+Use a ten-second Higgsfield cyber-defense cold open built from a privacy-safe
+project frame. It must show a hacker attacking a protected server and the Guardian
+raising a cyan defense, with synchronized original generated effects and no
+dialogue or copyrighted melody. The seven-slide presentation begins only after
+this curiosity-building opening. All remaining motion comes from the real
+application or restrained editorial transitions.
 
 ### Why
 
-- Judges need to see the working UI, not a generated interpretation of it.
-- Browser capture proves the public demo is accessible and functional.
-- A short generated opening can improve pacing without weakening credibility.
-- Keeping generated footage separate from real UI footage makes disclosure and
-  privacy review simpler.
+- The origin story gives judges a concrete problem and audience.
+- Architecture slides make the privacy boundary legible without exposing logs.
+- Real browser capture proves that the public product is accessible and functional.
+- Alternating presentation and product footage avoids a dashboard-only edit.
+- A single generated establishing shot can add atmosphere without weakening proof.
 
 ## Available Local Environment
 
@@ -42,49 +51,55 @@ must remain the main visual evidence.
 - Authentication: Higgsfield account OAuth; do not store credentials in the
   repository or project `.env` files.
 - Billing: generation consumes Higgsfield account credits.
-- Intended use: one 5-8 second 16:9 stylized opening.
+- Intended use: one 10-second 16:9 cyber-defense opening with synchronized effects.
 - Input policy: upload only public, redacted screenshots. Never upload logs,
   private addresses, hostnames, credentials, or account metadata.
 
 Higgsfield is not required for the core video. If account access, credits, or
 output quality are unsuitable, use a local title sequence instead.
 
-## Tooling To Add
+## Production Tooling
 
-Install project-local automation only after approval:
+1. `playwright-core` drives deterministic 1080p page-only captures.
+2. `video/tools/capture-v2.mjs` captures seven Slidev frames and five live product takes.
+3. `video/tools/assemble-narration.py` fits eight ElevenLabs sections to the storyboard.
+4. `video/tools/make-score.py` creates the original deterministic underscore and effects.
+5. `video/tools/make-subtitles.py` starts captions after the ten-second cold open.
+6. `video/tools/render-v2.sh` assembles the generated opening, presentation, real product
+   footage, narration, score, and captions into the validated H.264/AAC master.
 
-1. `playwright-core` for deterministic Chromium control.
-2. A capture script under `video/tools/capture.mjs`.
-3. An FFmpeg assembly script under `video/tools/render.sh`.
-4. English narration text and an SRT subtitle file under `video/script/`.
-
-Do not install a bundled browser because a compatible system Chromium is
-already present.
+The tooling uses the installed system Chromium rather than downloading another browser.
 
 ## Storyboard
 
 | Time | Visual | Audio / Message |
 | --- | --- | --- |
-| 0:00-0:08 | Stylized title or optional Higgsfield opening | Server Guardian Warboard: a privacy-preserving security event viewer. |
-| 0:08-0:30 | Open the public demo and main dashboard | Explain the problem, read-only design, and public judging surface. |
-| 0:30-1:00 | Event metrics, bot aliases, IOC and payload summaries | Explain backend redaction and why raw security data never reaches the browser. |
-| 1:00-1:22 | Toggle English/Korean during a battle | Show that dashboard and canvas battle UI react to the same language state. |
-| 1:22-1:55 | RPG, map, and NORAD views | Explain that each mode presents the same filtered event stream differently. |
-| 1:55-2:18 | `?demo=skirmish` and one FPS demo | Explain deterministic judging scenes when live activity is low. |
-| 2:18-2:38 | GitHub README and GPT-5.6 usage record | Explain Codex/GPT-5.6 contributions and human decisions. |
-| 2:38-2:45 | Demo and repository URLs | Close with the product value statement. |
+| 0:00-0:10 | Cyber-defense cold open | Hacker sends malicious-code pulses; Guardian raises the server shield; synchronized drone, glitches, shield impact, and security chime. |
+| 0:10-0:22 | Origin slide | Repeated attempts against a personal server started the project. |
+| 0:22-0:34 | Defense-to-game concept slide | Defense came first; filtered attacks then became explainable play. |
+| 0:34-0:54 | Live strategic map | Show the working public product and aggregate event routes. |
+| 0:54-1:08 | Privacy pipeline slide | Explain server-side aliasing, generalization, and defanging. |
+| 1:08-1:24 | Live NORAD view | Show the same filtered stream as an operations-room display. |
+| 1:24-1:38 | Build Week development slide | Distinguish prior work from Codex/GPT-5.6 additions and human decisions. |
+| 1:38-1:56 | Live deterministic skirmish | Demonstrate a repeatable judge scene when traffic is quiet. |
+| 1:56-2:05 | Game composition slide | Establish the supported scanning and play workflows. |
+| 2:05-2:22 | Live SRW-style battle | Show a cinematic interpretation driven by filtered signals. |
+| 2:22-2:39 | Live FPS scene | Show the same product from a first-person viewpoint. |
+| 2:39-2:47 | Verified result slide | State current metrics and six-mode QA evidence. |
+| 2:47-2:55 | Final URL card | Close with the live demo and public repository. |
 
-## Narration
+## Narration And Sound
 
-Preferred order:
+Use ElevenLabs English narration with a calm, credible documentary delivery.
+Generate one short voice sample first and reject it if it sounds compressed,
+robotic, clipped, or excessively dramatic. The final 330-370 word script must
+cover the real incident, defense-to-game concept, privacy boundary, Build Week
+work, product modes, verification, and call to action.
 
-1. Human English narration for credibility and natural pacing.
-2. Higgsfield voiceover if its license and output are acceptable.
-3. Local `espeak-ng` narration as an offline fallback.
-
-The final mix must contain intelligible speech. Keep background audio at least
-15 dB below narration. Avoid copyrighted music; silence with UI sound effects is
-acceptable.
+The ElevenLabs audio must remain clearly intelligible after encoding. Keep the
+original synthesized underscore at least 15 dB below narration, with sparse
+transition impacts rather than continuous attention-grabbing effects. Do not use
+copyrighted music or stock audio without a recorded license.
 
 ## Capture Specification
 
@@ -94,19 +109,19 @@ acceptable.
 - Browser viewport: 1440x810 or 1920x1080, scaled without cropping UI.
 - Output: H.264 video and AAC audio in an MP4 container.
 - Pixel format: `yuv420p` for broad YouTube compatibility.
-- Maximum final duration: 2:55 hard gate; 2:45 target.
+- Maximum final duration: below 3:00; 2:55 target.
 
 ## Automated Capture Sequence
 
-1. Open `https://plzhacknono.duckdns.org/` in a clean browser profile.
-2. Wait for the boot overlay to disappear and the canvas to render.
-3. Capture the dashboard without hovering over private browser UI.
-4. Trigger the English/Korean button and verify visible canvas text changes.
-5. Capture RPG, map, and NORAD modes.
-6. Open deterministic demo URLs in separate clean takes.
-7. Capture the public GitHub README and GPT-5.6 usage record.
-8. Stop each take separately so failed scenes can be replaced without repeating
-   the entire recording.
+1. Start the local Slidev deck and capture slides 1-7 at 1920x1080.
+2. Open `https://plzhacknono.duckdns.org/` in a clean English browser context.
+3. Disable CRT and audio, hide the cursor, and capture page content only.
+4. Capture the live strategic map and NORAD operations view.
+5. Open deterministic skirmish, SRW, and FPS demo URLs in separate clean contexts.
+6. Stop each take separately so a failed scene can be replaced without repeating the
+   complete recording.
+7. Extract review frames and reject any take containing private identifiers, browser
+   chrome, loading overlays, or unreadable composition.
 
 ## Editing Sequence
 
@@ -141,6 +156,57 @@ Use a clean Chromium profile and capture only page content.
 - A stylized pixel-art opening should still be identified in the description as
   AI-assisted for transparency.
 
+## YouTube Thumbnail Redesign
+
+Retire the first `HACKED → GAME` draft. Do not reuse its DejaVu headline,
+stacked arrow treatment, cyan underline, heavy HUD frame, or mixed alignment.
+The replacement must read as a designed product identity rather than a generic
+gaming thumbnail.
+
+### Approved Message
+
+Use exactly one headline: **SERVER GUARDIAN**. Do not add a badge, subtitle,
+arrow, or secondary slogan. The video title and description carry the explanatory
+detail; the thumbnail establishes the product name and cyber-defense conflict.
+
+### Recommended Composition
+
+Use a clean 12-column grid on a 3840x2160 canvas with a 240-pixel safe margin.
+
+- Hacker: left third, large dark silhouette, red attack energy moving inward.
+- Protected server core: visual center, cyan shield and highest local contrast.
+- Guardian: right third, readable defensive stance facing the hacker.
+- Headline: one horizontal line in the upper safe area, optically centered to the
+  full composition rather than mechanically centered to the canvas.
+- Background: continuous project mountain battlefield with no hard tile edge,
+  crop, HUD, panel border, or unrelated decoration.
+- Lower-right: keep clear for the YouTube duration badge.
+
+Typography and artwork must be built separately. Generate or edit the clean
+background scene first, then typeset `SERVER GUARDIAN` locally with a licensed
+condensed display face such as Bebas Neue or Anton. Use consistent cap height,
+tracking, baseline, and stroke; never rely on AI-generated lettering. Set
+`SERVER` in neutral off-white and `GUARDIAN` in the project's amber or cyan,
+with a restrained dark shadow for mobile separation.
+
+### Deliverables And Review Gates
+
+1. Full-size 3840x2160 PNG master.
+2. Upload-ready 1280x720 JPG under 2 MB.
+3. 384x216 mobile proof viewed at actual size.
+4. Grayscale proof confirming title and server-core hierarchy.
+5. Alignment overlay showing grid, safe margins, and clear timestamp zone.
+
+Reject the thumbnail if any subject is clipped, the title needs more than one
+second to read, the server core is not the first or second visual focus, the
+layout loses balance at mobile size, or the artwork implies functionality not
+shown in the video. Use YouTube Test & Compare only after this primary design
+passes review.
+
+References:
+- https://support.google.com/youtube/answer/72431
+- https://support.google.com/youtube/answer/12340300
+- https://support.google.com/youtube/answer/13861714
 ## Quality Gates
 
 The final file must pass all of the following:
@@ -154,6 +220,7 @@ The final file must pass all of the following:
 - No private or operational information appears.
 - No unlicensed music or footage is included.
 - MP4 decodes without errors and uses H.264/AAC.
+- A custom thumbnail is readable at 10% scale, truthful, and uses no private data.
 - The uploaded YouTube video is publicly visible while signed out.
 
 ## YouTube Metadata Draft
@@ -181,12 +248,12 @@ demonstration itself is captured from the live public application.
 
 ## External Actions Requiring The User
 
-1. Choose human narration, Higgsfield voiceover, or local synthetic narration.
-2. Authenticate a Higgsfield account only if the optional opening is approved.
-3. Review and approve the final MP4.
-4. Upload through YouTube Studio and set visibility to Public.
-5. Complete YouTube audience, licensing, and synthetic-content disclosures.
-6. Provide the final YouTube URL for insertion into Devpost and repository docs.
+1. Review the single optional Higgsfield opening before it enters the final cut.
+2. Review and approve the final MP4.
+3. Upload through YouTube Studio and set visibility to Public.
+4. Complete YouTube audience, licensing, and synthetic-content disclosures.
+5. Provide the final YouTube URL for insertion into Devpost and repository docs.
+6. Enter the `/feedback` Codex Session ID and submit through Devpost.
 
 ## Execution Order
 

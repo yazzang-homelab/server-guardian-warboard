@@ -13,3 +13,5 @@ video/takes/
 video/out/
 video/node_modules/
 video/package-lock.json
+video/deck/dist/
+video/deck/index.html

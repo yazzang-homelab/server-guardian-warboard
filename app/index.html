@@ -229,6 +229,12 @@ G.trunc = (s, n) => { s = String(s ?? ''); return s.length > n ? s.slice(0, n) +
 G.hashIP = s => { let h = 2166136261; s = String(s || '?');
   for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
   return h >>> 0; };
+/* 표시 계층 최종 방어선: 백엔드 별칭은 유지하고, 원시 주소는 안정적 bot 별칭으로 변환한다. */
+G.actorAlias = value => {
+  const s = String(value || '?');
+  if (/^bot-[0-9a-f]{8}$/i.test(s)) return s.toLowerCase();
+  return 'bot-' + G.hashIP(s).toString(16).padStart(8, '0');
+};
 
 /* ── 국가 ── */
 G.flagCC = cc => {
@@ -1279,7 +1285,7 @@ function drawGibbet() {
   }
   if (top3.length) {                                     // 순환 명판 — 4s 주기 1→2→3위
     const i = Math.floor(t / 4000) % Math.min(3, top3.length), b = top3[i];
-    const s = `${i + 1}위 ${G.flagCC(b.cc)} ${b.ip} · ${(b.count || 0).toLocaleString()}회`;
+    const s = `${i + 1}위 ${G.flagCC(b.cc)} ${G.actorAlias(b.ip)} · ${(b.count || 0).toLocaleString()}회`;
     const w = Math.min(240, G.textW(s, 9) + 12);
     const bx = Math.max(4, Math.min(G.W - w - 4, gx - w / 2));
     G.win(bx, gy - 52, w, 16, { bg: 'rgba(12,14,30,.88)' });
@@ -1783,7 +1789,8 @@ G.regScene('battle', {
       p.t += dt; if (p.t > 1) B.popups.splice(i, 1); }
     for (let i = B.projectiles.length - 1; i >= 0; i--) { const p = B.projectiles[i];
       p.t += dt * 1000; if (p.t > p.ms) { B.projectiles.splice(i, 1); } }
-    if (B.say) { B.sayT += dt; B.msgCh = Math.min(B.say.text.length, Math.floor(B.sayT * 22)); }
+    if (B.say) { B.sayT += dt; const shown = G.sceneText(B.say.text);
+      B.msgCh = Math.min(shown.length, Math.floor(B.sayT * 22)); }
   },
   draw() { (DRAW[B.mode] || DRAW.srw)(); },
   groundY: () => B.groundY(),
@@ -1874,7 +1881,14 @@ function drawBattleBG(kind) {
     const spr = G.spr(`bg_${kind}_${L}`);
     const yBase = gY - 66 + L * 24;
     if (spr) { const [t, sx, sy, w, h] = spr;
-      for (let x = -((B.bgSeed >> (L * 3)) % w); x < G.W; x += w) c.drawImage(G.tex[t], sx, sy, w, h, Math.round(x), yBase - h + 60, w, h);
+      const start = -((B.bgSeed >> (L * 3)) % w), dy = yBase - h + 60;
+      for (let x = start, i = 0; x < G.W; x += w - 1, i++) {
+        const dx = Math.round(x);
+        if (kind === 'srw' && (i & 1)) {                    // 비루프 스트립: 미러 반복+1px 겹침으로 수직 심 제거
+          c.save(); c.translate(dx + w + 1, 0); c.scale(-1, 1);
+          c.drawImage(G.tex[t], sx, sy, w, h, 0, dy, w + 1, h); c.restore();
+        } else c.drawImage(G.tex[t], sx, sy, w, h, dx, dy, w + 1, h);
+      }
     } else { c.fillStyle = ['#1a2438', '#141c2c', '#0e1420'][L];
       const r = G.rng(B.bgSeed + L); c.beginPath(); c.moveTo(0, G.H);
       for (let x = 0; x <= G.W; x += 40) c.lineTo(x, yBase - r() * 34); c.lineTo(G.W, G.H); c.fill(); }
@@ -1911,7 +1925,7 @@ function drawHUD() {
   G.text(G.trunc(B.foe.name, 14) + extraN, G.W - 152, 12, { size: 9, color: '#ffd6c8' });
   G.ctx.fillStyle = '#233'; G.ctx.fillRect(G.W - 152, 24, 138, 7);
   G.ctx.fillStyle = '#ff7f6a'; G.ctx.fillRect(G.W - 152, 24, Math.round(138 * B.foeHP), 7);
-  G.text(`${G.flagCC(B.foe.cc)} ${B.foe.ip}`, G.W - 152, 40, { size: 9, color: '#8fa3bd', outline: '#0008' });
+  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 152, 40, { size: 9, color: '#8fa3bd', outline: '#0008' });
   drawBattleOverlay();
 }
 
@@ -1937,7 +1951,8 @@ function drawBattleOverlay() {
     const sy = B.mode === 'fps' ? G.H - 94 : G.H - 58;
     G.win(x, sy, w, 46);
     G.text(B.say.name, x + 8, sy + 4, { size: 9, color: isFoe ? '#ff9f8a' : '#8ad0ff' });
-    G.text(B.say.text.slice(0, B.msgCh), x + 8, sy + 18, { size: 9, color: '#efe9da' });
+    const shown = G.sceneText(B.say.text);
+    G.text(shown.slice(0, B.msgCh), x + 8, sy + 18, { size: 9, color: '#efe9da' });
   }
   // 컷인 (슈로대풍 배너 밴드 — 필드 위 무배경 확대 금지, 슬라이드 인/아웃)
   if (B.cutin) {
@@ -2018,14 +2033,14 @@ function drawDQ() {
   const foe = B.actors.foe;
   if (foe && !foe.dead) for (const k of ['foeL', 'foeR']) {
     const s = B.actors[k]; if (!s) continue;
-    const br2 = 1 + Math.sin(performance.now() / 520 + (k === 'foeL' ? 1.1 : 2.3)) * 0.015;
-    s.anim.draw(s.x, s.y, { scale: s.scale * br2 });
+    const bob2 = Math.sin(performance.now() / 520 + (k === 'foeL' ? 1.1 : 2.3)) > 0 ? 1 : 0;
+    s.anim.draw(s.x, s.y + bob2, { scale: s.scale });
   }
-  // 정면 몬스터 = idle 정수 확대 + 숨쉬기 (스케일은 enter 에서 베이크)
+  // 정면 몬스터 = 정수 확대 + 1px 숨쉬기(인코딩 시 픽셀 경계 떨림 방지)
   if (foe && !foe.dead) {
-    const br = 1 + Math.sin(performance.now() / 460) * 0.015;
+    const bob = Math.sin(performance.now() / 460) > 0 ? 1 : 0;
     const blink = foe.hurtT > 0 && Math.floor(foe.hurtT * 30) % 2;
-    foe.anim.draw(foe.x, foe.y, { scale: foe.scale * br, alpha: blink ? 0.35 : 1 });
+    foe.anim.draw(foe.x, foe.y + bob, { scale: foe.scale, alpha: blink ? 0.35 : 1 });
   } else if (foe && foe.dead) { /* 사망 후 빈 무대 */ }
   const merc = B.actors.merc;
   if (merc) merc.anim.draw(merc.x, merc.y, { flip: merc.flip });
@@ -2063,10 +2078,10 @@ const F = {
 };
 
 /* 안개 8단계 + 천장/바닥 밴드 (사전 생성 — 프레임당 문자열 생성 0) */
-const FOG = ['', 'rgba(4,6,16,.14)', 'rgba(4,6,16,.28)', 'rgba(4,6,16,.42)',
-  'rgba(4,6,16,.56)', 'rgba(4,6,16,.70)', 'rgba(4,6,16,.82)', 'rgba(4,6,16,.90)'];
-const CEIL = ['#04050c', '#05060f', '#060812', '#070a16', '#080b18', '#090c1a', '#0a0d1e', '#0a0e20', '#0b0f22'];
-const FLOOR = ['#07080f', '#080a13', '#0a0c17', '#0c0e1a', '#0e101e', '#101222', '#121426', '#14162a', '#16182e'];
+const FOG = ['', 'rgba(7,10,22,.12)', 'rgba(7,10,22,.24)', 'rgba(7,10,22,.36)',
+  'rgba(7,10,22,.48)', 'rgba(7,10,22,.60)', 'rgba(7,10,22,.71)', 'rgba(7,10,22,.80)'];
+const CEIL = ['#080a14', '#090b17', '#0a0d1a', '#0b101e', '#0c1222', '#0d1425', '#0e1629', '#10182d', '#121a31'];
+const FLOOR = ['#0b0d17', '#0c0f1b', '#0e111f', '#101423', '#121627', '#14182b', '#161b30', '#181d34', '#1a2038'];
 const fogIdx = d => Math.min(7, Math.floor(d / 1.6));
 
 /* ── 맵 생성 — 경로 먼저 깎기(루트 유효성 구성상 보장), 셀: 0=통로 1=벽돌 2=랙 3=케이블 8=문 ── */
@@ -2634,7 +2649,7 @@ function drawFpsHUD() {
   G.text(ammo, 152, y0 + 19, { size: 9, color: F.wpn === 'magic' ? '#9fe8ff' : '#ffd6a0' });
   G.text(`박제 ${F.kills}/${F.goal}`, 152, y0 + 6, { size: 9, color: '#9fb2c8' });
   G.text(`침입자 ${G.trunc(G.sceneText(B.foe.name), 12)}`, G.W - 8, y0 + 6, { size: 9, color: '#ffd6c8', align: 'right' });
-  G.text(`${G.flagCC(B.foe.cc)} ${B.foe.ip}`, G.W - 8, y0 + 19, { size: 9, color: '#8fa3bd', align: 'right' });
+  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 8, y0 + 19, { size: 9, color: '#8fa3bd', align: 'right' });
 }
 
 DRAW.fps = drawFPS;
@@ -2908,7 +2923,7 @@ function renderPanels(s) {
   const lb = $('loot'); lb.replaceChildren();
   (s.ioc_urls || []).slice(0, 8).forEach(u => lb.append(el('div', 'ioc', G.trunc(G.defang(u), 52))));
   (s.payloads || []).slice(0, 4).forEach(p =>
-    lb.append(el('div', 'ioc cmd', `${p.src} ▸ ${G.trunc(G.defang(p.cmd), 60)}`)));
+    lb.append(el('div', 'ioc cmd', `${G.actorAlias(p.src)} ▸ ${G.trunc(G.defang(p.cmd), 60)}`)));
   // 모험 기록(피드)
   const fb = $('feed');
   const evKo = i18.ev;
@@ -2916,7 +2931,7 @@ function renderPanels(s) {
   (s.feed || []).slice(0, 14).forEach(ev => {
     const d = el('div', 'fr');
     d.append(el('span', 'ts', (ev.ts || '').slice(11, 19)),
-      el('span', 'src', `${G.flagCC(ev.cc)} ${ev.src}`),
+      el('span', 'src', `${G.flagCC(ev.cc)} ${G.actorAlias(ev.src)}`),
       el('span', 'ev', evKo[ev.event] || ev.event || ''),
       ev.user ? el('span', 'usr', G.trunc(ev.user, 14)) : el('span', 'usr', ''));
     fb.append(d);

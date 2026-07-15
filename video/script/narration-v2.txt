@@ -1,0 +1,15 @@
+Someone kept trying to enter my personal server. Automated probes repeated login attempts and dropped payloads. This was not a manufactured demo feed. It was the problem that started Server Guardian Warboard.
+
+Defense came first. A read-only decoy observes hostile automation without exposing controls to the real host. Then I turned each filtered signal into an explainable game event.
+
+The strategic map gives the working system a geographic shape. Country-level aggregates and active routes replace rows of security data, so movement can be scanned at a glance. This public experience is a viewer, not an administration console, and it requires no account.
+
+Privacy is enforced before display. The backend converts source addresses into stable bot aliases, generalizes host identity to Protected Sandbox, replaces login names with aliases, and defangs suspicious commands and URLs. The browser receives structured, privacy-filtered events, never the raw attack record. NORAD presents that same safe stream as an operations-room view, making active signals readable without revealing the system behind them.
+
+The viewer existed before Build Week. During the submission period, Codex and GPT-5.6 helped harden the privacy boundary, complete the English and Korean judge surface, document deterministic demos, automate six-mode checks, and prepare the public submission.
+
+I retained the product direction, visual language, safety boundaries, and final acceptance decisions. One event stream now supports several ways to understand an attack. The RPG village turns activity into life, patrols, crafting, and encounters. A deterministic skirmish can replay on demand, even when current traffic is quiet. The SRW-style scene stages a cinematic battle, while first-person mode changes the viewpoint and weapon choreography. These scenes are not separate mockups; they are views inside the same live, read-only application. At recording time, it had visualized more than forty-eight thousand hostile automation events, with fourteen documented signal or monster species, six deterministic judge modes, and three first-person weapon choreographies. Automated QA reported every documented mode passing, while final display aliases add a second privacy guard.
+
+The result is a working bilingual product that turns privacy-filtered security signals into a coherent experience.
+
+Try Server Guardian Warboard live. Understand the attack without exposing the system.

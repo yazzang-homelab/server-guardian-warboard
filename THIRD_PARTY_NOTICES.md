@@ -29,6 +29,7 @@ product are included.
 | Asset | Author / Source | License |
 | --- | --- | --- |
 | Galmuri (Korean pixel font, subset) | quiple — https://github.com/quiple/galmuri | SIL Open Font License 1.1 |
+| Bebas Neue (YouTube thumbnail display type) | Ryoichi Tsunekawa / Google Fonts — https://github.com/google/fonts/tree/main/ofl/bebasneue | SIL Open Font License 1.1; license text included at `video/assets/fonts/OFL-BebasNeue.txt` |
 
 ## Sound Effects
 

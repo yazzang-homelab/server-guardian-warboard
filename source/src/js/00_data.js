@@ -15,6 +15,12 @@ G.trunc = (s, n) => { s = String(s ?? ''); return s.length > n ? s.slice(0, n) +
 G.hashIP = s => { let h = 2166136261; s = String(s || '?');
   for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
   return h >>> 0; };
+/* 표시 계층 최종 방어선: 백엔드 별칭은 유지하고, 원시 주소는 안정적 bot 별칭으로 변환한다. */
+G.actorAlias = value => {
+  const s = String(value || '?');
+  if (/^bot-[0-9a-f]{8}$/i.test(s)) return s.toLowerCase();
+  return 'bot-' + G.hashIP(s).toString(16).padStart(8, '0');
+};
 
 /* ── 국가 ── */
 G.flagCC = cc => {

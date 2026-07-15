@@ -2,7 +2,7 @@
 
 Demo: https://plzhacknono.duckdns.org/
 
-Submission guide: https://plzhacknono.duckdns.org/submission-guide.html
+Submission guide: https://plzhacknono.duckdns.org/submission-guide.html?v=20260715-v2
 
 Source repository: https://github.com/yazzang-homelab/server-guardian-warboard
 

@@ -141,7 +141,7 @@ function renderPanels(s) {
   const lb = $('loot'); lb.replaceChildren();
   (s.ioc_urls || []).slice(0, 8).forEach(u => lb.append(el('div', 'ioc', G.trunc(G.defang(u), 52))));
   (s.payloads || []).slice(0, 4).forEach(p =>
-    lb.append(el('div', 'ioc cmd', `${p.src} ▸ ${G.trunc(G.defang(p.cmd), 60)}`)));
+    lb.append(el('div', 'ioc cmd', `${G.actorAlias(p.src)} ▸ ${G.trunc(G.defang(p.cmd), 60)}`)));
   // 모험 기록(피드)
   const fb = $('feed');
   const evKo = i18.ev;
@@ -149,7 +149,7 @@ function renderPanels(s) {
   (s.feed || []).slice(0, 14).forEach(ev => {
     const d = el('div', 'fr');
     d.append(el('span', 'ts', (ev.ts || '').slice(11, 19)),
-      el('span', 'src', `${G.flagCC(ev.cc)} ${ev.src}`),
+      el('span', 'src', `${G.flagCC(ev.cc)} ${G.actorAlias(ev.src)}`),
       el('span', 'ev', evKo[ev.event] || ev.event || ''),
       ev.user ? el('span', 'usr', G.trunc(ev.user, 14)) : el('span', 'usr', ''));
     fb.append(d);

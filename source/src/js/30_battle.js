@@ -416,7 +416,8 @@ G.regScene('battle', {
       p.t += dt; if (p.t > 1) B.popups.splice(i, 1); }
     for (let i = B.projectiles.length - 1; i >= 0; i--) { const p = B.projectiles[i];
       p.t += dt * 1000; if (p.t > p.ms) { B.projectiles.splice(i, 1); } }
-    if (B.say) { B.sayT += dt; B.msgCh = Math.min(B.say.text.length, Math.floor(B.sayT * 22)); }
+    if (B.say) { B.sayT += dt; const shown = G.sceneText(B.say.text);
+      B.msgCh = Math.min(shown.length, Math.floor(B.sayT * 22)); }
   },
   draw() { (DRAW[B.mode] || DRAW.srw)(); },
   groundY: () => B.groundY(),
@@ -507,7 +508,14 @@ function drawBattleBG(kind) {
     const spr = G.spr(`bg_${kind}_${L}`);
     const yBase = gY - 66 + L * 24;
     if (spr) { const [t, sx, sy, w, h] = spr;
-      for (let x = -((B.bgSeed >> (L * 3)) % w); x < G.W; x += w) c.drawImage(G.tex[t], sx, sy, w, h, Math.round(x), yBase - h + 60, w, h);
+      const start = -((B.bgSeed >> (L * 3)) % w), dy = yBase - h + 60;
+      for (let x = start, i = 0; x < G.W; x += w - 1, i++) {
+        const dx = Math.round(x);
+        if (kind === 'srw' && (i & 1)) {                    // 비루프 스트립: 미러 반복+1px 겹침으로 수직 심 제거
+          c.save(); c.translate(dx + w + 1, 0); c.scale(-1, 1);
+          c.drawImage(G.tex[t], sx, sy, w, h, 0, dy, w + 1, h); c.restore();
+        } else c.drawImage(G.tex[t], sx, sy, w, h, dx, dy, w + 1, h);
+      }
     } else { c.fillStyle = ['#1a2438', '#141c2c', '#0e1420'][L];
       const r = G.rng(B.bgSeed + L); c.beginPath(); c.moveTo(0, G.H);
       for (let x = 0; x <= G.W; x += 40) c.lineTo(x, yBase - r() * 34); c.lineTo(G.W, G.H); c.fill(); }
@@ -544,7 +552,7 @@ function drawHUD() {
   G.text(G.trunc(B.foe.name, 14) + extraN, G.W - 152, 12, { size: 9, color: '#ffd6c8' });
   G.ctx.fillStyle = '#233'; G.ctx.fillRect(G.W - 152, 24, 138, 7);
   G.ctx.fillStyle = '#ff7f6a'; G.ctx.fillRect(G.W - 152, 24, Math.round(138 * B.foeHP), 7);
-  G.text(`${G.flagCC(B.foe.cc)} ${B.foe.ip}`, G.W - 152, 40, { size: 9, color: '#8fa3bd', outline: '#0008' });
+  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 152, 40, { size: 9, color: '#8fa3bd', outline: '#0008' });
   drawBattleOverlay();
 }
 
@@ -570,7 +578,8 @@ function drawBattleOverlay() {
     const sy = B.mode === 'fps' ? G.H - 94 : G.H - 58;
     G.win(x, sy, w, 46);
     G.text(B.say.name, x + 8, sy + 4, { size: 9, color: isFoe ? '#ff9f8a' : '#8ad0ff' });
-    G.text(B.say.text.slice(0, B.msgCh), x + 8, sy + 18, { size: 9, color: '#efe9da' });
+    const shown = G.sceneText(B.say.text);
+    G.text(shown.slice(0, B.msgCh), x + 8, sy + 18, { size: 9, color: '#efe9da' });
   }
   // 컷인 (슈로대풍 배너 밴드 — 필드 위 무배경 확대 금지, 슬라이드 인/아웃)
   if (B.cutin) {
@@ -651,14 +660,14 @@ function drawDQ() {
   const foe = B.actors.foe;
   if (foe && !foe.dead) for (const k of ['foeL', 'foeR']) {
     const s = B.actors[k]; if (!s) continue;
-    const br2 = 1 + Math.sin(performance.now() / 520 + (k === 'foeL' ? 1.1 : 2.3)) * 0.015;
-    s.anim.draw(s.x, s.y, { scale: s.scale * br2 });
+    const bob2 = Math.sin(performance.now() / 520 + (k === 'foeL' ? 1.1 : 2.3)) > 0 ? 1 : 0;
+    s.anim.draw(s.x, s.y + bob2, { scale: s.scale });
   }
-  // 정면 몬스터 = idle 정수 확대 + 숨쉬기 (스케일은 enter 에서 베이크)
+  // 정면 몬스터 = 정수 확대 + 1px 숨쉬기(인코딩 시 픽셀 경계 떨림 방지)
   if (foe && !foe.dead) {
-    const br = 1 + Math.sin(performance.now() / 460) * 0.015;
+    const bob = Math.sin(performance.now() / 460) > 0 ? 1 : 0;
     const blink = foe.hurtT > 0 && Math.floor(foe.hurtT * 30) % 2;
-    foe.anim.draw(foe.x, foe.y, { scale: foe.scale * br, alpha: blink ? 0.35 : 1 });
+    foe.anim.draw(foe.x, foe.y + bob, { scale: foe.scale, alpha: blink ? 0.35 : 1 });
   } else if (foe && foe.dead) { /* 사망 후 빈 무대 */ }
   const merc = B.actors.merc;
   if (merc) merc.anim.draw(merc.x, merc.y, { flip: merc.flip });

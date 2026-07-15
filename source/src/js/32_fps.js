@@ -16,10 +16,10 @@ const F = {
 };
 
 /* 안개 8단계 + 천장/바닥 밴드 (사전 생성 — 프레임당 문자열 생성 0) */
-const FOG = ['', 'rgba(4,6,16,.14)', 'rgba(4,6,16,.28)', 'rgba(4,6,16,.42)',
-  'rgba(4,6,16,.56)', 'rgba(4,6,16,.70)', 'rgba(4,6,16,.82)', 'rgba(4,6,16,.90)'];
-const CEIL = ['#04050c', '#05060f', '#060812', '#070a16', '#080b18', '#090c1a', '#0a0d1e', '#0a0e20', '#0b0f22'];
-const FLOOR = ['#07080f', '#080a13', '#0a0c17', '#0c0e1a', '#0e101e', '#101222', '#121426', '#14162a', '#16182e'];
+const FOG = ['', 'rgba(7,10,22,.12)', 'rgba(7,10,22,.24)', 'rgba(7,10,22,.36)',
+  'rgba(7,10,22,.48)', 'rgba(7,10,22,.60)', 'rgba(7,10,22,.71)', 'rgba(7,10,22,.80)'];
+const CEIL = ['#080a14', '#090b17', '#0a0d1a', '#0b101e', '#0c1222', '#0d1425', '#0e1629', '#10182d', '#121a31'];
+const FLOOR = ['#0b0d17', '#0c0f1b', '#0e111f', '#101423', '#121627', '#14182b', '#161b30', '#181d34', '#1a2038'];
 const fogIdx = d => Math.min(7, Math.floor(d / 1.6));
 
 /* ── 맵 생성 — 경로 먼저 깎기(루트 유효성 구성상 보장), 셀: 0=통로 1=벽돌 2=랙 3=케이블 8=문 ── */
@@ -587,7 +587,7 @@ function drawFpsHUD() {
   G.text(ammo, 152, y0 + 19, { size: 9, color: F.wpn === 'magic' ? '#9fe8ff' : '#ffd6a0' });
   G.text(`박제 ${F.kills}/${F.goal}`, 152, y0 + 6, { size: 9, color: '#9fb2c8' });
   G.text(`침입자 ${G.trunc(G.sceneText(B.foe.name), 12)}`, G.W - 8, y0 + 6, { size: 9, color: '#ffd6c8', align: 'right' });
-  G.text(`${G.flagCC(B.foe.cc)} ${B.foe.ip}`, G.W - 8, y0 + 19, { size: 9, color: '#8fa3bd', align: 'right' });
+  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 8, y0 + 19, { size: 9, color: '#8fa3bd', align: 'right' });
 }
 
 DRAW.fps = drawFPS;

@@ -351,7 +351,7 @@ function drawGibbet() {
   }
   if (top3.length) {                                     // 순환 명판 — 4s 주기 1→2→3위
     const i = Math.floor(t / 4000) % Math.min(3, top3.length), b = top3[i];
-    const s = `${i + 1}위 ${G.flagCC(b.cc)} ${b.ip} · ${(b.count || 0).toLocaleString()}회`;
+    const s = `${i + 1}위 ${G.flagCC(b.cc)} ${G.actorAlias(b.ip)} · ${(b.count || 0).toLocaleString()}회`;
     const w = Math.min(240, G.textW(s, 9) + 12);
     const bx = Math.max(4, Math.min(G.W - w - 4, gx - w / 2));
     G.win(bx, gy - 52, w, 16, { bg: 'rgba(12,14,30,.88)' });

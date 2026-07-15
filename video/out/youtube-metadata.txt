@@ -2,40 +2,54 @@
 Server Guardian Warboard - OpenAI Build Week Demo
 
 === DESCRIPTION ===
-Server Guardian Warboard is a read-only, privacy-preserving viewer that turns
-redacted honeypot-style security events into RPG, map, NORAD, and battle views.
+Someone kept trying to break into my personal server. Server Guardian Warboard
+turns the privacy-filtered signals from a read-only decoy into RPG, map, NORAD,
+battle, and first-person views without exposing the system it protects.
 
+Video: https://youtu.be/J-gfPQeM5WA
 Demo: https://plzhacknono.duckdns.org/
 Source: https://github.com/yazzang-homelab/server-guardian-warboard
 
 Built with Codex and GPT-5.6 for OpenAI Build Week (Developer Tools track).
-Codex and GPT-5.6 assisted with implementation, privacy hardening, bilingual
-UI work, deterministic demo scenes, testing, and submission documentation.
-Product, safety, privacy, and design decisions were made by the human entrant.
+During the Submission Period, Codex and GPT-5.6 assisted with privacy-boundary
+hardening, complete English/Korean judge coverage, deterministic demo scenes,
+six-mode QA, and submission documentation. Product direction, safety and privacy
+boundaries, visual language, and final acceptance remained human decisions.
 
-The product demonstration is captured from the live public application. Title
-cards are plain text (no AI-generated imagery). Narration uses an offline
-synthetic voice (espeak-ng).
+All application footage was captured from the live public product. The ten-second
+cyber-defense cold open was generated with Higgsfield from a privacy-safe project
+frame and includes synchronized generated effects. English narration was
+synthesized with ElevenLabs. The underscore and transition effects were
+synthesized specifically for this video by the entrant; no stock or copyrighted
+music is used.
 
 Chapters:
-0:00 Intro
-0:08 Live dashboard
-0:30 Privacy redaction boundary
-0:56 English/Korean bilingual UI
-1:18 RPG / Map / NORAD view modes
-1:48 Deterministic demo scenes
-2:11 Codex + GPT-5.6 collaboration
-2:31 Links
+0:00 Cyber-defense cold open
+0:10 The incident
+0:22 From defense to play
+0:34 Live strategic map
+0:54 Privacy boundary
+1:08 Live NORAD view
+1:24 Build Week development
+1:38 Deterministic skirmish
+1:56 Game composition
+2:05 Cinematic battle
+2:22 First-person mode
+2:39 Verified result
+2:47 Live demo and source
 
 === UPLOAD SETTINGS ===
 - Visibility: Public (verify while signed out after upload)
 - Audience: Not made for kids
 - License: Standard YouTube License
-- Altered/synthetic content disclosure: YES for synthetic voice narration
-  (no realistic AI-generated imagery is included)
-- Captions: upload video/out/subtitles.srt as English captions (also burned in)
+- Altered/synthetic content disclosure: YES (ElevenLabs narration and a stylized
+  Higgsfield pixel-art cold open with generated sound effects; no realistic person
+  or real-world event is depicted)
+- Captions: upload video/out/v2/subtitles.srt as English captions (also burned in)
 
 === FILES ===
-- video/out/final.mp4       (1080p30, H.264/AAC, 2:38, 26.6 MB)
-- video/out/subtitles.srt   (19 English cues)
-- video/out/narration.wav   (offline TTS narration master)
+- video/out/v2/final.mp4       (target: 1080p30, H.264/AAC, 2:55)
+- video/out/v2/subtitles.srt   (English captions, also burned in)
+- video/out/v2/narration.wav   (ElevenLabs narration master)
+- video/out/v2/score.wav       (original synthesized underscore)
+- video/out/v2/youtube-thumbnail.jpg (custom thumbnail after design approval)

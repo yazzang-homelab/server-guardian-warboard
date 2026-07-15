@@ -1,16 +1,28 @@
 {
   "name": "video",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Server Guardian Warboard demo-video production toolkit",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deck": "slidev deck/slides.md --open false --remote false",
+    "deck:build": "slidev build deck/slides.md --base /",
+    "capture:v2": "node tools/capture-v2.mjs",
+    "score:v2": "python3 tools/make-score.py --duration 165 --output out/v2/score.wav",
+    "subtitles:v2": "python3 tools/make-subtitles.py",
+    "narration:v2": "python3 tools/assemble-narration.py",
+    "thumbnail:v2": "python3 tools/make-thumbnail-v2.py",
+    "render:v2": "bash tools/render-v2.sh"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "yazzang-homelab",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "playwright-core": "^1.61.1"
+  },
+  "devDependencies": {
+    "@slidev/cli": "52.11.5",
+    "@slidev/theme-default": "0.25.0",
+    "@slidev/theme-seriph": "0.25.0"
   }
 }
