@@ -1,7 +1,7 @@
 ---
 theme: default
 title: Server Guardian Warboard — Build Week
-info: OpenAI Build Week Developer Tools submission deck
+info: OpenAI Build Week — Apps for Your Life submission deck
 aspectRatio: 16/9
 canvasWidth: 1920
 transition: fade

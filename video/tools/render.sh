@@ -18,7 +18,7 @@ norm() { # norm <in.webm> <ss> <t> <out.mp4>
 ffmpeg -y -v error -f lavfi -i "color=c=0x0a0e1a:s=1920x1080:d=8:r=30" -vf "\
 drawtext=fontfile=$FONT:text='SERVER GUARDIAN WARBOARD':fontcolor=0xffd23b:fontsize=86:x=(w-text_w)/2:y=380,\
 drawtext=fontfile=$FONT_R:text='A privacy-preserving security event viewer':fontcolor=0xe8e4d8:fontsize=40:x=(w-text_w)/2:y=520,\
-drawtext=fontfile=$FONT_R:text='OpenAI Build Week - Developer Tools - Codex + GPT-5.6':fontcolor=0x9fb2c8:fontsize=30:x=(w-text_w)/2:y=600,\
+drawtext=fontfile=$FONT_R:text='OpenAI Build Week - Apps for Your Life - Codex + GPT-5.6':fontcolor=0x9fb2c8:fontsize=30:x=(w-text_w)/2:y=600,\
 format=yuv420p" "${VOPT[@]}" out/seg/01_title.mp4
 
 # 2-8. Browser takes

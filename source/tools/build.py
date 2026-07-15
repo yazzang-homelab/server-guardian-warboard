@@ -65,7 +65,7 @@ TEMPLATE = """<!doctype html>
 <div id="submission">
   <h2>OpenAI Build Week Submission Notes</h2>
   <div class="submitgrid">
-    <section><h3>Track</h3><p>Developer Tools. The project helps reviewers understand hostile automation signals without exposing private infrastructure.</p></section>
+    <section><h3>Track</h3><p>Apps for Your Life. Managing my own server is a personal hobby, and this turns everyday defense of it into something worth watching without exposing private infrastructure.</p></section>
     <section><h3>How to Test</h3><p>Open this URL, wait for the live feed, switch between RPG, map, and NORAD views, then try the demo query strings for repeatable judging scenes.</p></section>
     <section><h3>Privacy</h3><p>Public IPs are replaced by bot aliases, host identity is generalized, and suspicious strings are defanged before display.</p></section>
     <section><h3>Codex + GPT-5.6</h3><p>Codex and GPT-5.6 were used to extend the viewer, harden display paths, add deterministic QA checks, and prepare this judging surface.</p></section>

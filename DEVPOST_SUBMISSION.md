@@ -11,14 +11,14 @@ into an explainable RPG/NORAD security dashboard.
 
 ## Track
 
-Developer Tools
+Apps for Your Life
 
 ## Official Rules Alignment
 
 Authoritative source: https://openai.devpost.com/rules
 
 - Submission deadline: July 21, 2026 at 5:00 pm Pacific Time.
-- Category: Developer Tools (security and developer-facing visualization).
+- Category: Apps for Your Life (managing a personal server as a hobby, made safe and watchable).
 - Existing-project rule: prior work and Submission Period work are separated in
   `README.md`, with dated commits and `docs/GPT-5.6-USAGE.md` as evidence.
 - Working access: the public demo is free, requires no account, and does not need

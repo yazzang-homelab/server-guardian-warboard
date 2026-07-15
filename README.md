@@ -10,7 +10,7 @@ Server Guardian Warboard is a read-only hackathon viewer for honeypot-style secu
 
 ## OpenAI Build Week
 
-- Track: Developer Tools
+- Track: Apps for Your Life
 - Built/extended with: Codex and GPT-5.6
 - Judge-facing URL: https://plzhacknono.duckdns.org/
 - No account, payment, private hardware, or write access is required.
