@@ -75,7 +75,7 @@ packages that preserve the same public redaction contract.
 
 ## Links To Add Before Submission
 
-- Public source repository: `[ADD PUBLIC REPOSITORY URL]`
+- Public source repository: https://github.com/yazzang-homelab/server-guardian-warboard
 - Public 3-minute YouTube demo: `[ADD YOUTUBE URL]`
 - GPT-5.6 usage record: `docs/GPT-5.6-USAGE.md`
 
@@ -87,7 +87,7 @@ packages that preserve the same public redaction contract.
 - [x] Public output excludes private infrastructure identifiers.
 - [x] README explains Codex and GPT-5.6 collaboration.
 - [x] Privacy-safe GPT-5.6 usage record is included.
-- [ ] Publish a shareable source repository and insert its URL above.
+- [x] Publish a shareable source repository and insert its URL above.
 - [ ] Record and upload the demo video, then insert its URL above.
 - [ ] Submit the final entry through Devpost before the deadline.
 

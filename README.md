@@ -4,6 +4,8 @@ Demo: https://plzhacknono.duckdns.org/
 
 Submission guide: https://plzhacknono.duckdns.org/submission-guide.html
 
+Source repository: https://github.com/yazzang-homelab/server-guardian-warboard
+
 Server Guardian Warboard is a read-only hackathon viewer for honeypot-style security events. It converts event counts, country aggregates, defanged payload hints, and IOC summaries into RPG/NORAD-style scenes without exposing private infrastructure details.
 
 ## OpenAI Build Week
