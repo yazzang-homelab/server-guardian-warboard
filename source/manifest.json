@@ -1,0 +1,1288 @@
+{
+ "_meta": {
+  "doc": "A.5 확정 매니페스트 — 전 시트 육안+산술 검증 완료(2026-07-11). pack_atlas.py의 SSOT.",
+  "rules": [
+   "face: 원본 시트의 캐릭터 방향. 팩 시 전부 RIGHT로 정규화(LEFT는 수평 플립). 엔진이 foe를 flip으로 좌향.",
+   "keep: 소스 프레임 인덱스(0-based) 리타임 목록. 생략 시 전 프레임(캡 이내).",
+   "seq: 이미 잘린 스프라이트 이름 재배열(아틀라스 비용 0) — attack2/3 리믹스용.",
+   "ds: 정수 다운스케일(2 = 50% nearest). wizardm/wraith는 타 캐릭터 대비 2배 밀도라 필수.",
+   "검증 근거: 모든 시트 가로폭/프레임폭 정수 일치. facing은 공격 절정 프레임 육안(facing_check.png)."
+  ],
+  "cast_scale_px": {
+   "hero": 39,
+   "generic_mob": "18-51",
+   "boss_king": 81,
+   "wizardm_after_ds": 43,
+   "wraith_after_ds": 47
+  }
+ },
+ "chars": {
+  "hero": {
+   "pack": "hero-knight-2",
+   "fw": 140,
+   "fh": 140,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 11,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "run": {
+     "file": "Run.png",
+     "n": 8,
+     "keep": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+     ],
+     "fps": 12,
+     "loop": 1
+    },
+    "dash": {
+     "file": "Dash.png",
+     "n": 4,
+     "fps": 14
+    },
+    "attack1": {
+     "file": "Attack.png",
+     "n": 6,
+     "fps": 13
+    },
+    "attack2": {
+     "seq": [
+      "hero_attack1_2",
+      "hero_attack1_3",
+      "hero_attack1_4",
+      "hero_attack1_5",
+      "hero_attack1_3",
+      "hero_attack1_4"
+     ],
+     "fps": 18
+    },
+    "attack3": {
+     "seq": [
+      "hero_dash_0",
+      "hero_dash_1",
+      "hero_dash_2",
+      "hero_dash_3",
+      "hero_attack1_3",
+      "hero_attack1_4",
+      "hero_attack1_5"
+     ],
+     "fps": 15
+    },
+    "hit": {
+     "file": "Take Hit.png",
+     "n": 4,
+     "fps": 10
+    }
+   }
+  },
+  "huntress": {
+   "pack": "huntress",
+   "fw": 150,
+   "fh": 150,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "idle.png",
+     "n": 8,
+     "keep": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      7
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack1": {
+     "file": "attack.png",
+     "n": 5,
+     "fps": 12
+    }
+   }
+  },
+  "wizardm": {
+   "pack": "wizard-pack",
+   "fw": 231,
+   "fh": 190,
+   "face": "R",
+   "ds": 2,
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 6,
+     "fps": 8,
+     "loop": 1
+    },
+    "attack1": {
+     "file": "Attack1.png",
+     "n": 8,
+     "fps": 12
+    }
+   }
+  },
+  "martial": {
+   "pack": "martial-hero-3",
+   "fw": 126,
+   "fh": 126,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "idle.png",
+     "n": 10,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack2": {
+     "file": "attack.png",
+     "n": 7,
+     "fps": 14
+    }
+   }
+  },
+  "skeleton": {
+   "pack": "monsters-fantasy-1",
+   "dir": "Skeleton",
+   "fw": 150,
+   "fh": 150,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 4,
+     "fps": 6,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack.png",
+     "n": 8,
+     "fps": 12
+    },
+    "hit": {
+     "file": "Take Hit.png",
+     "n": 4,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 4,
+     "fps": 8
+    }
+   }
+  },
+  "goblin": {
+   "pack": "monsters-fantasy-1",
+   "dir": "Goblin",
+   "fw": 150,
+   "fh": 150,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 4,
+     "fps": 6,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack.png",
+     "n": 8,
+     "fps": 13
+    },
+    "hit": {
+     "file": "Take Hit.png",
+     "n": 4,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 4,
+     "fps": 8
+    }
+   }
+  },
+  "mushroom": {
+   "pack": "monsters-fantasy-1",
+   "dir": "Mushroom",
+   "fw": 150,
+   "fh": 150,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 4,
+     "fps": 6,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack.png",
+     "n": 8,
+     "fps": 11
+    },
+    "hit": {
+     "file": "Take Hit.png",
+     "n": 4,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 4,
+     "fps": 8
+    }
+   }
+  },
+  "flyeye": {
+   "pack": "monsters-fantasy-1",
+   "dir": "Flying_eye",
+   "fw": 150,
+   "fh": 150,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "Flight.png",
+     "n": 8,
+     "keep": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      7
+     ],
+     "fps": 10,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack.png",
+     "n": 8,
+     "fps": 12
+    },
+    "hit": {
+     "file": "Take Hit.png",
+     "n": 4,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 4,
+     "fps": 8
+    }
+   }
+  },
+  "mimic": {
+   "pack": "monsters-fantasy-2",
+   "dir": "Mimic",
+   "fw": 146,
+   "fh": 146,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "idle_transformed.png",
+     "n": 9,
+     "keep": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack": {
+     "file": "attack_1.png",
+     "n": 14,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      13
+     ],
+     "fps": 13
+    },
+    "hit": {
+     "file": "hurt.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "death.png",
+     "n": 6,
+     "fps": 9
+    }
+   }
+  },
+  "rat": {
+   "pack": "monsters-fantasy-2",
+   "dir": "Rat",
+   "fw": 70,
+   "fh": 70,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "idle.png",
+     "n": 10,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+     ],
+     "fps": 9,
+     "loop": 1
+    },
+    "attack": {
+     "file": "attack_bite.png",
+     "n": 12,
+     "keep": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11
+     ],
+     "fps": 14
+    },
+    "hit": {
+     "file": "hurt.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "rat-death.png",
+     "n": 6,
+     "fps": 9
+    }
+   }
+  },
+  "slime": {
+   "pack": "monsters-fantasy-2",
+   "dir": "Slime",
+   "fw": 156,
+   "fh": 156,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "idle.png",
+     "n": 14,
+     "keep": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      12
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack": {
+     "file": "attack.png",
+     "n": 19,
+     "keep": [
+      0,
+      3,
+      6,
+      8,
+      10,
+      13,
+      16,
+      18
+     ],
+     "fps": 13
+    },
+    "hit": {
+     "file": "hurt.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "death.png",
+     "n": 11,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ],
+     "fps": 9
+    }
+   }
+  },
+  "bat": {
+   "pack": "monsters-fantasy-2",
+   "dir": "Bat",
+   "fw": 87,
+   "fh": 87,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "fly.png",
+     "n": 11,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ],
+     "fps": 12,
+     "loop": 1
+    },
+    "attack": {
+     "file": "attack.png",
+     "n": 11,
+     "keep": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      7,
+      9,
+      10
+     ],
+     "fps": 14
+    },
+    "hit": {
+     "file": "hurt.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "death.png",
+     "n": 4,
+     "fps": 8
+    }
+   }
+  },
+  "worm": {
+   "pack": "fire-worm",
+   "dir": "Sprites/Worm",
+   "fw": 90,
+   "fh": 90,
+   "face": "L",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 9,
+     "keep": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack.png",
+     "n": 16,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      11,
+      13,
+      15
+     ],
+     "fps": 12
+    },
+    "hit": {
+     "file": "Get Hit.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 8,
+     "fps": 9
+    }
+   }
+  },
+  "wraith": {
+   "pack": "evil-wizard-2",
+   "dir": "Sprites",
+   "fw": 250,
+   "fh": 250,
+   "face": "R",
+   "ds": 2,
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 8,
+     "keep": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      7
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack": {
+     "file": "Attack1.png",
+     "n": 8,
+     "fps": 12
+    },
+    "hit": {
+     "file": "Take hit.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 7,
+     "fps": 9
+    }
+   }
+  },
+  "king": {
+   "pack": "medieval-king",
+   "fw": 155,
+   "fh": 155,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 6,
+     "fps": 7,
+     "loop": 1
+    },
+    "attack1": {
+     "file": "Attack_1.png",
+     "n": 6,
+     "fps": 11
+    },
+    "hit": {
+     "file": "Hit.png",
+     "n": 4,
+     "fps": 10
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 11,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      10
+     ],
+     "fps": 8
+    }
+   }
+  },
+  "sorcerer": {
+   "pack": "evil-wizard-3",
+   "dir": "Sprites",
+   "fw": 140,
+   "fh": 140,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "file": "Idle.png",
+     "n": 10,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+     ],
+     "fps": 8,
+     "loop": 1
+    },
+    "attack1": {
+     "file": "Attack.png",
+     "n": 13,
+     "keep": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      11,
+      12
+     ],
+     "fps": 12
+    },
+    "hit": {
+     "file": "Get hit.png",
+     "n": 3,
+     "fps": 12
+    },
+    "death": {
+     "file": "Death.png",
+     "n": 18,
+     "keep": [
+      0,
+      3,
+      5,
+      8,
+      10,
+      13,
+      15,
+      17
+     ],
+     "fps": 9
+    }
+   }
+  },
+  "td_hero": {
+   "pack": "0x72-dungeon-ii",
+   "loose": 1,
+   "face": "R",
+   "anims": {
+    "idle": {
+     "glob": "knight_m_idle_*.png",
+     "fps": 6,
+     "loop": 1
+    },
+    "run": {
+     "glob": "knight_m_run_*.png",
+     "fps": 10,
+     "loop": 1
+    }
+   }
+  }
+ },
+ "recolors": {
+  "golem": {
+   "from": "slime",
+   "map": "stone",
+   "note": "드로퍼 골렘 = 슬라임 석화 리컬러"
+  },
+  "alphabat": {
+   "from": "bat",
+   "map": "crimson",
+   "note": "군체 대박쥐 = 박쥐 적자색 리컬러, 엔진에서 scale 1.6"
+  }
+ },
+ "anims_loose": {
+  "p_fire": {
+   "pack": "0x72-dungeon-ii",
+   "glob": "bonfire_lit_*.png",
+   "keep": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    7
+   ],
+   "fps": 10,
+   "loop": 1
+  }
+ },
+ "fx": {
+  "fx_slash": {
+   "pack": "fx-slash",
+   "file": "pixel_art_sword_slash_sprites.png",
+   "fw": 64,
+   "fh": 47,
+   "n": 9,
+   "keep": [
+    0,
+    2,
+    4,
+    6,
+    8
+   ],
+   "fps": 18
+  },
+  "fx_slash2": {
+   "seq": [
+    "fx_slash_3",
+    "fx_slash_2",
+    "fx_slash_1",
+    "fx_slash_0"
+   ],
+   "fps": 20
+  },
+  "fx_explosion": {
+   "pack": "fx-explosion",
+   "file": "explosion1.png",
+   "fw": 100,
+   "fh": 100,
+   "n": 50,
+   "keep": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48
+   ],
+   "fps": 14
+  },
+  "fx_explosion2": {
+   "pack": "fx-explosion",
+   "file": "explosion2.png",
+   "fw": 100,
+   "fh": 100,
+   "n": 60,
+   "keep": [
+    0,
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49,
+    56
+   ],
+   "fps": 14,
+   "colors": 20
+  },
+  "fx_orb": {
+   "pack": "evil-wizard-3",
+   "file": "Sprites/Projectile/Moving.png",
+   "fw": 50,
+   "fh": 50,
+   "n": 4,
+   "static": 1
+  },
+  "fx_fireball": {
+   "pack": "fire-worm",
+   "file": "Sprites/Fire Ball/Move.png",
+   "fw": 46,
+   "fh": 46,
+   "n": 6,
+   "static": 2
+  },
+  "fx_impact": {
+   "pack": "fx-pimen",
+   "file": "Hit Effect 01 1.png",
+   "fw": 48,
+   "fh": 48,
+   "n": 7,
+   "fps": 22,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_slash3": {
+   "pack": "fx-pimen",
+   "file": "Smear 01 Horizontal 1.png",
+   "fw": 48,
+   "fh": 48,
+   "n": 5,
+   "fps": 22,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_slash4": {
+   "pack": "fx-pimen",
+   "file": "Smear 01 Vertical 01.png",
+   "fw": 48,
+   "fh": 48,
+   "n": 6,
+   "fps": 22,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_thunder": {
+   "pack": "fx-pimen",
+   "file": "Projectile 2 wo blur.png",
+   "fw": 48,
+   "fh": 48,
+   "n": 16,
+   "keep": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+   ],
+   "rot": 90,
+   "fps": 18,
+   "anchor": "foot",
+   "colors": 16
+  },
+  "fx_thunderhit": {
+   "pack": "fx-pimen",
+   "file": "Thunder hit wo blur.png",
+   "fw": 32,
+   "fh": 32,
+   "n": 6,
+   "fps": 20,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_dark": {
+   "pack": "fx-pimen",
+   "file": "Dark VFX 1 (40x32).png",
+   "fw": 40,
+   "fh": 32,
+   "n": 20,
+   "keep": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15
+   ],
+   "fps": 16,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_poison": {
+   "pack": "fx-pimen",
+   "file": "Acid VFX 01.png",
+   "fw": 32,
+   "fh": 32,
+   "n": 16,
+   "keep": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+   ],
+   "fps": 14,
+   "anchor": "foot",
+   "colors": 12
+  },
+  "fx_fireburst": {
+   "pack": "fx-pimen2",
+   "file": "Fire2 Explosion.png",
+   "fw": 64,
+   "fh": 64,
+   "n": 16,
+   "keep": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9,
+    11
+   ],
+   "fps": 16,
+   "anchor": "center",
+   "colors": 16
+  },
+  "fx_ice": {
+   "pack": "fx-pimen2",
+   "file": "Ice2 Start.png",
+   "fw": 32,
+   "fh": 32,
+   "n": 9,
+   "fps": 14,
+   "anchor": "foot",
+   "colors": 12
+  },
+  "fx_iceburst": {
+   "pack": "fx-pimen2",
+   "file": "Ice2 Ending.png",
+   "fw": 32,
+   "fh": 32,
+   "n": 18,
+   "keep": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+   ],
+   "fps": 18,
+   "anchor": "foot",
+   "colors": 12
+  },
+  "fx_icehit": {
+   "pack": "fx-pimen2",
+   "file": "Ice1 Hit.png",
+   "fw": 48,
+   "fh": 32,
+   "n": 8,
+   "fps": 20,
+   "anchor": "center",
+   "colors": 12
+  },
+  "fx_holy": {
+   "pack": "fx-pimen2",
+   "file": "Holy VFX 02.png",
+   "fw": 48,
+   "fh": 48,
+   "n": 16,
+   "keep": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "fps": 16,
+   "anchor": "foot",
+   "colors": 12
+  },
+  "fx_slashbig": {
+   "pack": "fx-pimen2",
+   "file": "Slash Big.png",
+   "fw": 64,
+   "fh": 64,
+   "n": 8,
+   "keep": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "fps": 18,
+   "anchor": "center",
+   "colors": 10
+  },
+  "fx_smoke": {
+   "pack": "fx-pimen2",
+   "file": "Smoke B.png",
+   "fw": 64,
+   "fh": 64,
+   "n": 13,
+   "keep": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "fps": 12,
+   "anchor": "foot",
+   "colors": 8
+  },
+  "fx_heal": {
+   "pack": "fx-pimen2",
+   "file": "Heal.png",
+   "fw": 64,
+   "fh": 64,
+   "n": 64,
+   "keep": [
+    0,
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49
+   ],
+   "fps": 12,
+   "anchor": "foot",
+   "colors": 12
+  }
+ },
+ "tiles": {
+  "cell": 16,
+  "pack": "kenney-tiny-town",
+  "file": "Tilemap/tilemap_packed.png",
+  "defs": {
+   "tt_grass": {
+    "cells": [
+     [
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "tt_grass2": {
+    "cells": [
+     [
+      1,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "tt_grass3": {
+    "cells": [
+     [
+      2,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "tt_tree": {
+    "cells": [
+     [
+      4,
+      0,
+      0,
+      0
+     ],
+     [
+      4,
+      1,
+      0,
+      1
+     ]
+    ]
+   },
+   "tt_well": {
+    "cells": [
+     [
+      8,
+      7,
+      0,
+      0
+     ],
+     [
+      8,
+      8,
+      0,
+      1
+     ]
+    ]
+   },
+   "tt_house": {
+    "cells": [
+     [
+      0,
+      4,
+      0,
+      0
+     ],
+     [
+      1,
+      4,
+      1,
+      0
+     ],
+     [
+      2,
+      4,
+      2,
+      0
+     ],
+     [
+      0,
+      5,
+      0,
+      1
+     ],
+     [
+      1,
+      5,
+      1,
+      1
+     ],
+     [
+      2,
+      5,
+      2,
+      1
+     ],
+     [
+      0,
+      6,
+      0,
+      2
+     ],
+     [
+      2,
+      6,
+      1,
+      2
+     ],
+     [
+      1,
+      6,
+      2,
+      2
+     ],
+     [
+      1,
+      7,
+      1,
+      2
+     ]
+    ]
+   },
+   "p_pot": {
+    "cells": [
+     [
+      11,
+      8,
+      0,
+      0
+     ]
+    ]
+   },
+   "p_basket": {
+    "cells": [
+     [
+      10,
+      10,
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  "note": "cells=[srcCol,srcRow,dstCol,dstRow] — tt_house는 파란지붕 3×3, 중앙벽=문구멍(2,6)+문(1,7) 오버레이(동일 dst 재도장)"
+ },
+ "bgs": {
+  "bg_forest_0": {
+   "pack": "sunnyland-woods",
+   "file": "Sunny-land-woods-files/ENVIRONMENT/bg-clouds.png",
+   "maxh": 110,
+   "keyout": [
+    [
+     10,
+     137,
+     255
+    ],
+    [
+     91,
+     168,
+     255
+    ]
+   ],
+   "grade": {
+    "sat": 0.8,
+    "val": 0.95
+   }
+  },
+  "bg_forest_1": {
+   "pack": "sunnyland-woods",
+   "file": "Sunny-land-woods-files/ENVIRONMENT/bg-mountains.png",
+   "maxh": 110,
+   "grade": {
+    "sat": 0.82,
+    "val": 0.92
+   }
+  },
+  "bg_forest_2": {
+   "pack": "sunnyland-woods",
+   "file": "Sunny-land-woods-files/ENVIRONMENT/bg-trees.png",
+   "maxh": 110,
+   "grade": {
+    "sat": 0.78,
+    "val": 0.9
+   }
+  },
+  "bg_mount_0": {
+   "pack": "mountains-parallax",
+   "file": "pixel_art_mountains_parallax/layers/clouds_big.png",
+   "scale": 2,
+   "maxh": 120
+  },
+  "bg_mount_1": {
+   "pack": "mountains-parallax",
+   "file": "pixel_art_mountains_parallax/layers/mountains_1.png",
+   "scale": 2,
+   "maxh": 120
+  },
+  "bg_mount_2": {
+   "pack": "mountains-parallax",
+   "file": "pixel_art_mountains_parallax/layers/valley.png",
+   "scale": 2,
+   "maxh": 120
+  },
+  "bg_ruins_0": {
+   "derive": "bg_forest_0",
+   "remap": "ruins"
+  },
+  "bg_ruins_1": {
+   "derive": "bg_forest_1",
+   "remap": "ruins"
+  },
+  "bg_ruins_2": {
+   "derive": "bg_forest_2",
+   "remap": "ruins"
+  }
+ },
+ "gen_required": [
+  "p_rod",
+  "p_lute",
+  "p_log",
+  "fx_arrow"
+ ],
+ "gen_anims_note": "tools/gen_sprites.py 가 td_hero idle+소품 베이크로 td_hero_{chop,fish,lute,cook,herb,well} 합성 — 20_village ACTS.anim 과 1:1",
+ "caps": {
+  "idle": 6,
+  "walk": 6,
+  "attack": 8,
+  "death": 8,
+  "hit": 4
+ }
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Server Guardian Warboard - Hackathon Submission Guide</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0a0d10;--panel:#12171c;--line:#2b3740;--text:#eef4f6;--muted:#aab8be;--green:#55d98c;--amber:#ffc857;--red:#ff7272;--cyan:#68c7e8}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:0}
+    header{border-bottom:1px solid var(--line);background:#0d1216}.wrap{width:min(1040px,calc(100% - 32px));margin:auto}header .wrap{padding:42px 0 34px}
+    h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px);line-height:1.12;letter-spacing:0}h2{margin:0 0 14px;font-size:21px;letter-spacing:0}h3{margin:0 0 8px;font-size:15px;letter-spacing:0}.lead{max-width:760px;color:var(--muted);font-size:17px}
+    nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}a,button{color:var(--cyan)}button,.btn{border:1px solid var(--line);background:#182028;color:var(--text);padding:9px 12px;border-radius:5px;text-decoration:none;cursor:pointer;font:inherit}.btn.primary{border-color:#317e55;color:#dffff0}
+    main{padding:28px 0 64px}.band{padding:24px 0;border-bottom:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:16px}.item p{margin:4px 0;color:var(--muted)}
+    .status{display:inline-block;font-weight:700}.done{color:var(--green)}.todo{color:var(--amber)}.block{color:var(--red)}ol,ul{padding-left:22px;margin:10px 0}code{background:#080b0d;border:1px solid var(--line);padding:2px 5px;border-radius:3px;color:#e8f9ff;overflow-wrap:anywhere}.timeline{display:grid;grid-template-columns:90px 1fr;gap:8px 16px}.time{color:var(--cyan);font-weight:700}.note{border-left:3px solid var(--amber);padding:10px 14px;background:#15140e;color:#e8dfbf}.small{font-size:13px;color:var(--muted)}
+    [data-lang="en"]{display:none}body.en [data-lang="ko"]{display:none}body.en [data-lang="en"]{display:block}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.timeline{grid-template-columns:72px 1fr}header .wrap{padding-top:28px}}
+  </style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Server Guardian Warboard</h1>
+  <p class="lead" data-lang="ko">OpenAI Build Week / Devpost 제출을 끝내기 위한 실전 체크리스트입니다. 개인정보, 서버 식별자, 키와 원본 보안 이벤트는 이 문서에 포함하지 않습니다.</p>
+  <p class="lead" data-lang="en">A practical OpenAI Build Week / Devpost submission checklist. It excludes credentials, private infrastructure identifiers, and raw security events.</p>
+  <nav>
+    <a class="btn primary" href="/">데모 열기 / Open demo</a>
+    <a class="btn" href="https://openai.devpost.com/rules" target="_blank" rel="noopener">공식 규칙 / Official rules</a>
+    <button id="lang" type="button">English</button>
+  </nav>
+</div></header>
+<main class="wrap">
+  <section class="band">
+    <h2 data-lang="ko">현재 준비 상태</h2><h2 data-lang="en">Current Readiness</h2>
+    <div class="grid">
+      <article class="item"><span class="status done">READY</span><h3>Public demo</h3><p>계정 없이 접속 가능한 HTTPS 데모와 반복 가능한 장면이 준비됐습니다.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>English + Korean</h3><p>영어 심사 화면과 한/영 전환 버튼이 적용됐습니다.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>Privacy boundary</h3><p>IP·로그인·호스트는 별칭 처리하고 명령 원문은 위험 신호 요약으로 제한합니다.</p></article>
+      <article class="item"><span class="status done">READY</span><h3>GPT-5.6 record</h3><p>Codex와 GPT-5.6의 기여 범위, 대표 요청, 검증 항목을 비식별 기록으로 남겼습니다.</p></article>
+      <article class="item"><span class="status todo">ACTION</span><h3>Public repository</h3><p>심사자가 열 수 있는 공개 또는 공유 저장소를 만들고 URL을 Devpost에 입력해야 합니다.</p></article>
+      <article class="item"><span class="status todo">ACTION</span><h3>3-minute video</h3><p>3분 이내 영어 또는 영어 자막 데모를 YouTube에 올리고 URL을 입력해야 합니다.</p></article>
+    </div>
+  </section>
+
+  <section class="band" data-lang="ko"><h2>제출 순서</h2><ol><li>공개 저장소를 만들고 README, 소스, <code>DEVPOST_SUBMISSION.md</code>, <code>docs/GPT-5.6-USAGE.md</code>를 포함합니다.</li><li>저장소 전체에서 키·토큰·사설 IP·호스트명·원본 로그를 검색해 제거합니다.</li><li>아래 3분 스크립트로 화면을 녹화하고 영어 내레이션 또는 영어 자막을 넣습니다.</li><li>Devpost 설명에 프로젝트 개요, 트랙, 데모 URL, repo URL, YouTube URL을 입력합니다.</li><li>제출 직전 시크릿 창에서 세 링크가 로그인 없이 열리는지 확인합니다.</li></ol></section>
+  <section class="band" data-lang="en"><h2>Submission Order</h2><ol><li>Create a public or judge-shareable repository containing the README, source, <code>DEVPOST_SUBMISSION.md</code>, and <code>docs/GPT-5.6-USAGE.md</code>.</li><li>Scan it for keys, tokens, private addresses, hostnames, and raw logs.</li><li>Record the three-minute flow below with English narration or captions.</li><li>Add the overview, track, demo URL, repository URL, and YouTube URL to Devpost.</li><li>Verify all three links in a signed-out browser before submitting.</li></ol></section>
+
+  <section class="band"><h2>3-minute demo</h2><div class="timeline">
+    <div class="time">0:00-0:25</div><div>문제와 읽기전용 제품 소개 / Problem and read-only product.</div>
+    <div class="time">0:25-0:55</div><div>대시보드와 비식별 별칭 설명 / Dashboard and redacted aliases.</div>
+    <div class="time">0:55-1:20</div><div>한국어 전환 후 영어로 복귀 / Switch Korean, then return to English.</div>
+    <div class="time">1:20-2:05</div><div>RPG, Map, NORAD 화면 / RPG, Map, and NORAD views.</div>
+    <div class="time">2:05-2:35</div><div><code>?demo=skirmish</code>와 FPS 데모 / Deterministic judging scenes.</div>
+    <div class="time">2:35-2:55</div><div>Codex + GPT-5.6 기여 기록 / Collaboration record.</div>
+    <div class="time">2:55-3:00</div><div>“A safer way to understand hostile automation.”</div>
+  </div></section>
+
+  <section class="band"><h2 data-lang="ko">공개 저장소에 넣지 말 것</h2><h2 data-lang="en">Never Publish</h2><div class="note">API keys, <code>.env</code>, private IPs, real hostnames, SSH keys, service credentials, raw logs, account/request metadata, deployment inventory.</div></section>
+  <section class="band"><h2 data-lang="ko">완료 조건</h2><h2 data-lang="en">Definition of Done</h2><p data-lang="ko">데모, 저장소, 3분 영상이 모두 비로그인 상태에서 열리고 Devpost 제출이 완료되어야 최종 완료입니다. 현재 남은 외부 작업은 저장소 공개, 영상 업로드, Devpost 제출입니다.</p><p data-lang="en">Completion requires an accessible demo, repository, three-minute video, and the final Devpost submission. Remaining external actions are repository publication, video upload, and submission.</p></section>
+  <p class="small">This guide summarizes preparation work; the official rules remain authoritative.</p>
+</main>
+<script>const b=document.body,x=document.getElementById('lang');x.onclick=()=>{b.classList.toggle('en');x.textContent=b.classList.contains('en')?'한국어':'English';document.documentElement.lang=b.classList.contains('en')?'en':'ko'};</script>
+</body></html>

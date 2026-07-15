@@ -1,0 +1,148 @@
+/* ── warboard v2 셸 — RPG/NORAD 이중 테마 ── */
+:root{
+  --bg:#0b0e1a; --panel:rgba(10,13,28,.88); --bd:#d8d2c0; --bd2:#6a6d86;
+  --tx:#e6e0d0; --sub:#8fa3bd; --gold:#ffd23b; --red:#ff7a5c; --grn:#5fd07f;
+}
+body[data-theme=norad]{
+  --bg:#020604; --panel:rgba(3,12,7,.9); --bd:#39ff88; --bd2:#1c7a46;
+  --tx:#b8ffd6; --sub:#4fbf82; --gold:#eaffb0; --red:#ff5a4a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--tx);
+  font-family:GalmuriPx,'Galmuri9',ui-monospace,monospace;
+  font-size:13px; line-height:1.45; overflow-x:hidden;
+  image-rendering:pixelated;
+}
+#app{max-width:1180px;margin:0 auto;padding:10px 12px 20px;
+  display:grid;grid-template-rows:auto auto auto auto auto;gap:10px;min-height:100%;
+  align-content:start}                          /* 잔여 세로 공간은 페이지 하단으로 — 스테이지/피드 사이 공백 방지 */
+
+/* 부트 스켈레톤(퍼스트 페인트) */
+#boot{position:fixed;inset:0;background:#0b0e1a;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:99;gap:14px;transition:opacity .4s}
+#boot.off{opacity:0;pointer-events:none}
+#boot .flame{width:18px;height:26px;background:#ff9f3b;border-radius:40% 40% 30% 30%;
+  animation:bflick .5s infinite alternate;box-shadow:0 0 24px 6px rgba(255,140,50,.35)}
+#boot .flame::after{content:'';display:block;width:8px;height:12px;background:#ffd23b;
+  margin:8px auto 0;border-radius:40%}
+#boot small{color:#8fa3bd}
+@keyframes bflick{from{transform:scaleY(1)}to{transform:scaleY(1.15) scaleX(.92)}}
+
+/* 헤더 */
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  border:2px solid var(--bd);background:var(--panel);padding:8px 12px;border-radius:4px}
+header h1{font-size:19px;color:var(--gold);letter-spacing:1px;text-shadow:2px 2px 0 #0008}
+header .sub{color:var(--sub);font-size:11px}
+#heroChip{display:flex;align-items:center;gap:8px;border:1px solid var(--bd2);
+  padding:4px 10px;border-radius:3px;background:rgba(255,255,255,.03)}
+#heroChip b{color:var(--gold);font-size:15px}
+#xbar{width:110px;height:7px;background:#222c3e;border:1px solid var(--bd2)}
+#xfill{height:100%;width:0;background:linear-gradient(90deg,#5fd07f,#ffd23b)}
+#mood{margin-left:auto;border:1px solid var(--bd2);padding:4px 10px;border-radius:3px;color:var(--gold)}
+#mood[data-lv="1"],#mood[data-lv="2"]{color:var(--red);border-color:var(--red);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.6}}
+#clock{color:var(--sub);font-size:11px}
+header .btns{display:flex;gap:6px;flex-wrap:wrap}
+header button{background:var(--panel);border:1px solid var(--bd2);color:var(--tx);
+  font:inherit;font-size:11px;padding:4px 9px;border-radius:3px;cursor:pointer}
+header button:hover{border-color:var(--gold);color:var(--gold)}
+
+/* 티커 */
+#ticker{overflow:hidden;border:1px dashed var(--bd2);border-radius:3px;background:rgba(0,0,0,.25)}
+#taunt{display:inline-flex;gap:46px;white-space:nowrap;padding:5px 0;
+  animation:mq 60s linear infinite;color:var(--sub);font-size:12px}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* 메인: 스테이지 + 사이드 — 사이드 높이 = 스테이지(4:3) 높이 고정(cqw), 초과분은 막내 패널 내부 스크롤 */
+main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:10px;min-height:0;
+  container-type:inline-size}
+#stageBox{border:2px solid var(--bd);border-radius:4px;background:#000;
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;align-self:start}
+#stage{display:block}
+.side{display:flex;flex-direction:column;gap:6px;min-height:0;overflow-y:auto;
+  height:calc((100cqw - 310px)*.75);            /* = #stageBox border-box 높이 (컬럼폭×3/4) */
+  scrollbar-width:thin;scrollbar-color:#39425c transparent}
+.panel{border:2px solid var(--bd);border-radius:4px;background:var(--panel);
+  padding:6px 9px;flex:0 0 auto}
+.side .panel:last-child{flex:1 1 auto;min-height:118px;display:flex;flex-direction:column;
+  overflow:hidden}   /* 전리품 = 잔여 높이 흡수 → 사이드 바닥 정렬. min-height = 소멸 방지(부족분은 .side 스크롤) */
+#loot{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#39425c transparent}
+.side::-webkit-scrollbar,#loot::-webkit-scrollbar{width:8px}
+.side::-webkit-scrollbar-thumb,#loot::-webkit-scrollbar-thumb{background:#2c3550;border-radius:4px}
+.side::-webkit-scrollbar-track,#loot::-webkit-scrollbar-track{background:transparent}
+.panel h3{font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:4px;
+  border-bottom:1px solid var(--bd2);padding-bottom:3px;display:flex;justify-content:space-between}
+.panel h3 small{color:var(--sub)}
+
+#tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.tile{border:1px solid var(--bd2);border-radius:3px;padding:3px 5px;text-align:center;
+  background:rgba(255,255,255,.02)}
+.tile b{display:block;color:var(--gold);font-size:13px}
+.tile span{color:var(--sub);font-size:10px}
+#skills{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.skill{border:1px solid var(--bd2);border-radius:3px;padding:1px 5px;font-size:10px;
+  color:#5a6478;filter:grayscale(1)}
+.skill.got{color:var(--gold);border-color:var(--gold);filter:none}
+#costume{color:var(--sub);font-size:11px}
+
+#dex{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.dexcell{border:1px solid var(--bd2);border-radius:3px;padding:2px;text-align:center;
+  background:rgba(0,0,0,.25)}
+.dexcell canvas{width:40px;height:30px}
+.dexcell .dn{font-size:9px;color:var(--sub);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.dexcell.got .dn{color:var(--tx)}
+.dexcell.named.got{border-color:var(--gold)}
+.dexcell.named.got .dn{color:var(--gold)}
+
+.row{display:flex;justify-content:space-between;gap:8px;font-size:11px;padding:1px 0}
+.row .k{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .v{color:var(--sub);white-space:nowrap;flex-shrink:0}
+.row.gold .k,.row.gold .v{color:var(--gold)}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+#loot .ioc{font-size:10px;color:#c8b990;border-left:2px solid var(--bd2);
+  padding:1px 6px;margin:1px 0;word-break:break-all;user-select:text}
+#loot .ioc.cmd{color:#9fb2c8}
+
+/* 푸터: 모험 기록 */
+#feedPanel{border:2px solid var(--bd);border-radius:4px;background:var(--panel);padding:8px 10px}
+#feed{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;max-height:132px;overflow:hidden}
+.fr{display:grid;grid-template-columns:58px minmax(0,1.2fr) auto minmax(0,.8fr);gap:8px;
+  font-size:11px;white-space:nowrap}
+.fr .ts{color:#5a6478}.fr .src{overflow:hidden;text-overflow:ellipsis}
+.fr .ev{color:var(--sub)}.fr .usr{color:#c8b990;overflow:hidden;text-overflow:ellipsis;text-align:right}
+
+/* about + submission notes */
+#about,#submission{border:1px dashed var(--bd2);border-radius:4px;color:var(--sub);
+  font-size:11px;padding:8px 12px;line-height:1.7}
+#about b,#submission b{color:var(--tx)}
+#submission{border-style:solid;background:rgba(0,0,0,.18)}
+#submission h2{font-size:13px;color:var(--gold);margin-bottom:6px;letter-spacing:1px}
+#submission h3{font-size:11px;color:var(--tx);margin-bottom:3px}
+.submitgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.submitgrid section{border-left:2px solid var(--bd2);padding-left:8px;min-width:0}
+
+/* CRT */
+#crtfx{display:none;pointer-events:none;position:fixed;inset:0;z-index:50}
+body.crt #crtfx{display:block;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+body.crt #crtfx::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 62%,rgba(0,0,0,.34))}
+
+/* 모바일 */
+@media(max-width:900px){
+  main{grid-template-columns:minmax(0,1fr)}
+  .side{max-height:none;height:auto}
+  #feed{grid-template-columns:1fr}
+  .submitgrid{grid-template-columns:1fr}
+  header h1{font-size:16px}
+  #mood{margin-left:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #taunt{animation:none}
+  #mood[data-lv="1"],#mood[data-lv="2"]{animation:none}
+  #boot .flame{animation:none}
+}
