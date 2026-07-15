@@ -114,8 +114,8 @@ packages that preserve the same public redaction contract.
       explicitly requested no further editing investment.
 - [x] Produce and verify the `SERVER GUARDIAN` 4K/HD custom thumbnail, mobile proof,
       grayscale hierarchy proof, and alignment overlay.
-- [ ] Commit and push the reviewed v2.8 application, video tooling, thumbnail tooling,
-      licensing update, and submission documentation to the public repository. (user)
+- [x] Commit and push the reviewed v2.8 application, video tooling, thumbnail tooling,
+      licensing update, and submission documentation to the public repository. (1541c26)
 - [x] Upload the video to YouTube (public) and insert its URL above.
       (https://youtu.be/J-gfPQeM5WA)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
