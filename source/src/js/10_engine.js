@@ -107,17 +107,65 @@ const SCENE_EN = {
   '차지… 해시레이트 최대!': 'CHARGE... HASHRATE MAX!', '부하들아, 나와라!': 'MINIONS, RISE!',
   '페이로드 투하 감지 — 서버 던전으로 돌입한다!': 'PAYLOAD DROP DETECTED — ENTERING SERVER DUNGEON!',
   '페이로드 투하 감지 — 방패를 들고 돌입한다!': 'PAYLOAD DROP DETECTED — SHIELD UP!',
-  '페이로드 투하 감지 — 마력을 끌어올린다!': 'PAYLOAD DROP DETECTED — CHANNELING MAGIC!'
+  '페이로드 투하 감지 — 마력을 끌어올린다!': 'PAYLOAD DROP DETECTED — CHANNELING MAGIC!',
+  /* 전투 대사 풀 (30_battle FOE_INTRO/HERO_INTRO/HERO_WIN/FOE_LOSE) */
+  '흐흐, 문이 열려 있잖아?': 'Heh, the door is wide open?',
+  'root/root… 어? 왜 안 되지': 'root/root… huh? Why is it failing',
+  '오늘은 뚫린다, 반드시!': 'Today it falls, for sure!',
+  '여기가 그 소문의 서버냐': 'So this is that famous server',
+  '이 몸이 직접 왔다!': 'I came here myself!',
+  '스캔 완료. 침입 개시한다': 'Scan complete. Commencing intrusion',
+  '수호자? 웃기고 있네': 'A guardian? What a joke',
+  '내 사전에 실패란 없… 없었다': 'Failure is not in my diction… it was not',
+  '이 성벽, 내가 부순다!!': 'I will break this wall myself!!',
+  '부하들이 다 당했다고…? 내가 간다': 'My minions are all gone…? Then I go',
+  '오늘 밤 이 마을은 끝이다': 'This village ends tonight',
+  '무법자 왕이다. 열쇠(authorized_keys)를 심으러 왔지…': 'The Outlaw King. Here to plant my keys (authorized_keys)…',
+  '채굴 마도사… 네 CPU, 전부 내 금광이 될 것이다': 'The Mining Sorcerer… your CPU shall be my gold mine',
+  '드로퍼 골렘… wget… chmod… 실행…': 'The Dropper Golem… wget… chmod… execute…',
+  '끼에엑! 군체가 간다! busybox! busybox!': 'Screech! The swarm advances! busybox! busybox!',
+  '…나는 기록되지 않는 자… (이미 도감에 박제됨)': '…I am the one never logged… (already pinned in the bestiary)',
+  '여기까지다, 몬스터!': 'This is where it ends, monster!',
+  '이 문은 미끼다. 넌 이미 늪 안이야': 'This door is bait. You are already in the marsh',
+  '오늘의 장작이 왔군': 'Ah, today\'s firewood has arrived',
+  '도감에 얼굴 박제하고 보내주마': 'I\'ll pin your face in the bestiary before you go',
+  '수호자의 이름으로, 통과 불가!': 'In the Guardian\'s name, you shall not pass!',
+  '다음엔 비번이라도 바꿔서 와라': 'Next time, at least try a different password',
+  '경험치 고마워. 또 와': 'Thanks for the XP. Come again',
+  '늪은 오늘도 평화롭다': 'The marsh is peaceful, as always',
+  '침입 성공률 0% 갱신 중': 'Intrusion success rate: still 0%',
+  '장작 +1. 모닥불이 따뜻해졌다': 'Firewood +1. The campfire grows warmer',
+  '내, 내 IP가 박제됐다고…?!': 'M-my IP got pinned…?!',
+  '이럴 수가… 문이 가짜였다니': 'No way… the door was fake',
+  '기억해라 수호자…!': 'Remember me, Guardian…!',
+  '으아악 로그로 남는다아…': 'Aaargh, I\'m becoming a log entry…',
+  /* FPS 문 앞 대사 + 용병 명판 */
+  '이 문 너머는 내 구역이다': 'Beyond this door is my turf',
+  '잠갔다. 못 들어온다': 'Locked it. You can\'t come in',
+  '여기까지 오다니…': 'You made it this far…',
+  '용병 궁수': 'Mercenary Archer', '용병 마도사': 'Mercenary Mage', '용병 무투가': 'Mercenary Brawler'
 };
+/* 몹 명판 EN 사전 — 에피셋×종족 전 조합 + 네임드 단독명 (00_data 선행 로드 전제) */
+for (const sp in G.SPEC) {
+  const s = G.SPEC[sp];
+  if (!s.en) continue;
+  SCENE_EN[s.ko] = s.en;
+  for (let i = 0; i < G.EPITHET.length; i++)
+    SCENE_EN[G.EPITHET[i] + ' ' + s.ko] = (G.EPITHET_EN[i] || G.EPITHET[i]) + ' ' + s.en;
+}
 G.sceneText = value => {
   let s = String(value == null ? '' : value);
   if (G.lang !== 'en') return s;
   if (SCENE_EN[s]) return SCENE_EN[s];
+  const more = s.match(/^(.*) 외 (\d+)$/);                       // 'name 외 N' → 'name +N'
+  if (more) return G.sceneText(more[1]) + ' +' + more[2];
   s = s.replace(/^박제 (\d+\/\d+)$/, 'CAPTURES $1')
     .replace(/^참격 (\d+)$/, 'SLASH $1').replace(/^마나 (\d+)$/, 'MANA $1')
     .replace(/^볼트 (\d+)$/, 'BOLTS $1').replace(/^침입자 /, 'INTRUDER ')
     .replace(/^활성 몬스터 (\d+) · /, 'ACTIVE HOSTILES $1 · ')
-    .replace(/^침공 경로도$/, 'INTRUSION ROUTES');
+    .replace(/^침공 경로도$/, 'INTRUSION ROUTES')
+    .replace(/^(\d+)위 (.*) · ([\d,]+)회$/, '#$1 $2 · $3 hits')
+    .replace(/^⚔ 접근 중인 몬스터 (\d+)무리$/, '⚔ INCOMING PACKS: $1');
   return s;
 };
 G.text = (str, x, y, o) => {

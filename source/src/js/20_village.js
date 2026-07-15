@@ -37,40 +37,64 @@ const rB = G.rng(0xb100d);                               // 핏방울 전용 시
 const ACTS = [
   { id: 'rest', poi: 'camp', dur: 9, seats: [[-19, 7], [19, 8], [-2, 16]],
     bub: ['불멍… 최고다', '오늘도 평화롭군', '장작이 잘 탄다', '오늘 포획 {blk}건… 뿌듯하다',
-      '불꽃이 좋은 건 로그가 마르지 않아서지'], fx: 'ember' },
+      '불꽃이 좋은 건 로그가 마르지 않아서지'],
+    bubEn: ['Fire-gazing… the best', 'Peaceful day, as always', 'The firewood burns well', '{blk} captures today… satisfying',
+      'Fires are great — the logs never run dry'], fx: 'ember' },
   { id: 'wood', poi: 'camp', dur: 6, anim: 'chop', seats: [[-21, 3], [21, 5]],
     bub: ['장작 투입! (시간당 침입 {e1h}건)', '더 태워라~', '침입 {e1h}건이면 장작 {e1h}단',
-      '연료 걱정은 없다, 봇들이 계속 오니까'], fx: 'ember' },
+      '연료 걱정은 없다, 봇들이 계속 오니까'],
+    bubEn: ['More firewood! ({e1h} intrusions/hour)', 'Burn it all~', '{e1h} intrusions, {e1h} bundles of wood',
+      'No fuel worries — the bots keep coming'], fx: 'ember' },
   { id: 'lute', poi: 'camp', dur: 10, anim: 'lute', seats: [[-20, 9], [20, 9]],
     bub: ['♪ 늪가의 야영곡 ♪', '♬ 봇들의 진혼곡 ♬', '♪ 딕셔너리 어택 블루스 ♪',
-      '♬ 오늘 밤도 root 는 없다네 ♬'], fx: 'note' },
+      '♬ 오늘 밤도 root 는 없다네 ♬'],
+    bubEn: ['♪ Campfire song of the marsh ♪', '♬ Requiem for the bots ♬', '♪ Dictionary Attack Blues ♪',
+      '♬ No root again tonight ♬'], fx: 'note' },
   { id: 'fish', poi: 'pond', dur: 9, anim: 'fish',
     bub: ['미끼(root/1234) 투척…', '월척! 크리덴셜 {auth}개째', '입질이 좋다',
-      '가짜 성문에 또 걸렸군', '오늘 입질 {auth}번 — 풍년이다'], fx: 'splash' },
+      '가짜 성문에 또 걸렸군', '오늘 입질 {auth}번 — 풍년이다'],
+    bubEn: ['Casting the bait (root/1234)…', 'Big catch! Credential #{auth}', 'They are biting today',
+      'Another one hooked on the fake gate', '{auth} bites today — a fine haul'], fx: 'splash' },
   { id: 'cook', poi: 'cook', dur: 8, anim: 'cook',
     bub: ['오늘 잡은 봇 {ses}마리 굽는 중', '노릇노릇…', '페이로드 {pay}개는 소스로 쓰자',
-      '레시피: 늪 세션 {ses}마리, 약불에'], fx: 'steam' },
+      '레시피: 늪 세션 {ses}마리, 약불에'],
+    bubEn: ['Roasting today\'s {ses} captured bots', 'Nice and crispy…', 'These {pay} payloads will make good sauce',
+      'Recipe: {ses} marsh sessions, low heat'], fx: 'steam' },
   { id: 'herb', poi: 'herb', dur: 7, anim: 'herb',
     bub: ['악성 URL 채집… {ioc}개 건조 중', '이건 hxxp 약초로군', '독초는 장갑 끼고 — 전부 무해화 표기',
-      'IOC 약초 {ioc}뿌리 건조 완료'], fx: 'leaf' },
+      'IOC 약초 {ioc}뿌리 건조 완료'],
+    bubEn: ['Gathering malicious URLs… drying {ioc}', 'Ah, an hxxp herb', 'Gloves on for the toxic ones — all defanged',
+      '{ioc} IOC herbs dried and stored'], fx: 'leaf' },
   { id: 'well', poi: 'well', dur: 7, anim: 'well',
     bub: ['우물물 한 바가지… 서버도 시원~', '두레박이 묵직하다 (늪 세션 {ses}개)',
-      '고유 IP {uip}개가 두레박에 찰랑', '늪물은 마르지 않는다'], fx: 'drop' },
+      '고유 IP {uip}개가 두레박에 찰랑', '늪물은 마르지 않는다'],
+    bubEn: ['A scoop of well water… refreshing', 'The bucket feels heavy ({ses} marsh sessions)',
+      '{uip} unique IPs sloshing in the bucket', 'The marsh never runs dry'], fx: 'drop' },
   { id: 'fell', poi: 'fell', dur: 7, anim: 'chop',
     bub: ['방벽 보수용 통나무 벌목 중', '나이테마다 침입 기록이 {e1h}겹', '쓰러진다~ (봇넷도 이렇게)',
-      '좋은 목재는 늪가에서 자란다'], fx: 'leaf' },
+      '좋은 목재는 늪가에서 자란다'],
+    bubEn: ['Felling logs to mend the rampart', '{e1h} intrusion rings in this trunk', 'Timber~ (botnets fall the same way)',
+      'Good lumber grows by the marsh'], fx: 'leaf' },
   { id: 'mine', poi: 'mine', dur: 7, anim: 'mine',
     bub: ['차단석 채광… 오늘 {blk}덩이', '곡괭이질 한 번에 IP 하나', '반짝이는 건 전부 IOC 원석',
-      '이 광맥, 마르질 않네'], fx: null },
+      '이 광맥, 마르질 않네'],
+    bubEn: ['Mining blockstone… {blk} chunks today', 'One IP per pickaxe swing', 'Everything shiny here is raw IOC ore',
+      'This vein never runs out'], fx: null },
   { id: 'smelt', poi: 'forge', dur: 8, anim: 'smelt',
     bub: ['포획 IP {uip}개, 주괴로 제련 중', '불순물(오탐)은 걷어내고…', '풀무질… 화력은 침입 {e1h}건/시',
-      '식기 전에 두들겨야 한다'], fx: 'forgefire' },
+      '식기 전에 두들겨야 한다'],
+    bubEn: ['Smelting {uip} captured IPs into ingots', 'Skimming off the false positives…', 'Pumping the bellows… {e1h} intrusions/hour of heat',
+      'Strike while it\'s hot'], fx: 'forgefire' },
   { id: 'craft', poi: 'bench', dur: 8, anim: 'craft',
     bub: ['가짜 자물쇠 제작 — 성문용 미끼', '못질 세 번, 허니팟 한 채', '수리할 문은 없다, 어차피 다 가짜니까',
-      '오늘의 작업: 미끼 열쇠 {auth}개'], fx: null },
+      '오늘의 작업: 미끼 열쇠 {auth}개'],
+    bubEn: ['Crafting fake locks — bait for the gate', 'Three nails, one honeypot', 'Nothing to repair — the doors were never real',
+      'Today\'s work: {auth} decoy keys'], fx: null },
   { id: 'patrol', poi: 'patrolB', roam: ['patrolA', 'patrolB', 'hut', 'well'], dur: 8,
     bub: ['순찰 중… 성문은 (가짜지만) 이상 무', '수상한 그림자는 전부 도감행',
-      '성문 비번은 나도 몰라 (없으니까)', '수상한 발자국 {e1h}개, 전부 도감행'], fx: null },
+      '성문 비번은 나도 몰라 (없으니까)', '수상한 발자국 {e1h}개, 전부 도감행'],
+    bubEn: ['On patrol… the (fake) gate holds', 'Every shady shadow goes in the bestiary',
+      'Even I don\'t know the gate password (there is none)', '{e1h} suspicious footprints, all catalogued'], fx: null },
 ];
 /* 작업 타격감 프레임 이벤트: anim → [프레임, 파티클, 개수] · 사운드: anim → sfx 이름 */
 const ACT_FEV = { chop: [2, 'chip', 4], fish: [1, 'splash', 2], well: [2, 'drop', 2],
@@ -172,7 +196,8 @@ G.regScene('village', {
       }
       V.lastFi = g.anim.fi;
       if (V.actT > 1 && !V.bubble && V.act.bub && Math.random() < dt * 0.5) {
-        V.bubble = fillVars(V.act.bub[Math.floor(Math.random() * V.act.bub.length)]);
+        const bset = (G.lang === 'en' && V.act.bubEn) || V.act.bub;
+        V.bubble = fillVars(bset[Math.floor(Math.random() * bset.length)]);
         V.bubbleT = 3.4;
       }
       if (V.act.fx && Math.random() < dt * 3) {
@@ -400,9 +425,11 @@ function drawVillageHUD() {
   // 상단 지표 리본
   const st = G.ST;
   if (st) {
-    const mood = G.MOODS[st.defcon] || G.MOODS[5];
+    const mood = G.moodOf(st.defcon);
     G.text(`${mood[0]}`, 6, 5, { size: 9, color: '#ffd6a0', outline: '#0008' });
-    G.text(`오늘의 늪 · 침입 ${st.stats.total_events.toLocaleString()} · 포획 ${st.stats.blocked}`,
+    G.text(G.lang === 'en'
+      ? `Today's marsh · intrusions ${st.stats.total_events.toLocaleString()} · captures ${st.stats.blocked}`
+      : `오늘의 늪 · 침입 ${st.stats.total_events.toLocaleString()} · 포획 ${st.stats.blocked}`,
       6, 16, { size: 9, color: '#9fb2c8', outline: '#0008' });
   }
   if (G.queue.length) G.text(`⚔ 접근 중인 몬스터 ${G.queue.length}무리`, G.W - 6, 5,

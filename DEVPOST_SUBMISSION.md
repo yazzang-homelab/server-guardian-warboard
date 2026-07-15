@@ -82,14 +82,19 @@ packages that preserve the same public redaction contract.
 ## Final Checklist
 
 - [x] Public demo URL works without an account.
-- [x] English-language judging surface is available.
+- [x] English-language judging surface is available (full English coverage of
+      all judge-facing text as of 2026-07-15).
 - [x] Korean/English UI switch is included.
 - [x] Public output excludes private infrastructure identifiers.
 - [x] README explains Codex and GPT-5.6 collaboration.
+- [x] README documents prior work vs. Submission Period work with dated evidence.
 - [x] Privacy-safe GPT-5.6 usage record is included.
+- [x] Repository licensing resolved (MIT + THIRD_PARTY_NOTICES.md).
 - [x] Publish a shareable source repository and insert its URL above.
-- [ ] Record and upload the demo video, then insert its URL above.
-- [ ] Submit the final entry through Devpost before the deadline.
+- [ ] Record the demo video (production package under `video/`).
+- [ ] Upload the video to YouTube (public) and insert its URL above. (user)
+- [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
+- [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)
 
 ## Three-Minute Demo Script
 

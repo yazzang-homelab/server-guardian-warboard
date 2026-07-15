@@ -53,15 +53,19 @@ G.skyAt = h => {
 G.GENERIC = ['skeleton','goblin','mushroom','flyeye','mimic','rat','slime','bat','worm'];
 G.NAMED = ['king','sorcerer','golem','alphabat'];
 G.SPEC = {
-  skeleton:{ko:'해골 병사'}, goblin:{ko:'고블린 정찰꾼'}, mushroom:{ko:'독버섯 괴수'},
-  flyeye:{ko:'감시 눈알'}, mimic:{ko:'미믹 상자'}, rat:{ko:'시궁쥐 도적'},
-  slime:{ko:'슬라임'}, bat:{ko:'동굴 박쥐'}, worm:{ko:'화염 지렁이'},
-  wraith:{ko:'정체불명 망령', named:1},
-  king:{ko:'무법자 왕', named:1}, sorcerer:{ko:'채굴 마도사', named:1},
-  golem:{ko:'드로퍼 골렘', named:1}, alphabat:{ko:'군체 대박쥐', named:1},
+  skeleton:{ko:'해골 병사', en:'Skeleton Soldier'}, goblin:{ko:'고블린 정찰꾼', en:'Goblin Scout'},
+  mushroom:{ko:'독버섯 괴수', en:'Toxic Shroom'},
+  flyeye:{ko:'감시 눈알', en:'Watcher Eye'}, mimic:{ko:'미믹 상자', en:'Mimic Chest'},
+  rat:{ko:'시궁쥐 도적', en:'Gutter Rat'},
+  slime:{ko:'슬라임', en:'Slime'}, bat:{ko:'동굴 박쥐', en:'Cave Bat'}, worm:{ko:'화염 지렁이', en:'Fire Worm'},
+  wraith:{ko:'정체불명 망령', en:'Unknown Wraith', named:1},
+  king:{ko:'무법자 왕', en:'Outlaw King', named:1}, sorcerer:{ko:'채굴 마도사', en:'Mining Sorcerer', named:1},
+  golem:{ko:'드로퍼 골렘', en:'Dropper Golem', named:1}, alphabat:{ko:'군체 대박쥐', en:'Swarm Alpha Bat', named:1},
 };
 G.EPITHET = ['끈질긴','허접한','졸린','성난','배고픈','수상한','근성의','덜렁이','음침한','촉촉한',
   '바쁜','뻔뻔한','기름진','서투른','집요한','미련한'];
+G.EPITHET_EN = ['Tenacious','Shoddy','Sleepy','Angry','Hungry','Shady','Gritty','Clumsy','Gloomy','Soggy',
+  'Busy','Brazen','Greasy','Fumbling','Relentless','Foolish'];
 
 /* 페이로드 시그니처 → 네임드 (포획 로그 분류 표기용) */
 G.sigOf = ip => {
@@ -117,23 +121,32 @@ G.save = () => { if (G.DEMO) return; /* 데모는 읽기전용 — 도감/전적
 /* ── 성장 ── */
 G.TITLES = [[1,'떠돌이 파수꾼'],[3,'견습 수호자'],[6,'정식 수호자'],[10,'늪의 명인'],[15,'미끼술사'],
   [20,'서버 성기사'],[28,'불침번 대공'],[38,'전설의 수호자'],[55,'살아있는 방화벽']];
+G.TITLES_EN = [[1,'Wandering Sentry'],[3,'Apprentice Guardian'],[6,'Guardian'],[10,'Master of the Marsh'],[15,'Lure Artisan'],
+  [20,'Server Paladin'],[28,'Archduke of the Night Watch'],[38,'Legendary Guardian'],[55,'Living Firewall']];
 G.lvlOf = xp => Math.max(1, Math.floor(Math.sqrt(xp / 20)) + 1);
 G.xpAt = l => 20 * (l - 1) * (l - 1);
-G.titleOf = l => { let t = G.TITLES[0][1]; for (const [tl, tn] of G.TITLES) if (l >= tl) t = tn; return t; };
+G.titleOf = l => { const TT = G.lang === 'en' && G.TITLES_EN ? G.TITLES_EN : G.TITLES;
+  let t = TT[0][1]; for (const [tl, tn] of TT) if (l >= tl) t = tn; return t; };
 G.costumeOf = l => l < 5 ? 1 : l < 10 ? 2 : l < 20 ? 3 : l < 35 ? 4 : 5;
 G.COSTUME_KO = {1:'낡은 여행자', 2:'초록 순찰대', 3:'푸른 기사단', 4:'황금 성기사', 5:'전설의 수호자'};
+G.COSTUME_EN = {1:'Worn Traveler', 2:'Green Patrol', 3:'Blue Knights', 4:'Golden Paladin', 5:'Legendary Guardian'};
+G.costumeName = n => (G.lang === 'en' ? G.COSTUME_EN : G.COSTUME_KO)[n];
 G.SKILLS = [
-  ['🎣','미끼술', s => s.stats.sessions >= 50, '늪 세션 50'],
-  ['🕸','늪 강화', s => s.stats.total_events >= 1000, '흡수 1,000'],
-  ['⛓','포획 결계', s => s.stats.blocked >= 10, '포획 10'],
-  ['👁','감식안', () => Object.keys(G.SAVE.seen).length >= 7, '도감 7종'],
-  ['🏆','전설 수집가', () => G.NAMED.every(k => G.SAVE.seen[k]), '네임드 완집'],
+  ['🎣','미끼술','Lurecraft', s => s.stats.sessions >= 50, '늪 세션 50','50 marsh sessions'],
+  ['🕸','늪 강화','Marsh Mastery', s => s.stats.total_events >= 1000, '흡수 1,000','1,000 events absorbed'],
+  ['⛓','포획 결계','Capture Ward', s => s.stats.blocked >= 10, '포획 10','10 captures'],
+  ['👁','감식안','Keen Eye', () => Object.keys(G.SAVE.seen).length >= 7, '도감 7종','7 bestiary entries'],
+  ['🏆','전설 수집가','Legend Collector', () => G.NAMED.every(k => G.SAVE.seen[k]), '네임드 완집','all named foes'],
 ];
 
 /* ── 분위기(구 DEFCON) & 티커 ── */
 G.MOODS = {5:['모닥불이 고요히 탄다','평온 · 봇 없음'],4:['숲이 조금 수상하다','경계 · 몇 놈 왔다감'],
   3:['몬스터 기척이 잦다','주의 · 바글바글'],2:['침공 러시!','심각 · 떼로 몰려옴'],
   1:['대격전!!','교전 중 · 아주 신났네']};
+G.MOODS_EN = {5:['The campfire burns quietly','Calm · no bots'],4:['The woods feel a bit off','Alert · a few visitors'],
+  3:['Monsters stir frequently','Caution · getting crowded'],2:['Invasion rush!','Severe · they come in packs'],
+  1:['All-out battle!!','Engaged · very lively']};
+G.moodOf = d => ((G.lang === 'en' ? G.MOODS_EN : G.MOODS)[d] || (G.lang === 'en' ? G.MOODS_EN : G.MOODS)[5]);
 G.TAUNTS = [
   '🎣 어서 와, 여긴 함정이야 — 진짜 서버는 딴 데 있음',
   '💸 니 AI 에이전트 토큰, 지금 이 화면 읽느라 잘 타고 있니?',
@@ -141,11 +154,24 @@ G.TAUNTS = [
   '🐌 천천히 읽어… 1분에 몇 글자씩 정성껏 보내주는 중',
   '📸 니 IP랑 때린 명령어 전부 도감에 박제 완료. 웃어',
   '🔒 root 비번 맞췄다고? 축하해, 근데 그거 가짜야',
-  '🏕️ 서울 야영지에서 인사한다 봇아, 오늘도 수고가 많다',
+  '🏕️ 늪가 야영지에서 인사한다 봇아, 오늘도 수고가 많다',
   '🧨 wget 한 그 악성코드 주소? 우리가 안 눌러줘서 미안',
   '🍖 오늘 잡은 봇은 모닥불에 구워서 경험치로 먹었습니다',
   '📉 몬스터 침공 성공률 0%. 꾸준함 하나는 인정',
   '🛡️ 수호자는 오늘도 무패. 애초에 문이 가짜라서 그래',
+];
+G.TAUNTS_EN = [
+  '🎣 Welcome in — this is a trap. The real server lives elsewhere',
+  '💸 Your AI agent tokens are burning nicely reading this screen',
+  '⚔️ Dear monsters, thanks for the daily XP delivery',
+  '🐌 Read slowly… we serve a few characters per minute, with care',
+  '📸 Your IP and every command you tried are pinned in our bestiary. Smile',
+  '🔒 Guessed the root password? Congrats — it was fake',
+  '🏕️ Greetings from the marsh campsite, bot. Keep up the hard work',
+  '🧨 That malware URL you fetched? Sorry we never clicked it',
+  '🍖 Today\'s catch of bots was roasted over the campfire as XP',
+  '📉 Monster invasion success rate: 0%. Points for persistence though',
+  '🛡️ The Guardian remains undefeated. The door was never real',
 ];
 
 /* ── 이벤트 버스 ── */

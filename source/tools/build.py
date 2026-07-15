@@ -23,12 +23,12 @@ TEMPLATE = """<!doctype html>
 <style>/*__CSS__*/</style>
 <style>/*__FONTCSS__*/</style>
 </head><body data-theme="rpg">
-<div id="boot"><div class="flame"></div><small>야영지에 불을 지피는 중…</small></div>
+<div id="boot"><div class="flame"></div><small>Lighting the campfire…</small></div>
 <div id="app">
 <header>
   <div><h1 id="appTitle">Server Guardian Warboard</h1><div id="appSub" class="sub">Read-only honeypot event viewer · RPG/NORAD visualization</div></div>
   <div id="heroChip"><span>LV.<b id="lv">1</b></span>
-    <div><div id="herotitle">떠돌이 파수꾼</div><div id="xbar"><div id="xfill"></div></div></div>
+    <div><div id="herotitle">Wandering Sentry</div><div id="xbar"><div id="xfill"></div></div></div>
   </div>
   <span id="xptxt" class="sub"></span>
   <div id="mood" data-lv="5">…</div>
@@ -91,10 +91,7 @@ def main() -> int:
     BUILD.mkdir(exist_ok=True)
     css = "\n".join(p.read_text() for p in sorted((SRC / "css").glob("*.css")))
     js = "\n;\n".join(p.read_text() for p in sorted((SRC / "js").glob("*.js")))
-    world_p = ASSETS / "world.js"
-    if not world_p.exists():
-        world_p = ROOT / "world.js"
-    world = world_p.read_text().strip() if world_p.exists() else "window.G_WORLD=[];"
+    world = (ASSETS / "world.js").read_text().strip() if (ASSETS / "world.js").exists() else "window.G_WORLD=[];"
 
     fontcss = (BUILD / "font.css").read_text() if (BUILD / "font.css").exists() else ""
 

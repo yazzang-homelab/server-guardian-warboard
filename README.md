@@ -17,6 +17,19 @@ Server Guardian Warboard is a read-only hackathon viewer for honeypot-style secu
 
 The original viewer existed before the submission period. For OpenAI Build Week, the project was meaningfully extended with new viewer modes, deterministic demo scenes, privacy-preserving public output, bilingual UI, and this judge-facing documentation.
 
+## Prior Work vs. Build Week Work
+
+This project is a pre-existing viewer that was meaningfully extended during the
+OpenAI Build Week Submission Period (July 13-21, 2026, PT). Judges should
+evaluate the Build Week work listed below.
+
+| Period | Work | Evidence |
+| --- | --- | --- |
+| Before the Submission Period (July 10-13, 2026 KST) | Honeypot event dashboard core, RPG village/battle engine, sprite atlas pipeline, map and NORAD views, audio, FPS mode, visual effects | Pre-existing deployment; summarized in commit `dad3ced` |
+| Submission Period (from July 14, 2026 KST) | Bilingual English/Korean UI with full English coverage of all judge-facing text (nameplates, dialogue, ticker, panels), backend privacy redaction boundary (`bot-xxxxxxxx` aliases, `login-xxxxxx`, `Protected Sandbox`, defanged strings), deterministic demo scenes documentation, submission guide page, licensing and notices, this public repository, and the demo video | Dated commit history of this repository (all commits 2026-07-15 or later); privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
+
+All Build Week work was performed with Codex and GPT-5.6.
+
 ## How to Test
 
 1. Open https://plzhacknono.duckdns.org/.
@@ -29,6 +42,27 @@ The original viewer existed before the submission period. For OpenAI Build Week,
    - `https://plzhacknono.duckdns.org/?demo=fps`
    - `https://plzhacknono.duckdns.org/?demo=fpss`
    - `https://plzhacknono.duckdns.org/?demo=fpsm`
+
+### Run Locally
+
+Supported platforms: any modern desktop browser (verified with Chromium; no
+plugins required). The public build is a single self-contained HTML file with
+no external dependencies, build step, or account requirement.
+
+```sh
+git clone https://github.com/yazzang-homelab/server-guardian-warboard
+cd server-guardian-warboard/app
+python3 -m http.server 8080
+# open http://127.0.0.1:8080/index.html?demo=skirmish
+```
+
+Without a backend, live panels stay empty (the `/api/threat` poll fails
+gracefully) but every deterministic `?demo=` scene, the language switch, and
+all view modes work offline. The hosted demo above serves the same file backed
+by the live redacted event API. `python3 source/tools/build.py` reassembles the
+frontend from source; without the packed asset-atlas artifacts (not
+redistributed — see `THIRD_PARTY_NOTICES.md`) it produces a stand-in
+silhouette build, so `app/index.html` remains the judge-facing artifact.
 
 ## Privacy and Safety
 
@@ -76,3 +110,9 @@ credentials, private addresses, hostnames, or raw security-event data.
 The production event adapter and deployment configuration are intentionally not
 published because they contain operational assumptions. The included public
 build is the judge-facing, read-only artifact.
+
+## License
+
+Original code is MIT licensed (see [`LICENSE`](LICENSE)). Embedded third-party
+art, font, and sound assets remain under their original licenses, listed in
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).

@@ -9,3 +9,7 @@ source/tools/*
 !source/tools/build.py
 source/src.bak-*
 build/
+video/takes/
+video/out/
+video/node_modules/
+video/package-lock.json

@@ -34,6 +34,13 @@ const I18N = {
   },
 };
 const T = () => I18N[G.lang] || I18N.en;
+/* 티커 재구성 (언어 전환 대응) */
+function rebuildTicker() {
+  const tk = $('taunt'); if (!tk) return;
+  tk.replaceChildren();
+  const set = (G.lang === 'en' && G.TAUNTS_EN) ? G.TAUNTS_EN : G.TAUNTS;
+  set.concat(set).forEach(t => tk.append(el('span', '', t)));
+}
 G.applyLang = lang => {
   G.lang = lang; try { localStorage.setItem('phn_lang', lang); } catch (e) {}
   const t = T();
@@ -41,7 +48,11 @@ G.applyLang = lang => {
   $('statusTitle').textContent = t.status; $('dexTitle').textContent = t.dex; $('rankTitle').textContent = t.rank;
   $('lootTitle').textContent = t.loot; $('lootNote').textContent = t.lootNote; $('feedTitle').textContent = t.feed;
   $('btnShare').textContent = t.share; $('about').innerHTML = t.about; $('submission').innerHTML = t.submission;
+  rebuildTicker();
   if (G.ST) renderPanels(G.ST);
+  renderDex();
+  const xp0 = Math.max((G.ST && G.ST.stats && G.ST.stats.total_events) || 0, G.SAVE.bestXp || 0);
+  $('herotitle').textContent = G.titleOf(G.lvlOf(xp0));
   G.applyTheme(G.theme || 'rpg');
   if (G.snd) $('btnSnd').textContent = G.snd.on ? t.sndOn : t.sndOff;
 };
@@ -86,7 +97,7 @@ function renderDex() {
     const has = !!G.SAVE.seen[sp]; if (has) got++;
     const d = el('div', 'dexcell' + (has ? ' got' : ''));
     const cv = document.createElement('canvas'); cv.width = 40; cv.height = 30;
-    d.append(cv, el('div', 'dn', has ? G.SPEC[sp].ko : '???'));
+    d.append(cv, el('div', 'dn', has ? (G.lang === 'en' ? G.SPEC[sp].en : G.SPEC[sp].ko) : '???'));
     if (G.SPEC[sp].named) d.classList.add('named');
     box.append(d);
     dexThumb(cv, sp, has);
@@ -105,8 +116,8 @@ function renderPanels(s) {
   if (xp > (G.SAVE.bestXp || 0)) { G.SAVE.bestXp = xp; G.save(); }
   $('lv').textContent = lv; $('herotitle').textContent = G.titleOf(lv);
   $('xfill').style.width = Math.min(100, Math.round((xp - cur) / (next - cur) * 100)) + '%';
-  $('xptxt').textContent = `XP ${xp.toLocaleString()} · 처치 ${G.SAVE.kills || 0}`;
-  $('costume').textContent = G.COSTUME_KO[G.costumeOf(lv)];
+  $('xptxt').textContent = `XP ${xp.toLocaleString()} · ${G.lang === 'en' ? 'Kills' : '처치'} ${G.SAVE.kills || 0}`;
+  $('costume').textContent = G.costumeName(G.costumeOf(lv));
   const tiles = [[i18.tiles[0], s.stats.total_events], [i18.tiles[1], s.stats.unique_ips],
     [i18.tiles[2], s.stats.sessions], [i18.tiles[3], s.stats.auth_attempts],
     [i18.tiles[4], s.stats.blocked], [i18.tiles[5], s.stats.ioc_urls]];
@@ -114,15 +125,15 @@ function renderPanels(s) {
   for (const [k, v] of tiles) { const d = el('div', 'tile');
     d.append(el('b', '', (v ?? 0).toLocaleString()), el('span', '', k)); tb.append(d); }
   const sk = $('skills'); sk.replaceChildren();
-  for (const [ic, nm, fn, cond] of G.SKILLS) {
+  for (const [ic, nmKo, nmEn, fn, condKo, condEn] of G.SKILLS) {
     let got = !1; try { got = fn(s); } catch (e) {}
-    const d = el('span', 'skill' + (got ? ' got' : ''), ic + nm);
-    d.title = '해금: ' + cond; sk.append(d);
+    const d = el('span', 'skill' + (got ? ' got' : ''), ic + (G.lang === 'en' ? nmEn : nmKo));
+    d.title = (G.lang === 'en' ? 'Unlock: ' : '해금: ') + (G.lang === 'en' ? condEn : condKo); sk.append(d);
   }
   // 랭킹
   const hb = $('hof'); hb.replaceChildren();
   (s.top_users || []).slice(0, 5).forEach(([u, n], i) =>
-    hb.append(li2(`${i + 1}. ${u}`, n + '회', i === 0 ? 'gold' : '')));
+    hb.append(li2(`${i + 1}. ${u}`, n + (G.lang === 'en' ? '×' : '회'), i === 0 ? 'gold' : '')));
   const cb = $('countries'); cb.replaceChildren();
   (s.top_countries || []).slice(0, 5).forEach(([nm, n]) =>
     cb.append(li2(`${G.flagCC(G.NAME2CC[nm] || '')} ${nm}`, n + '')));
@@ -143,7 +154,7 @@ function renderPanels(s) {
       ev.user ? el('span', 'usr', G.trunc(ev.user, 14)) : el('span', 'usr', ''));
     fb.append(d);
   });
-  $('mood').textContent = (G.MOODS[s.defcon] || G.MOODS[5])[0];
+  $('mood').textContent = G.moodOf(s.defcon)[0];
   $('mood').dataset.lv = s.defcon;
 }
 
@@ -191,9 +202,7 @@ G.boot = async () => {
   if (location.hash === '#norad' || G.theme === 'norad') G.applyTheme(G.theme = location.hash === '#norad' ? 'norad' : G.theme);
   G.startLoop();
   // 타자기 티커
-  const tk = $('taunt');
-  const spanify = t => { const s = el('span', '', t); return s; };
-  G.TAUNTS.concat(G.TAUNTS).forEach(t => tk.append(spanify(t)));
+  rebuildTicker();
   // 버튼
   $('btnMap').onclick = G.toggleMap;
   $('btnLang').onclick = () => G.applyLang(G.lang === 'en' ? 'ko' : 'en');

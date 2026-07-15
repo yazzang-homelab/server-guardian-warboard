@@ -86,7 +86,7 @@ G.regScene('map', {
     G.win(6, 6, 190, 30);
     G.text('침공 경로도', 12, 10, { size: 9, color: '#ffd6a0' });
     const st = G.ST;
-    G.text(st ? `활성 몬스터 ${st.blips.length} · ${G.MOODS[st.defcon][0]}` : '…', 12, 21, { size: 9, color: '#bfa77f' });
+    G.text(st ? `활성 몬스터 ${st.blips.length} · ${G.moodOf(st.defcon)[0]}` : '…', 12, 21, { size: 9, color: '#bfa77f' });
   },
 });
 

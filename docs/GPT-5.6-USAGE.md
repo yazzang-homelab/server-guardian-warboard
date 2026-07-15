@@ -9,7 +9,7 @@ network details, hostnames, and raw honeypot records.
 - Model family: GPT-5.6
 - Public API alias: `gpt-5.6`
 - Collaboration surface: Codex
-- Work date: 2026-07-15
+- Work dates: 2026-07-14 – 2026-07-15 (within the Submission Period)
 - Human role: product direction, privacy boundaries, visual decisions, and
   final acceptance
 - Model role: code analysis, implementation, hardening, documentation, and
@@ -28,9 +28,27 @@ or credentials as proof because those records can expose private account data.
 5. Kept suspicious URLs and command-like strings defanged for display.
 6. Added deterministic demo scenes so judges can evaluate the viewer without
    waiting for live events.
-7. Added OpenAI Build Week submission notes and privacy-safe testing guidance.
-8. Ran JavaScript and Python syntax checks and compared built/deployed artifact
-   hashes during release verification.
+7. Extended English coverage to every judge-facing canvas and panel surface
+   (monster nameplates, battle dialogue, village dialogue, ticker, titles,
+   bestiary, skills) with deterministic QA gates re-run after the change.
+8. Added OpenAI Build Week submission notes and privacy-safe testing guidance.
+9. Added repository licensing (MIT) and third-party asset notices.
+10. Ran JavaScript and Python syntax checks, six-mode deterministic QA gates,
+   and compared built/deployed artifact hashes during release verification.
+
+## Timeline Evidence (Prior Work vs. Submission Period Work)
+
+- Pre-existing work (before the Submission Period start, 2026-07-13 09:00 PT):
+  dashboard core, RPG/battle/NORAD/FPS engine, asset pipeline, and audio were
+  built July 10-13, 2026 KST and were already deployed publicly.
+- Submission Period work (2026-07-14 KST onward): bilingual UI, full English
+  judge surface, privacy redaction boundary, deterministic demo documentation,
+  licensing/notices, this repository, and the demo video.
+- Evidence: this repository's dated commit history (first commit
+  2026-07-15 KST) records the Submission Period work; each deployed build is
+  verified by matching sha256 between the repository artifact and the live
+  demo. Raw private session logs are not published because they contain
+  infrastructure details; this record is the privacy-safe equivalent.
 
 ## Representative Requests
 
