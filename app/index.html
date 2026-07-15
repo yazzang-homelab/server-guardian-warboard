@@ -2633,7 +2633,7 @@ function drawFpsHUD() {
   const ammo = F.wpn === 'sword' ? `참격 ${F.strikes}` : F.wpn === 'magic' ? `마나 ${F.mana}` : `볼트 ${F.bolts}`;
   G.text(ammo, 152, y0 + 19, { size: 9, color: F.wpn === 'magic' ? '#9fe8ff' : '#ffd6a0' });
   G.text(`박제 ${F.kills}/${F.goal}`, 152, y0 + 6, { size: 9, color: '#9fb2c8' });
-  G.text(`침입자 ${G.trunc(B.foe.name, 12)}`, G.W - 8, y0 + 6, { size: 9, color: '#ffd6c8', align: 'right' });
+  G.text(`침입자 ${G.trunc(G.sceneText(B.foe.name), 12)}`, G.W - 8, y0 + 6, { size: 9, color: '#ffd6c8', align: 'right' });
   G.text(`${G.flagCC(B.foe.cc)} ${B.foe.ip}`, G.W - 8, y0 + 19, { size: 9, color: '#8fa3bd', align: 'right' });
 }
 

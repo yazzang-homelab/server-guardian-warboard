@@ -1,0 +1,41 @@
+=== TITLE ===
+Server Guardian Warboard - OpenAI Build Week Demo
+
+=== DESCRIPTION ===
+Server Guardian Warboard is a read-only, privacy-preserving viewer that turns
+redacted honeypot-style security events into RPG, map, NORAD, and battle views.
+
+Demo: https://plzhacknono.duckdns.org/
+Source: https://github.com/yazzang-homelab/server-guardian-warboard
+
+Built with Codex and GPT-5.6 for OpenAI Build Week (Developer Tools track).
+Codex and GPT-5.6 assisted with implementation, privacy hardening, bilingual
+UI work, deterministic demo scenes, testing, and submission documentation.
+Product, safety, privacy, and design decisions were made by the human entrant.
+
+The product demonstration is captured from the live public application. Title
+cards are plain text (no AI-generated imagery). Narration uses an offline
+synthetic voice (espeak-ng).
+
+Chapters:
+0:00 Intro
+0:08 Live dashboard
+0:30 Privacy redaction boundary
+0:56 English/Korean bilingual UI
+1:18 RPG / Map / NORAD view modes
+1:48 Deterministic demo scenes
+2:11 Codex + GPT-5.6 collaboration
+2:31 Links
+
+=== UPLOAD SETTINGS ===
+- Visibility: Public (verify while signed out after upload)
+- Audience: Not made for kids
+- License: Standard YouTube License
+- Altered/synthetic content disclosure: YES for synthetic voice narration
+  (no realistic AI-generated imagery is included)
+- Captions: upload video/out/subtitles.srt as English captions (also burned in)
+
+=== FILES ===
+- video/out/final.mp4       (1080p30, H.264/AAC, 2:38, 26.6 MB)
+- video/out/subtitles.srt   (19 English cues)
+- video/out/narration.wav   (offline TTS narration master)

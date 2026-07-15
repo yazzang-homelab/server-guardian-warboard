@@ -1,0 +1,92 @@
+1
+00:00:00,400 --> 00:00:07,479
+Server Guardian Warboard — built with Codex
+and GPT-5.6 for OpenAI Build Week.
+
+2
+00:00:08,500 --> 00:00:12,820
+Raw security logs are hard to scan, and risky to share.
+
+3
+00:00:13,070 --> 00:00:21,467
+Server Guardian Warboard is a read-only viewer that turns
+honeypot-style events from a live decoy server
+into an explainable game dashboard.
+
+4
+00:00:21,717 --> 00:00:26,788
+This is the public judging surface.
+No account, and no write actions.
+
+5
+00:00:30,500 --> 00:00:35,710
+Privacy filtering happens in the backend,
+before data ever reaches the browser.
+
+6
+00:00:35,960 --> 00:00:43,324
+Source addresses become stable bot aliases.
+Login names are masked. The protected host is generalized.
+
+7
+00:00:43,574 --> 00:00:51,318
+Suspicious URLs and commands are defanged for safe display.
+What you see here is everything the public can see.
+
+8
+00:00:56,500 --> 00:00:59,014
+The interface is fully bilingual.
+
+9
+00:00:59,264 --> 00:01:07,564
+One click switches every panel, nameplate, and dialogue line
+between English and Korean — including the canvas battle scenes.
+
+10
+00:01:07,814 --> 00:01:10,816
+The choice is remembered locally in the browser.
+
+11
+00:01:18,500 --> 00:01:24,017
+Each view mode presents the same filtered event stream
+for a different scanning workflow.
+
+12
+00:01:24,267 --> 00:01:30,930
+The RPG village visualizes activity as a living scene.
+The map view shows aggregate origins.
+
+13
+00:01:31,180 --> 00:01:38,043
+And the NORAD view gives a classic operations-room overview.
+All read-only, all privacy-filtered.
+
+14
+00:01:48,500 --> 00:01:54,493
+Deterministic demo scenes let judges evaluate
+the experience even when live traffic is low.
+
+15
+00:01:54,743 --> 00:01:57,990
+?demo=skirmish replays a complete battle.
+
+16
+00:02:00,500 --> 00:02:08,833
+High-risk payload events can even trigger first-person dungeon
+sequences — three weapons, three distinct choreographies.
+
+17
+00:02:11,500 --> 00:02:21,478
+For Build Week, Codex and GPT-5.6 added the bilingual interface,
+the privacy boundary, deterministic demos, and QA gates.
+
+18
+00:02:21,728 --> 00:02:30,072
+Product, privacy, and design decisions stayed human.
+The repository documents prior work vs. Build Week work.
+
+19
+00:02:31,500 --> 00:02:38,500
+A safer way to understand hostile automation,
+without exposing the system it protects.
+

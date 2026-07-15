@@ -91,7 +91,9 @@ packages that preserve the same public redaction contract.
 - [x] Privacy-safe GPT-5.6 usage record is included.
 - [x] Repository licensing resolved (MIT + THIRD_PARTY_NOTICES.md).
 - [x] Publish a shareable source repository and insert its URL above.
-- [ ] Record the demo video (production package under `video/`).
+- [x] Record the demo video (`video/out/final.mp4`, 2:38, 1080p30 H.264/AAC,
+      burned English subtitles + SRT; upload package in
+      `video/out/youtube-metadata.txt`).
 - [ ] Upload the video to YouTube (public) and insert its URL above. (user)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
 - [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)
