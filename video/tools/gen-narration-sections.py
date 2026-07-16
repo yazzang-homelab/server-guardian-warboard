@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate per-section narration MP3s for the v2 video.
 
-Reads the 9-paragraph script (script/narration-v2.txt) and produces
-out/v2/tts/section-01.mp3 .. section-09.mp3.
+Reads the 10-paragraph script (script/narration-v2.txt) and produces
+out/v2/tts/section-01.mp3 .. section-10.mp3.
 
 Primary: ElevenLabs (key from ELEVENLABS_API_KEY, voice from ELEVENLABS_VOICE_ID
 or a default). The key is used only against the ElevenLabs HTTPS endpoint and is
@@ -69,8 +69,8 @@ def espeak(text: str, out: Path) -> None:
 def main() -> int:
     TTS.mkdir(parents=True, exist_ok=True)
     paras = paragraphs()
-    if len(paras) != 9:
-        print(f"expected 9 paragraphs, got {len(paras)}", file=sys.stderr)
+    if len(paras) != 10:
+        print(f"expected 10 paragraphs, got {len(paras)}", file=sys.stderr)
         return 1
     key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
     used_eleven = 0
@@ -82,7 +82,7 @@ def main() -> int:
         else:
             espeak(text, out)
         print(f"section {i:02d}: {'ElevenLabs' if ok else 'espeak'} -> {out.name}")
-    print(f"done: {used_eleven}/9 ElevenLabs, {9 - used_eleven}/9 espeak")
+    print(f"done: {used_eleven}/10 ElevenLabs, {10 - used_eleven}/10 espeak")
     return 0
 
 

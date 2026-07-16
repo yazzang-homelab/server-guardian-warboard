@@ -1,17 +1,19 @@
 Someone kept trying to break into my personal server. Automated probes, repeated logins, and dropped payloads. This was not a demo feed. That real problem started Server Guardian Warboard.
 
-Defense came first. A read-only decoy watches the hostile automation without exposing the real host. Then, with Codex and GPT-5.6, I turned every filtered signal into an explainable scene.
+Defense came first. A read-only decoy watches hostile automation without exposing the real host. Then, with Codex and GPT-5.6, I turned every filtered signal into an explainable scene.
 
-The strategic map gives the live system a shape. Country-level aggregates and active routes replace endless rows of log data, so movement can be read at a glance. This is the public judging surface, a viewer, not an admin console, and it needs no account.
+The strategic map gives the live system a shape. Country-level aggregates and active routes replace endless rows of log data, so movement can be read at a glance. This is a viewer, not an admin console, and it needs no account.
 
-Privacy is enforced before anything reaches the browser. The backend turns source addresses into stable bot aliases, generalizes the host to Protected Sandbox, replaces login names with aliases, and defangs suspicious commands and URLs. The browser only ever sees structured, privacy-filtered events, never the raw attack record. NORAD shows that same safe stream as an operations-room view.
+Privacy is enforced before anything reaches the browser. The backend turns source addresses into stable bot aliases, generalizes the host to Protected Sandbox, replaces login names with aliases, and defangs suspicious commands and URLs. The browser only sees structured, privacy-filtered events. NORAD shows that same safe stream without revealing the system behind it.
 
-This product was built with Codex and GPT-5.6 during Build Week. The viewer modes, the privacy boundary, bilingual coverage, deterministic demos, and six-mode automated QA.
+During Build Week, Codex and GPT-5.6 built the judge-facing product: the viewer modes, privacy boundary, bilingual interface, deterministic demos, automated QA, and a new community-reporting pipeline.
 
-It also gives back. When an attack is confirmed high-confidence, the backend automatically files that address to the AbuseIPDB community feed. Defending one small server helps protect the whole internet.
+Here is that new feature. A confirmed payload or repeated brute-force attempt passes a high-confidence safety gate. The backend de-duplicates each address for twenty-four hours, enforces rate and daily limits, sends no victim data, and files only the attacker address and standard categories to AbuseIPDB.
 
-One event stream now supports many ways to understand an attack. The RPG village turns activity into life, patrols, and encounters. A deterministic skirmish replays on demand, even when live traffic is quiet. The same signals stage a cinematic battle, and a first-person mode changes the viewpoint and weapon choreography. These are not separate mockups. They are views inside the same live, read-only application. At recording time it had visualized more than forty-eight thousand hostile automation events, across fourteen documented signal species, six deterministic judge modes, and three first-person weapon choreographies.
+The public app remains read-only, but now it proves the contribution. At this review render, the live counter shows two hundred reports, two hundred unique addresses, and ninety-eight percent average confidence, plus a badge whenever a new report is filed.
 
-Every mode passes deterministic checks, and each deployed build is verified by matching its hash against the live demo.
+This begins as an Apps for Your Life project: making everyday home-server defense understandable and safe to watch. But confirmed intelligence can help a real audience beyond one home — firewalls, hosting providers, security teams, and other home labs. The game views remain useful too: a deterministic skirmish, cinematic battle, and first-person mode all interpret the same live, privacy-filtered event stream.
 
-Try Server Guardian Warboard live. Understand the attack, and never expose the system.
+That is a specific, credible impact claim: one personal defense contributes measurable community signal. The app counts reports instead of pretending it fixed the internet, while every mode remains publicly testable and passes deterministic verification.
+
+Try Server Guardian Warboard live. Built with Codex and GPT-5.6. Understand the attack, share the signal, and never expose the system.

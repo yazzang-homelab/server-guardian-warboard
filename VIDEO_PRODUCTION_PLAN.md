@@ -15,18 +15,19 @@ Target duration: **2 minutes 55 seconds**.
 
 ## Production Approach
 
-Use a cinematic seven-slide presentation to establish the incident, product
-concept, privacy architecture, Build Week contribution, game composition, verified
-result, and call to action. Intercut those slides with real 1080p browser captures
-of the working map, NORAD, skirmish, SRW, and FPS views. The application remains
+Use a cinematic nine-slide presentation to establish the incident, product
+concept, privacy architecture, Codex-built work, the automatic-reporting feature,
+rulebook-aligned potential impact, verified result, and call to action. Intercut
+the slides with real 1080p browser captures of the working map, NORAD, live
+Global Threat Intel counter, skirmish, SRW, and FPS views.
 the primary visual evidence rather than serving as a repeated backdrop.
 
 Use a ten-second Higgsfield cyber-defense cold open built from a privacy-safe
 project frame. It must show a hacker attacking a protected server and the Guardian
 raising a cyan defense, with synchronized original generated effects and no
-dialogue or copyrighted melody. The seven-slide presentation begins only after
-this curiosity-building opening. All remaining motion comes from the real
-application or restrained editorial transitions.
+dialogue or copyrighted melody. The nine-slide presentation begins only after
+this curiosity-building opening. Slide motion comes from staged object-level
+animations inside the complete 16:9 frame — never a repeated camera zoom or crop.
 
 ### Why
 
@@ -61,8 +62,8 @@ output quality are unsuitable, use a local title sequence instead.
 ## Production Tooling
 
 1. `playwright-core` drives deterministic 1080p page-only captures.
-2. `video/tools/capture-v2.mjs` captures seven Slidev frames and five live product takes.
-3. `video/tools/assemble-narration.py` fits eight ElevenLabs sections to the storyboard.
+2. `video/tools/capture-deck-motion.mjs` captures nine full-frame Slidev videos with staged object animation; `capture-impact-live.mjs` captures the public counter and report badge.
+3. `video/tools/assemble-narration.py` fits ten ElevenLabs sections to the storyboard.
 4. `video/tools/make-score.py` creates the original deterministic underscore and effects.
 5. `video/tools/make-subtitles.py` starts captions after the ten-second cold open.
 6. `video/tools/render-v2.sh` assembles the generated opening, presentation, real product
@@ -74,18 +75,18 @@ The tooling uses the installed system Chromium rather than downloading another b
 
 | Time | Visual | Audio / Message |
 | --- | --- | --- |
-| 0:00-0:10 | Cyber-defense cold open | Hacker sends malicious-code pulses; Guardian raises the server shield; synchronized drone, glitches, shield impact, and security chime. |
-| 0:10-0:22 | Origin slide | Repeated attempts against a personal server started the project. |
-| 0:22-0:34 | Defense-to-game concept slide | Defense came first; filtered attacks then became explainable play. |
-| 0:34-0:54 | Live strategic map | Show the working public product and aggregate event routes. |
-| 0:54-1:08 | Privacy pipeline slide | Explain server-side aliasing, generalization, and defanging. |
-| 1:08-1:24 | Live NORAD view | Show the same filtered stream as an operations-room display. |
-| 1:24-1:36 | Build Week development slide | Built with Codex/GPT-5.6; a note on the earlier prototype and human decisions. |
-| 1:36-1:52 | Live deterministic skirmish | Demonstrate a repeatable judge scene when traffic is quiet. |
-| 1:52-2:08 | Real-world impact slide + live counter | Confirmed attackers are auto-filed to AbuseIPDB; show the in-app "Global Threat Intel" counter — defending one server helps the whole internet. |
-| 2:08-2:22 | Live SRW-style battle | Show a cinematic interpretation driven by filtered signals. |
-| 2:22-2:38 | Live FPS scene | Show the same product from a first-person viewpoint. |
-| 2:38-2:47 | Verified result slide | State current metrics, community contribution, and six-mode QA evidence. |
+| 0:00-0:10 | Cyber-defense cold open | Hacker sends malicious-code pulses; Guardian raises the server shield. |
+| 0:10-0:22 | Animated origin slide | Repeated attempts against a personal server started the project. |
+| 0:22-0:34 | Animated defense-to-game concept | Defense came first; Codex and GPT-5.6 turn filtered attacks into explainable play. |
+| 0:34-0:51 | Live strategic map | Show the working public product and aggregate event routes. |
+| 0:51-1:03 | Animated privacy pipeline | Explain server-side aliasing, generalization, and defanging. |
+| 1:03-1:15 | Live NORAD view | Show the same privacy-filtered stream as an operations-room display. |
+| 1:15-1:27 | Animated Build Week slide | Show what Codex and GPT-5.6 built. |
+| 1:27-1:42 | **Animated new-feature slide** | Walk through capture → safety gate → AbuseIPDB → measurable proof. |
+| 1:42-1:54 | **Live Global Threat Intel counter** | Show the real public app at 200 reports / 200 unique IPs / 98% average confidence and fire the report badge. |
+| 1:54-2:30 | Live game views | Demonstrate skirmish, SRW-style battle, and first-person views. |
+| 2:30-2:39 | **Potential Impact evidence** | Apply the rulebook test: real problem, real audience, demonstrated evidence. |
+| 2:39-2:47 | Verified product result | State product and six-mode QA evidence. |
 | 2:47-2:55 | Final URL card | Close with the live demo and public repository. |
 
 ## Narration And Sound
@@ -114,15 +115,14 @@ copyrighted music or stock audio without a recorded license.
 
 ## Automated Capture Sequence
 
-1. Start the local Slidev deck and capture slides 1-7 at 1920x1080.
-2. Open `https://plzhacknono.duckdns.org/` in a clean English browser context.
-3. Disable CRT and audio, hide the cursor, and capture page content only.
-4. Capture the live strategic map and NORAD operations view.
-5. Open deterministic skirmish, SRW, and FPS demo URLs in separate clean contexts.
-6. Stop each take separately so a failed scene can be replaced without repeating the
-   complete recording.
+1. Build the local Slidev deck and capture slides 1-9 as 1920x1080 videos.
+2. Keep the full slide frame fixed; capture staged card, arrow, metric, and label animations.
+3. Open `https://plzhacknono.duckdns.org/` in a clean English browser context.
+4. Disable CRT and audio, hide the cursor, and capture page content only.
+5. Capture the live strategic map, NORAD view, and the Global Threat Intel counter/report badge.
+6. Open deterministic skirmish, SRW, and FPS demo URLs in separate clean contexts.
 7. Extract review frames and reject any take containing private identifiers, browser
-   chrome, loading overlays, or unreadable composition.
+   chrome, loading overlays, cropped slide content, or unreadable composition.
 
 ## Editing Sequence
 

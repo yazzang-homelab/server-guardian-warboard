@@ -138,16 +138,16 @@ that preserve the same public redaction contract.
   the Guardian raises a cyan shield over synchronized generated effects.
 - **0:10-0:34 — Incident and concept:** explain the attempts against a personal
   server, the read-only defense, and the decision to turn filtered events into play.
-- **0:34-0:54 — Live strategic map:** show the real public product and aggregate
-  activity routes.
-- **0:54-1:24 — Privacy boundary and NORAD:** explain backend aliasing,
-  generalization, and defanging, then show the same safe stream in NORAD view.
-- **1:24-1:36 — Build Week work:** built with Codex/GPT-5.6 — privacy, bilingual,
-  deterministic-demo, QA, and documentation work, plus a note on the earlier prototype.
-- **1:36-1:52 — Real game scenes:** repeatable skirmish inside the read-only app.
-- **1:52-2:08 — Real-world impact:** confirmed attackers auto-filed to the AbuseIPDB
-  community feed; show the in-app "Global Threat Intel" counter — defending one
-  server helps the whole internet.
-- **2:08-2:38 — More game scenes:** SRW-style battle and first-person modes.
-- **2:39-2:47 — Verified result:** state the documented metrics and six-mode QA.
+- **0:34-0:51 — Live strategic map:** show the real public product and aggregate routes.
+- **0:51-1:15 — Privacy boundary and NORAD:** animated backend aliasing/defanging
+  pipeline, followed by the same safe stream in the live NORAD view.
+- **1:15-1:27 — Codex build:** show the judge-facing work built with Codex/GPT-5.6.
+- **1:27-1:42 — New automatic-reporting feature:** animate the complete path from
+  confirmed attack → high-confidence gate → AbuseIPDB → measurable proof.
+- **1:42-1:54 — Live feature proof:** show the real public app at 200 filed reports,
+  200 unique IPs, 98% average confidence, and trigger the report badge.
+- **1:54-2:30 — Real game scenes:** deterministic skirmish, SRW battle, and FPS.
+- **2:30-2:39 — Potential Impact:** apply the official judging test — a credible,
+  specific case for a real problem and real audience, backed by demonstrated evidence.
+- **2:39-2:47 — Verified result:** state the product and six-mode QA evidence.
 - **2:47-2:55 — Close:** show the live demo and public repository URLs.

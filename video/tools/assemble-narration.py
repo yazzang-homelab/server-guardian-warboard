@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fit eight ElevenLabs section takes to the approved 165-second storyboard."""
+"""Fit ten ElevenLabs section takes to the approved 165-second storyboard."""
 from __future__ import annotations
 
 import json
@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "out" / "v2" / "tts"
 WORK = ROOT / "out" / "v2" / "narration-sections"
 OUTPUT = ROOT / "out" / "v2" / "narration.wav"
-WINDOWS = [12.0, 12.0, 20.0, 28.0, 12.0, 14.0, 51.0, 8.0, 8.0]
+WINDOWS = [12.0, 12.0, 17.0, 24.0, 12.0, 15.0, 12.0, 34.0, 17.0, 10.0]
 END_PAD = 0.20
 
 

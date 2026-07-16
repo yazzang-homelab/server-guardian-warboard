@@ -1,15 +1,16 @@
 start	end	duration	visual	narration_section
 00:00	00:10	10	opening-v2-cyber-defense.mp4 — hacker attack, server shield, Guardian response	cold_open
-00:10	00:22	12	slide-01.png — personal-server intrusion origin	origin
-00:22	00:34	12	slide-02.png — defense becomes explainable play (Codex + GPT-5.6)	defense_and_concept
-00:34	00:54	20	app-map.webm — live strategic map, English UI, CRT off	strategic_map
-00:54	01:08	14	slide-03.png — pre-browser redaction pipeline	privacy_pipeline
-01:08	01:22	14	app-norad.webm — live NORAD operations view, English UI, CRT off	privacy_pipeline
-01:22	01:34	12	slide-04.png — built with Codex and GPT-5.6 during Build Week	build_week
-01:34	01:48	14	slide-06.png — real-world impact: confirmed attackers auto-filed to AbuseIPDB	community_impact
-01:48	02:05	17	app-skirmish.webm — deterministic skirmish demo	game_modes
-02:05	02:13	8	slide-05.png — four scanning workflows	game_modes
-02:13	02:26	13	app-srw.webm — deterministic SRW-style battle	game_modes
-02:26	02:39	13	app-fps.webm — deterministic first-person sword scene	game_modes
-02:39	02:47	8	slide-07.png — documented result and QA summary	verification
-02:47	02:55	8	slide-08.png — live demo and public repository CTA	cta
+00:10	00:22	12	slide-01.webm — object-animated personal-server intrusion origin	origin
+00:22	00:34	12	slide-02.webm — object-animated defense becomes explainable play	defense_and_concept
+00:34	00:51	17	app-map.webm — live strategic map, English UI, CRT off	strategic_map
+00:51	01:03	12	slide-03.webm — animated pre-browser redaction pipeline	privacy_pipeline
+01:03	01:15	12	app-norad.webm — live NORAD operations view, English UI, CRT off	privacy_pipeline
+01:15	01:27	12	slide-04.webm — built with Codex and GPT-5.6 during Build Week	build_week
+01:27	01:42	15	slide-06.webm — new automatic AbuseIPDB reporting feature, staged object animation	automatic_reporting
+01:42	01:54	12	app-impact-live.webm — real public counter 200/200/98% plus report badge	live_impact_proof
+01:54	02:08	14	app-skirmish.webm — deterministic skirmish demo	game_modes
+02:08	02:19	11	app-srw.webm — deterministic SRW-style battle	game_modes
+02:19	02:30	11	app-fps.webm — deterministic first-person scene	game_modes
+02:30	02:39	9	slide-07.webm — rulebook-aligned Potential Impact evidence	impact_result
+02:39	02:47	8	slide-08.webm — documented product and QA result	impact_result
+02:47	02:55	8	slide-09.webm — live demo and public repository CTA	cta

@@ -5,6 +5,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 TAKES="takes/v2"
+MOTION="takes/v4"
 OUT="out/v2"
 SEG="$OUT/segments"
 DURATION=175
@@ -17,20 +18,21 @@ done
 for required in "$OPENING" "$OUT/narration.wav" "$OUT/score.wav" "$OUT/subtitles.srt"; do
   [[ -s "$required" ]] || { echo "ERROR: required final asset missing: $required" >&2; exit 1; }
 done
-for number in 01 02 03 04 05 06 07 08; do
-  [[ -s "$TAKES/slide-$number.png" ]] || { echo "ERROR: missing deck frame: $TAKES/slide-$number.png" >&2; exit 1; }
+for number in 01 02 03 04 05 06 07 08 09; do
+  [[ -s "$MOTION/slide-$number.webm" ]] || { echo "ERROR: missing animated deck take: $MOTION/slide-$number.webm" >&2; exit 1; }
 done
 for take in map norad skirmish srw fps; do
   [[ -s "$TAKES/app-$take.webm" ]] || { echo "ERROR: missing app take: $TAKES/app-$take.webm" >&2; exit 1; }
 done
+[[ -s "$MOTION/app-impact-live.webm" ]] || { echo "ERROR: missing live impact take" >&2; exit 1; }
 
 VOPT=(-c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -r 30 -an)
 
-still() { # still <slide number> <seconds> <fade-out start> <segment> — slow Ken Burns zoom
-  local frames=$(( $2 * 30 ))
-  ffmpeg -y -v error -loop 1 -framerate 30 -i "$TAKES/slide-$1.png" -t "$2" \
-    -vf "scale=2304:1296:flags=lanczos,zoompan=z='min(zoom+0.00055,1.09)':d=$frames:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080:fps=30,setsar=1,fade=t=in:st=0:d=0.4,fade=t=out:st=$3:d=0.4,format=yuv420p" \
-    "${VOPT[@]}" "$SEG/$4.mp4"
+slide() { # slide <number> <seconds> <segment> — full 16:9 frame, object animation only
+  local fade_start="$(( $2 - 1 )).60"
+  ffmpeg -y -v error -ss 0.40 -i "$MOTION/slide-$1.webm" \
+    -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,tpad=stop_mode=clone:stop_duration=$2,trim=duration=$2,fade=t=in:st=0:d=0.35,fade=t=out:st=$fade_start:d=0.40,format=yuv420p" \
+    "${VOPT[@]}" "$SEG/$3.mp4"
 }
 
 app() { # app <take> <seconds> <segment>
@@ -40,25 +42,34 @@ app() { # app <take> <seconds> <segment>
     "${VOPT[@]}" "$SEG/$3.mp4"
 }
 
+impact_app() { # live public counter + report badge, no crop
+  local seconds="$1" fade_start="$(( $1 - 1 )).60"
+  ffmpeg -y -v error -ss 1.5 -i "$MOTION/app-impact-live.webm" \
+    -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,tpad=stop_mode=clone:stop_duration=$seconds,trim=duration=$seconds,fade=t=in:st=0:d=0.35,fade=t=out:st=$fade_start:d=0.40,format=yuv420p" \
+    "${VOPT[@]}" "$SEG/08_impact_live.mp4"
+}
+
 # Normalize the generated cold open and select only its primary video stream.
 ffmpeg -y -v error -i "$OPENING" -map 0:v:0 -t 10 \
   -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,fade=t=out:st=9.65:d=0.35,format=yuv420p" \
   "${VOPT[@]}" "$SEG/00_opening.mp4"
 
-# Timeline mirrors the 9-section narration windows (175 seconds).
-still 01 12 11.6 01_origin
-still 02 12 11.6 02_concept
-app map 20 03_map
-still 03 14 13.6 04_privacy
-app norad 14 05_norad
-still 04 12 11.6 06_build
-still 06 14 13.6 07_impact
-app skirmish 17 08_skirmish
-still 05 8 7.6 09_modes
-app srw 13 10_srw
-app fps 13 11_fps
-still 07 8 7.6 12_result
-still 08 8 7.6 13_close
+# 175 seconds. Automatic reporting receives 36 seconds:
+# feature architecture (15s) + live counter/badge (12s) + impact proof (9s).
+slide 01 12 01_origin
+slide 02 12 02_concept
+app map 17 03_map
+slide 03 12 04_privacy
+app norad 12 05_norad
+slide 04 12 06_build
+slide 06 15 07_feature
+impact_app 12
+app skirmish 14 09_skirmish
+app srw 11 10_srw
+app fps 11 11_fps
+slide 07 9 12_impact_proof
+slide 08 8 13_result
+slide 09 8 14_close
 
 printf '%s\n' \
   "file '00_opening.mp4'" \
@@ -68,13 +79,14 @@ printf '%s\n' \
   "file '04_privacy.mp4'" \
   "file '05_norad.mp4'" \
   "file '06_build.mp4'" \
-  "file '07_impact.mp4'" \
-  "file '08_skirmish.mp4'" \
-  "file '09_modes.mp4'" \
+  "file '07_feature.mp4'" \
+  "file '08_impact_live.mp4'" \
+  "file '09_skirmish.mp4'" \
   "file '10_srw.mp4'" \
   "file '11_fps.mp4'" \
-  "file '12_result.mp4'" \
-  "file '13_close.mp4'" > "$SEG/list.txt"
+  "file '12_impact_proof.mp4'" \
+  "file '13_result.mp4'" \
+  "file '14_close.mp4'" > "$SEG/list.txt"
 
 ffmpeg -y -v error -f concat -safe 0 -i "$SEG/list.txt" -c copy "$SEG/master-silent.mp4"
 

@@ -101,19 +101,47 @@ fonts:
 
 ---
 
-<div class="corner">APPS FOR YOUR LIFE · REAL-WORLD IMPACT</div>
-<div class="kicker">Beyond one server</div>
+<div class="corner">NEW BUILD WEEK FEATURE · APPS FOR YOUR LIFE</div>
+<div class="kicker">Automatic community reporting</div>
 <div class="rule"></div>
-<h1 class="display">Defending my server <span class="green">helps the whole internet.</span></h1>
-<div class="pipeline">
-  <div class="pipe-card"><div class="eyebrow">Confirmed attack</div><h3>High-confidence event</h3><ul><li>Payload or brute-force</li><li>Gated & de-duplicated</li></ul></div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-card privacy"><div class="eyebrow">Backend only</div><h3>Auto-file to AbuseIPDB</h3><ul><li>IP + category codes only</li><li>No victim / host data</li><li>24h per-IP dedup</li></ul></div>
-  <div class="pipe-arrow">→</div>
-  <div class="pipe-card"><div class="eyebrow">Community</div><h3>Global threat intel</h3><ul><li>Firewalls & hosts consume it</li><li>Shared takedown signal</li></ul></div>
+<h1 class="display">A captured attack becomes <span class="green">shared protection.</span></h1>
+<div class="pipeline feature-pipeline">
+  <div class="pipe-card feature-card"><div class="eyebrow">01 · Capture</div><h3>Confirmed attack</h3><ul><li>Payload execution</li><li>Repeated SSH brute-force</li></ul></div>
+  <div class="pipe-arrow feature-arrow">→</div>
+  <div class="pipe-card privacy feature-card"><div class="eyebrow">02 · Safety gate</div><h3>Report only high confidence</h3><ul><li>24h per-IP dedup</li><li>Rate + daily limits</li><li>No victim data</li></ul></div>
+  <div class="pipe-arrow feature-arrow">→</div>
+  <div class="pipe-card feature-card"><div class="eyebrow">03 · Contribution</div><h3>File to AbuseIPDB</h3><ul><li>IP + standard categories</li><li>Backend-only write</li></ul></div>
+  <div class="pipe-arrow feature-arrow">→</div>
+  <div class="pipe-card feature-card"><div class="eyebrow">04 · Proof</div><h3>Show verifiable impact</h3><ul><li>Reports + unique IPs</li><li>Confidence score</li><li>In-app report badge</li></ul></div>
 </div>
-<div class="privacy-note"><b>A hobby defense becomes shared protection</b> — the app files reports, and shows exactly how many.</div>
-<div class="footer"><span>ONE SMALL SERVER · GLOBAL CONTRIBUTION</span><span>06 / IMPACT</span></div>
+<div class="privacy-note feature-note"><b>The public app stays read-only.</b> Reporting happens only behind the privacy boundary.</div>
+<div class="footer"><span>CODEX-BUILT · GATED · DEDUPLICATED · MEASURABLE</span><span>06 / NEW FEATURE</span></div>
+
+---
+
+<div class="corner">JUDGING CRITERION · POTENTIAL IMPACT</div>
+<div class="kicker">A real problem · a real audience · demonstrated evidence</div>
+<div class="rule"></div>
+<h1 class="display">One life app. <span class="green">A wider defensive signal.</span></h1>
+<div class="impact-grid">
+  <div class="impact-story">
+    <div class="impact-step"><b>Personal need</b><span>Make everyday home-server defense understandable and safe to watch.</span></div>
+    <div class="impact-link">↓</div>
+    <div class="impact-step"><b>Community benefit</b><span>Share confirmed attacker intelligence with defenders beyond this server.</span></div>
+    <div class="impact-link">↓</div>
+    <div class="impact-step"><b>Credible claim</b><span>Count reports filed — never claim the internet is “fixed.”</span></div>
+  </div>
+  <div class="impact-proof">
+    <div class="proof-label">LIVE VERIFIED CONTRIBUTION · REVIEW RENDER</div>
+    <div class="proof-metrics">
+      <div class="proof-metric"><b>200</b><span>reports filed</span></div>
+      <div class="proof-metric"><b>200</b><span>unique IPs flagged</span></div>
+      <div class="proof-metric"><b>98%</b><span>average confidence</span></div>
+    </div>
+    <div class="audience-row"><span>Firewalls</span><span>Hosting providers</span><span>Security teams</span><span>Home labs</span></div>
+  </div>
+</div>
+<div class="footer"><span>SPECIFIC · CREDIBLE · MEASURABLE</span><span>07 / IMPACT</span></div>
 
 ---
 
@@ -132,7 +160,7 @@ fonts:
   <div class="result-pill">READ-ONLY PUBLIC DEMO</div>
   <div class="result-pill">6 / 6 QA MODES PASSED</div>
 </div>
-<div class="footer"><span>LIVE · PUBLIC · PRIVACY-FILTERED</span><span>07 / RESULT</span></div>
+<div class="footer"><span>LIVE · PUBLIC · PRIVACY-FILTERED</span><span>08 / RESULT</span></div>
 
 ---
 
@@ -149,4 +177,4 @@ fonts:
     <p class="lede" style="margin:34px auto 0;font-size:19px">Built with Codex + GPT-5.6 for OpenAI Build Week</p>
   </div>
 </div>
-<div class="footer"><span>TRY THE LIVE DEMO</span><span>08 / CLOSE</span></div>
+<div class="footer"><span>TRY THE LIVE DEMO</span><span>09 / CLOSE</span></div>

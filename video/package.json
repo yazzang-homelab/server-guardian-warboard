@@ -7,6 +7,7 @@
     "deck": "slidev deck/slides.md --open false --remote false",
     "deck:build": "slidev build deck/slides.md --base /",
     "capture:v2": "node tools/capture-v2.mjs",
+    "capture:motion": "node tools/capture-deck-motion.mjs && node tools/capture-impact-live.mjs",
     "score:v2": "python3 tools/make-score.py --duration 165 --output out/v2/score.wav",
     "subtitles:v2": "python3 tools/make-subtitles.py",
     "narration:v2": "python3 tools/assemble-narration.py",
