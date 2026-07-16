@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "out" / "v2" / "tts"
 WORK = ROOT / "out" / "v2" / "narration-sections"
 OUTPUT = ROOT / "out" / "v2" / "narration.wav"
-WINDOWS = [12.0, 12.0, 20.0, 30.0, 14.0, 61.0, 8.0, 8.0]
+WINDOWS = [12.0, 12.0, 20.0, 28.0, 12.0, 14.0, 51.0, 8.0, 8.0]
 END_PAD = 0.20
 
 

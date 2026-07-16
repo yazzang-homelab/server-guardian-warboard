@@ -61,7 +61,7 @@ async function captureSlides() {
   const context = await makeContext();
   const page = await context.newPage();
   try {
-    for (let number = 1; number <= 7; number += 1) {
+    for (let number = 1; number <= 8; number += 1) {
       await page.goto(`${SLIDEV_URL}/${number}`, { waitUntil: 'networkidle', timeout: 30_000 });
       await page.waitForSelector(`.slidev-page-${number}`, { state: 'visible', timeout: 15_000 });
       await page.evaluate(async () => {

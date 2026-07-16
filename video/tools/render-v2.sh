@@ -17,7 +17,7 @@ done
 for required in "$OPENING" "$OUT/narration.wav" "$OUT/score.wav" "$OUT/subtitles.srt"; do
   [[ -s "$required" ]] || { echo "ERROR: required final asset missing: $required" >&2; exit 1; }
 done
-for number in 01 02 03 04 05 06 07; do
+for number in 01 02 03 04 05 06 07 08; do
   [[ -s "$TAKES/slide-$number.png" ]] || { echo "ERROR: missing deck frame: $TAKES/slide-$number.png" >&2; exit 1; }
 done
 for take in map norad skirmish srw fps; do
@@ -26,9 +26,10 @@ done
 
 VOPT=(-c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -r 30 -an)
 
-still() { # still <slide number> <seconds> <fade-out start> <segment>
+still() { # still <slide number> <seconds> <fade-out start> <segment> — slow Ken Burns zoom
+  local frames=$(( $2 * 30 ))
   ffmpeg -y -v error -loop 1 -framerate 30 -i "$TAKES/slide-$1.png" -t "$2" \
-    -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,fade=t=in:st=0:d=0.35,fade=t=out:st=$3:d=0.35,format=yuv420p" \
+    -vf "scale=2304:1296:flags=lanczos,zoompan=z='min(zoom+0.00055,1.09)':d=$frames:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080:fps=30,setsar=1,fade=t=in:st=0:d=0.4,fade=t=out:st=$3:d=0.4,format=yuv420p" \
     "${VOPT[@]}" "$SEG/$4.mp4"
 }
 
@@ -44,19 +45,20 @@ ffmpeg -y -v error -i "$OPENING" -map 0:v:0 -t 10 \
   -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,fade=t=out:st=9.65:d=0.35,format=yuv420p" \
   "${VOPT[@]}" "$SEG/00_opening.mp4"
 
-# Timeline mirrors script/storyboard-v2.tsv exactly (175 seconds).
-still 01 12 11.65 01_origin
-still 02 12 11.65 02_concept
+# Timeline mirrors the 9-section narration windows (175 seconds).
+still 01 12 11.6 01_origin
+still 02 12 11.6 02_concept
 app map 20 03_map
-still 03 14 13.65 04_privacy
-app norad 16 05_norad
-still 04 14 13.65 06_build
-app skirmish 18 07_skirmish
-still 05 9 8.65 08_modes
-app srw 17 09_srw
-app fps 17 10_fps
-still 06 8 7.65 11_result
-still 07 8 7.65 12_close
+still 03 14 13.6 04_privacy
+app norad 14 05_norad
+still 04 12 11.6 06_build
+still 06 14 13.6 07_impact
+app skirmish 17 08_skirmish
+still 05 8 7.6 09_modes
+app srw 13 10_srw
+app fps 13 11_fps
+still 07 8 7.6 12_result
+still 08 8 7.6 13_close
 
 printf '%s\n' \
   "file '00_opening.mp4'" \
@@ -66,12 +68,13 @@ printf '%s\n' \
   "file '04_privacy.mp4'" \
   "file '05_norad.mp4'" \
   "file '06_build.mp4'" \
-  "file '07_skirmish.mp4'" \
-  "file '08_modes.mp4'" \
-  "file '09_srw.mp4'" \
-  "file '10_fps.mp4'" \
-  "file '11_result.mp4'" \
-  "file '12_close.mp4'" > "$SEG/list.txt"
+  "file '07_impact.mp4'" \
+  "file '08_skirmish.mp4'" \
+  "file '09_modes.mp4'" \
+  "file '10_srw.mp4'" \
+  "file '11_fps.mp4'" \
+  "file '12_result.mp4'" \
+  "file '13_close.mp4'" > "$SEG/list.txt"
 
 ffmpeg -y -v error -f concat -safe 0 -i "$SEG/list.txt" -c copy "$SEG/master-silent.mp4"
 
