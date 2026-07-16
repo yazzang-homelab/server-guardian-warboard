@@ -33,14 +33,18 @@ or credentials as proof because those records can expose private account data.
    bestiary, skills) with deterministic QA gates re-run after the change.
 8. Added OpenAI Build Week submission notes and privacy-safe testing guidance.
 9. Added repository licensing (MIT) and third-party asset notices.
+9b. Implemented the backend AbuseIPDB community threat-intel contribution
+   pipeline (confirmed-event gate, 24h per-IP dedup, rate limit, category codes,
+   key sourced only from the environment) and the in-app "Global Threat Intel"
+   counter, keeping the public viewer read-only.
 10. Ran JavaScript and Python syntax checks, six-mode deterministic QA gates,
    and compared built/deployed artifact hashes during release verification.
 
 ## Timeline Evidence (Prior Work vs. Submission Period Work)
 
-- Pre-existing work (before the Submission Period start, 2026-07-13 09:00 PT):
-  dashboard core, RPG/battle/NORAD/FPS engine, asset pipeline, and audio were
-  built July 10-13, 2026 KST and were already deployed publicly.
+- Earlier private prototype (before the Submission Period start, 2026-07-13
+  09:00 PT): honeypot capture, RPG/battle/NORAD/FPS engine, asset pipeline, and
+  audio were built July 10-13, 2026 KST and were already deployed publicly.
 - Submission Period work (2026-07-14 KST onward): bilingual UI, full English
   judge surface, privacy redaction boundary, deterministic demo documentation,
   licensing/notices, this repository, and the demo video.

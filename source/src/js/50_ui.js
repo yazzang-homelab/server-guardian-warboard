@@ -18,7 +18,11 @@ const I18N = {
     rank: 'Activity Ranking', loot: 'Defanged Artifacts', lootNote: 'safe display', feed: 'Event Log',
     tiles: ['Events', 'Unique bots', 'Sessions', 'Auth lures', 'Captures', 'IOCs'],
     ev: { auth: 'auth lure', session: 'captured session', payload: 'payload hint', connect: 'connect' },
-    about: '<b>What is this?</b> Server Guardian Warboard is a <b>read-only</b> hackathon viewer that visualizes captured honeypot-style events as an RPG/NORAD dashboard. It redacts public IPs into stable bot aliases, defangs suspicious URLs and commands, and exposes no write actions. · Controls: map/NORAD/theme/audio/share toggles; add ?demo=skirmish|dq|srw|fps|fpss|fpsm for deterministic demo scenes. · Built for OpenAI Build Week with Codex and GPT-5.6.',
+    intel: 'Global Threat Intel', intelNote: 'community contribution',
+    intelStats: ['Reports filed', 'Unique IPs flagged', 'Avg confidence'],
+    intelIdle: 'Confirmed attackers are auto-filed to AbuseIPDB by the backend — defending one small server helps the wider internet.',
+    intelBadge: 'Reported to global threat intel',
+    about: '<b>What is this?</b> Server Guardian Warboard is a <b>read-only</b> hackathon command view, built with Codex and GPT-5.6, that turns captured honeypot-style events into an RPG/NORAD defense scene. It redacts public IPs into stable bot aliases, defangs suspicious URLs and commands, and exposes no write actions. Confirmed attackers are also filed to a community threat-intelligence feed (AbuseIPDB) by the backend, so defending one small server contributes to the wider internet. · Controls: map/NORAD/theme/audio/share toggles; add ?demo=skirmish|dq|srw|fps|fpss|fpsm for deterministic demo scenes. · Built for OpenAI Build Week with Codex and GPT-5.6.',
     submission: '<h2>OpenAI Build Week Submission Notes</h2><div class="submitgrid"><section><h3>Track</h3><p>Apps for Your Life. Managing my own server is a personal hobby, and this turns everyday defense of it into something worth watching without exposing private infrastructure.</p></section><section><h3>How to Test</h3><p>Open this URL, switch between RPG, map, and NORAD views, then try the demo query strings for repeatable judging scenes.</p></section><section><h3>Privacy</h3><p>Public IPs are replaced by bot aliases, host identity is generalized, and suspicious strings are defanged before display.</p></section><section><h3>Codex + GPT-5.6</h3><p>Codex and GPT-5.6 were used to extend the viewer, harden display paths, add deterministic QA checks, and prepare this judging surface.</p></section></div>',
   },
   ko: {
@@ -29,7 +33,11 @@ const I18N = {
     rank: '활동 랭킹', loot: '무해화 산출물', lootNote: '안전 표기', feed: '이벤트 로그',
     tiles: ['이벤트', '고유 봇', '세션', '인증 미끼', '포획', 'IOC'],
     ev: { auth: '인증 미끼', session: '세션 포획', payload: '페이로드 힌트', connect: '접속' },
-    about: '<b>이 화면은?</b> 서버 수호자 워보드는 해커톤 제출용 <b>읽기전용</b> 뷰어입니다. 허니팟형 이벤트를 RPG/NORAD 대시보드로 시각화하되, 공개 IP는 안정적인 bot 별칭으로 바꾸고 의심 URL·명령은 무해화해서 보여줍니다. 쓰기 동작은 없습니다. · 조작: 지도/NORAD/테마/소리/공유 토글, ?demo=skirmish|dq|srw|fps|fpss|fpsm 로 반복 가능한 데모 장면 확인 · OpenAI Build Week를 위해 Codex와 GPT-5.6으로 준비했습니다.',
+    intel: '글로벌 위협 인텔', intelNote: '커뮤니티 기여',
+    intelStats: ['신고 건수', '플래그된 고유 IP', '평균 신뢰도'],
+    intelIdle: '확정된 공격자는 백엔드가 AbuseIPDB에 자동 신고합니다 — 작은 서버 하나를 지키는 일이 인터넷 전체에 도움이 됩니다.',
+    intelBadge: '글로벌 위협 인텔에 신고됨',
+    about: '<b>이 화면은?</b> 서버 수호자 워보드는 Codex와 GPT-5.6으로 만든 해커톤 제출용 <b>읽기전용</b> 커맨드 뷰입니다. 허니팟형 이벤트를 RPG/NORAD 방어 장면으로 시각화하되, 공개 IP는 안정적인 bot 별칭으로 바꾸고 의심 URL·명령은 무해화해서 보여줍니다. 쓰기 동작은 없습니다. 확정된 공격자는 백엔드가 커뮤니티 위협 인텔 피드(AbuseIPDB)에 신고하므로, 작은 서버 하나를 지키는 일이 인터넷 전체에 기여합니다. · 조작: 지도/NORAD/테마/소리/공유 토글, ?demo=skirmish|dq|srw|fps|fpss|fpsm 로 반복 가능한 데모 장면 확인 · OpenAI Build Week를 위해 Codex와 GPT-5.6으로 만들었습니다.',
     submission: '<h2>OpenAI Build Week 제출 노트</h2><div class="submitgrid"><section><h3>트랙</h3><p>Apps for Your Life. 개인 서버 관리는 제 취미이고, 이 도구는 그 일상적 방어를 사설 인프라 노출 없이 지켜볼 만한 것으로 바꿉니다.</p></section><section><h3>테스트 방법</h3><p>URL을 열고 RPG, 지도, NORAD 화면을 전환한 뒤 데모 쿼리로 반복 가능한 심사용 장면을 확인합니다.</p></section><section><h3>프라이버시</h3><p>공개 IP는 bot 별칭으로 대체하고, 호스트 정체성은 일반화하며, 의심 문자열은 무해화한 뒤 표시합니다.</p></section><section><h3>Codex + GPT-5.6</h3><p>Codex와 GPT-5.6으로 뷰어 확장, 표시 경로 하드닝, 결정론 QA, 심사용 화면 준비를 진행했습니다.</p></section></div>',
   },
 };
@@ -46,6 +54,7 @@ G.applyLang = lang => {
   const t = T();
   $('btnLang').textContent = t.langBtn; $('appTitle').textContent = t.title; $('appSub').textContent = t.sub;
   $('statusTitle').textContent = t.status; $('dexTitle').textContent = t.dex; $('rankTitle').textContent = t.rank;
+  $('intelTitle').textContent = t.intel; $('intelNote').textContent = t.intelNote;
   $('lootTitle').textContent = t.loot; $('lootNote').textContent = t.lootNote; $('feedTitle').textContent = t.feed;
   $('btnShare').textContent = t.share; $('about').innerHTML = t.about; $('submission').innerHTML = t.submission;
   rebuildTicker();
@@ -156,7 +165,35 @@ function renderPanels(s) {
   });
   $('mood').textContent = G.moodOf(s.defcon)[0];
   $('mood').dataset.lv = s.defcon;
+  renderIntel(s);
 }
+
+/* ── 글로벌 위협 인텔 기여 ── */
+let lastReports = -1;
+function renderIntel(s) {
+  const i18 = T();
+  const c = s.contrib || {};
+  const reports = c.reports || 0, ips = c.unique_ips || 0;
+  const conf = c.avg_confidence ? Math.round(c.avg_confidence) + '%' : '—';
+  const box = $('intel'); if (!box) return;
+  box.replaceChildren();
+  const stats = [[i18.intelStats[0], reports.toLocaleString()],
+    [i18.intelStats[1], ips.toLocaleString()], [i18.intelStats[2], conf]];
+  for (const [k, v] of stats) { const d = el('div', 'icell');
+    d.append(el('b', '', v), el('span', '', k)); box.append(d); }
+  box.append(el('div', 'iline', i18.intelIdle));
+  // 신고 수 증가 시 뱃지 연출 (첫 폴링은 기준선만 설정)
+  if (lastReports >= 0 && reports > lastReports) flashIntelBadge();
+  lastReports = reports;
+}
+function flashIntelBadge() {
+  const b = $('intelBadge'); if (!b) return;
+  b.textContent = ''; b.append(el('b', '', '⚑ '), document.createTextNode(T().intelBadge));
+  b.hidden = false; b.style.animation = 'none'; void b.offsetWidth;
+  b.style.animation = 'intelpop 2.6s ease forwards';
+  clearTimeout(b._t); b._t = setTimeout(() => { b.hidden = true; }, 2600);
+}
+G.flashIntelBadge = flashIntelBadge;
 
 /* ── 공유 카드 ── */
 G.shareCard = () => {

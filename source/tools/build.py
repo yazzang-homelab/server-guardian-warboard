@@ -19,7 +19,7 @@ TEMPLATE = """<!doctype html>
 <title>Server Guardian Warboard — plzhacknono</title>
 <meta name="description" content="Read-only, privacy-preserving honeypot event viewer with RPG and NORAD-style views for OpenAI Build Week judging.">
 <meta property="og:title" content="Server Guardian Warboard — plzhacknono">
-<meta property="og:description" content="A public, read-only hackathon viewer built with Codex and GPT-5.6 that turns security events into an explainable dashboard.">
+<meta property="og:description" content="A public, read-only hackathon command view built with Codex and GPT-5.6 that turns hostile automation into an explainable defense scene — and files high-confidence attackers to community threat intel.">
 <style>/*__CSS__*/</style>
 <style>/*__FONTCSS__*/</style>
 </head><body data-theme="rpg">
@@ -41,10 +41,12 @@ TEMPLATE = """<!doctype html>
 </header>
 <div id="ticker"><div id="taunt"></div></div>
 <main>
-  <div id="stageBox"><canvas id="stage" width="480" height="360"></canvas></div>
+  <div id="stageBox"><canvas id="stage" width="480" height="360"></canvas><div id="intelBadge" hidden></div></div>
   <div class="side">
     <div class="panel"><h3><span id="statusTitle">Guardian Status</span> <small id="costume"></small></h3>
       <div id="tiles"></div><div id="skills"></div></div>
+    <div class="panel" id="intelPanel"><h3><span id="intelTitle">Global Threat Intel</span> <small id="intelNote">community contribution</small></h3>
+      <div id="intel"></div></div>
     <div class="panel"><h3><span id="dexTitle">Signal Bestiary</span> <small id="dexpct"></small></h3><div id="dex"></div></div>
     <div class="panel"><h3 id="rankTitle">Activity Ranking</h3>
       <div class="cols2"><div id="hof"></div><div id="countries"></div></div></div>
@@ -54,8 +56,9 @@ TEMPLATE = """<!doctype html>
 <div id="feedPanel"><h3 id="feedTitle" style="font-size:12px;color:var(--gold);margin-bottom:5px">Event Log</h3>
   <div id="feed"></div></div>
 <div id="about">
-  <b>What is this?</b> Server Guardian Warboard is a <b>read-only</b> hackathon viewer that visualizes honeypot-style events
-  as an RPG/NORAD security dashboard. Battles are narrative renderings; each monster represents redacted bot activity.
+  <b>What is this?</b> Server Guardian Warboard is a <b>read-only</b> hackathon command view, built with Codex and GPT-5.6, that turns
+  honeypot-style events into an RPG/NORAD defense scene. Battles are narrative renderings; each monster represents redacted bot activity.
+  Confirmed attackers are also filed to a community threat-intelligence feed (AbuseIPDB) by the backend, so defending one small server helps the wider internet.
   IP addresses are shown as bot aliases, and potentially malicious URLs and commands are shown only in defanged hxxp/[.] form.
   · Controls: map/NORAD/theme/audio/share toggles; add ?demo=skirmish|dq|srw|fps|fpss|fpsm for deterministic demo scenes.
   · Devpost testing: no account required, no write actions, and the public viewer is privacy-preserving.

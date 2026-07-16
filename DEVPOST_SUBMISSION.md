@@ -6,8 +6,9 @@ Server Guardian Warboard
 
 ## Tagline
 
-A privacy-preserving, bilingual viewer that turns hostile automation signals
-into an explainable RPG/NORAD security dashboard.
+A privacy-preserving, bilingual command view — built with Codex and GPT-5.6 —
+that turns hostile automation into an explainable RPG/NORAD defense scene and
+files confirmed attackers to community threat intelligence.
 
 ## Track
 
@@ -42,16 +43,20 @@ identifiers.
 
 ## What It Does
 
-Server Guardian Warboard converts privacy-filtered honeypot-style events into
-RPG, map, NORAD, battle, and FPS-inspired views. Judges can switch between
-English and Korean and use deterministic demo scenes when live event volume is
-low. The public viewer contains no write controls.
+Server Guardian Warboard, built with Codex and GPT-5.6, converts privacy-filtered
+honeypot-style events into RPG, map, NORAD, battle, and FPS-inspired defense
+scenes. When an event is confirmed high-confidence, the backend automatically
+files the source IP to the AbuseIPDB community threat-intelligence feed, and the
+app shows a live "Global Threat Intel" counter of that contribution. Judges can
+switch between English and Korean and use deterministic demo scenes when live
+event volume is low. The public viewer contains no write controls.
 
 ## How We Built It
 
-The viewer uses a small Python backend and a self-contained browser frontend.
-Codex and GPT-5.6 assisted with code analysis, bilingual UI implementation,
-privacy hardening, deterministic demos, verification, and submission
+The product uses a small Python backend and a self-contained browser frontend,
+built with Codex and GPT-5.6: the viewer modes and UI, the privacy redaction
+boundary, the automatic AbuseIPDB contribution pipeline (24h per-IP dedup, rate
+limiting, confirmed-event gate), deterministic demos, verification, and
 documentation. Human decisions set the product direction, visual language,
 privacy boundaries, and final acceptance criteria.
 
@@ -62,6 +67,9 @@ Source IPs are replaced with stable `bot-xxxxxxxx` aliases, login names become
 suspicious URLs or command-like strings are defanged. Credentials, private
 addresses, hostnames, raw event records, and operational deployment details are
 not included in the public submission.
+The AbuseIPDB reporter is backend-only and never triggered by the viewer. It
+sends only the attacker IP and standard category codes, is gated to confirmed
+high-confidence events, and deduplicates each IP for 24 hours.
 
 ## Challenges
 
@@ -77,6 +85,8 @@ traffic.
 - Privacy filtering at the backend response boundary.
 - Repeatable visual demos for consistent judging.
 - A privacy-safe GPT-5.6 collaboration record.
+- An automatic community threat-intel contribution: confirmed attackers filed to
+  AbuseIPDB, turning a personal defense into shared internet protection.
 
 ## What We Learned
 
@@ -86,8 +96,9 @@ to evaluate fairly.
 
 ## What's Next
 
-Add configurable event adapters, accessibility improvements, and offline replay
-packages that preserve the same public redaction contract.
+Add configurable event adapters, richer contribution analytics (per-category and
+per-region breakdowns), accessibility improvements, and offline replay packages
+that preserve the same public redaction contract.
 
 ## Links To Add Before Submission
 
@@ -131,9 +142,12 @@ packages that preserve the same public redaction contract.
   activity routes.
 - **0:54-1:24 — Privacy boundary and NORAD:** explain backend aliasing,
   generalization, and defanging, then show the same safe stream in NORAD view.
-- **1:24-1:38 — Build Week work:** distinguish the pre-existing viewer from the
-  Codex/GPT-5.6 privacy, bilingual, deterministic-demo, QA, and documentation work.
-- **1:38-2:39 — Real game scenes:** demonstrate repeatable skirmish, SRW-style
-  battle, and first-person modes inside the same read-only application.
+- **1:24-1:36 — Build Week work:** built with Codex/GPT-5.6 — privacy, bilingual,
+  deterministic-demo, QA, and documentation work, plus a note on the earlier prototype.
+- **1:36-1:52 — Real game scenes:** repeatable skirmish inside the read-only app.
+- **1:52-2:08 — Real-world impact:** confirmed attackers auto-filed to the AbuseIPDB
+  community feed; show the in-app "Global Threat Intel" counter — defending one
+  server helps the whole internet.
+- **2:08-2:38 — More game scenes:** SRW-style battle and first-person modes.
 - **2:39-2:47 — Verified result:** state the documented metrics and six-mode QA.
 - **2:47-2:55 — Close:** show the live demo and public repository URLs.

@@ -19,7 +19,7 @@ Use a cinematic seven-slide presentation to establish the incident, product
 concept, privacy architecture, Build Week contribution, game composition, verified
 result, and call to action. Intercut those slides with real 1080p browser captures
 of the working map, NORAD, skirmish, SRW, and FPS views. The application remains
-the primary visual evidence rather than serving as a repeated dashboard backdrop.
+the primary visual evidence rather than serving as a repeated backdrop.
 
 Use a ten-second Higgsfield cyber-defense cold open built from a privacy-safe
 project frame. It must show a hacker attacking a protected server and the Guardian
@@ -33,7 +33,7 @@ application or restrained editorial transitions.
 - The origin story gives judges a concrete problem and audience.
 - Architecture slides make the privacy boundary legible without exposing logs.
 - Real browser capture proves that the public product is accessible and functional.
-- Alternating presentation and product footage avoids a dashboard-only edit.
+- Alternating presentation and product footage avoids a static screen-recording edit.
 - A single generated establishing shot can add atmosphere without weakening proof.
 
 ## Available Local Environment
@@ -80,12 +80,12 @@ The tooling uses the installed system Chromium rather than downloading another b
 | 0:34-0:54 | Live strategic map | Show the working public product and aggregate event routes. |
 | 0:54-1:08 | Privacy pipeline slide | Explain server-side aliasing, generalization, and defanging. |
 | 1:08-1:24 | Live NORAD view | Show the same filtered stream as an operations-room display. |
-| 1:24-1:38 | Build Week development slide | Distinguish prior work from Codex/GPT-5.6 additions and human decisions. |
-| 1:38-1:56 | Live deterministic skirmish | Demonstrate a repeatable judge scene when traffic is quiet. |
-| 1:56-2:05 | Game composition slide | Establish the supported scanning and play workflows. |
-| 2:05-2:22 | Live SRW-style battle | Show a cinematic interpretation driven by filtered signals. |
-| 2:22-2:39 | Live FPS scene | Show the same product from a first-person viewpoint. |
-| 2:39-2:47 | Verified result slide | State current metrics and six-mode QA evidence. |
+| 1:24-1:36 | Build Week development slide | Built with Codex/GPT-5.6; a note on the earlier prototype and human decisions. |
+| 1:36-1:52 | Live deterministic skirmish | Demonstrate a repeatable judge scene when traffic is quiet. |
+| 1:52-2:08 | Real-world impact slide + live counter | Confirmed attackers are auto-filed to AbuseIPDB; show the in-app "Global Threat Intel" counter — defending one server helps the whole internet. |
+| 2:08-2:22 | Live SRW-style battle | Show a cinematic interpretation driven by filtered signals. |
+| 2:22-2:38 | Live FPS scene | Show the same product from a first-person viewpoint. |
+| 2:38-2:47 | Verified result slide | State current metrics, community contribution, and six-mode QA evidence. |
 | 2:47-2:55 | Final URL card | Close with the live demo and public repository. |
 
 ## Narration And Sound
@@ -93,8 +93,9 @@ The tooling uses the installed system Chromium rather than downloading another b
 Use ElevenLabs English narration with a calm, credible documentary delivery.
 Generate one short voice sample first and reject it if it sounds compressed,
 robotic, clipped, or excessively dramatic. The final 330-370 word script must
-cover the real incident, defense-to-game concept, privacy boundary, Build Week
-work, product modes, verification, and call to action.
+cover the real incident, defense-to-game concept, privacy boundary, the Codex/GPT-5.6
+build, the AbuseIPDB community contribution (defending one server helps the wider
+internet), product modes, verification, and call to action.
 
 The ElevenLabs audio must remain clearly intelligible after encoding. Keep the
 original synthesized underscore at least 15 dB below narration, with sparse
@@ -231,17 +232,21 @@ Server Guardian Warboard - OpenAI Build Week Demo
 
 ### Description
 
-Server Guardian Warboard is a read-only, privacy-preserving viewer that turns
-redacted honeypot-style security events into RPG, map, NORAD, and battle views.
+Server Guardian Warboard is a read-only, privacy-preserving command view, built
+with Codex and GPT-5.6, that turns redacted honeypot-style security events into
+RPG, map, NORAD, and battle scenes. Confirmed attackers are automatically filed
+to the AbuseIPDB community threat-intelligence feed, so defending one small
+server helps the wider internet.
 
 Demo: https://plzhacknono.duckdns.org/
 
 Source: https://github.com/yazzang-homelab/server-guardian-warboard
 
-Built with Codex and GPT-5.6 for OpenAI Build Week. Codex and GPT-5.6 assisted
-with implementation, privacy hardening, bilingual UI work, deterministic demo
-scenes, testing, and submission documentation. Product, safety, privacy, and
-design decisions were made by the human entrant.
+Built with Codex and GPT-5.6 for OpenAI Build Week. Codex and GPT-5.6 built the
+product: viewer modes and UI, the AbuseIPDB community threat-intel contribution
+pipeline, privacy hardening, bilingual UI work, deterministic demo scenes,
+testing, and submission documentation. Product, safety, privacy, and design
+decisions were made by the human entrant.
 
 This video may include a short AI-assisted stylized title sequence. The product
 demonstration itself is captured from the live public application.

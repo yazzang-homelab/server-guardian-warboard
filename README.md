@@ -6,7 +6,7 @@ Submission guide: https://plzhacknono.duckdns.org/submission-guide.html?v=202607
 
 Source repository: https://github.com/yazzang-homelab/server-guardian-warboard
 
-Server Guardian Warboard is a read-only hackathon viewer for honeypot-style security events. It converts event counts, country aggregates, defanged payload hints, and IOC summaries into RPG/NORAD-style scenes without exposing private infrastructure details.
+Server Guardian Warboard is a read-only, privacy-preserving command view for honeypot-style security events. Built with Codex and GPT-5.6, it turns event counts, country aggregates, defanged payload hints, and IOC summaries into RPG/NORAD-style defense scenes — and files high-confidence attackers to a community threat-intelligence feed — without exposing private infrastructure details.
 
 ## OpenAI Build Week
 
@@ -15,18 +15,18 @@ Server Guardian Warboard is a read-only hackathon viewer for honeypot-style secu
 - Judge-facing URL: https://plzhacknono.duckdns.org/
 - No account, payment, private hardware, or write access is required.
 
-The original viewer existed before the submission period. For OpenAI Build Week, the project was meaningfully extended with new viewer modes, deterministic demo scenes, privacy-preserving public output, bilingual UI, and this judge-facing documentation.
+For OpenAI Build Week, the judge-facing product was built with Codex and GPT-5.6: new viewer modes, deterministic demo scenes, privacy-preserving public output, bilingual UI, the automatic community threat-intel contribution pipeline, and this documentation. An earlier private prototype of the honeypot capture and RPG engine predates the Submission Period; the table below separates that groundwork from the Build Week work judges should evaluate, as the rules require.
 
 ## Prior Work vs. Build Week Work
 
-This project is a pre-existing viewer that was meaningfully extended during the
+The judge-facing product was built with Codex and GPT-5.6 during the
 OpenAI Build Week Submission Period (July 13-21, 2026, PT). Judges should
 evaluate the Build Week work listed below.
 
 | Period | Work | Evidence |
 | --- | --- | --- |
-| Before the Submission Period (July 10-13, 2026 KST) | Honeypot event dashboard core, RPG village/battle engine, sprite atlas pipeline, map and NORAD views, audio, FPS mode, visual effects | Pre-existing deployment; summarized in commit `dad3ced` |
-| Submission Period (from July 14, 2026 KST) | Bilingual English/Korean UI with full English coverage of all judge-facing text (nameplates, dialogue, ticker, panels), backend privacy redaction boundary (`bot-xxxxxxxx` aliases, `login-xxxxxx`, `Protected Sandbox`, defanged strings), deterministic demo scenes documentation, submission guide page, licensing and notices, this public repository, and the demo video | Dated commit history of this repository (all commits 2026-07-15 or later); privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
+| Before the Submission Period (July 10-13, 2026 KST) | Earlier private prototype: honeypot capture, RPG village/battle engine, sprite atlas pipeline, map and NORAD views, audio, FPS mode, visual effects | Pre-existing deployment; summarized in commit `dad3ced` |
+| Submission Period (from July 14, 2026 KST) | Built with Codex + GPT-5.6: bilingual English/Korean UI with full English coverage of all judge-facing text (nameplates, dialogue, ticker, panels), backend privacy redaction boundary (`bot-xxxxxxxx` aliases, `login-xxxxxx`, `Protected Sandbox`, defanged strings), the automatic AbuseIPDB community threat-intel contribution pipeline with the in-app "Global Threat Intel" counter, deterministic demo scenes, submission guide page, licensing and notices, this public repository, and the demo video | Dated commit history of this repository; privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
 
 All Build Week work was performed with Codex and GPT-5.6.
 
@@ -70,6 +70,8 @@ silhouette build, so `app/index.html` remains the judge-facing artifact.
 - Host identity and location are generalized as `Protected Sandbox`.
 - Suspicious URLs and commands are displayed only in defanged form.
 - The public viewer is read-only and has no write actions.
+- Reporting is backend-only, gated to confirmed high-confidence events, deduplicated per IP for 24h, and rate-limited; the public viewer never triggers a report.
+- Only the attacker IP and standard AbuseIPDB category codes are sent — never victim, host, or account details.
 - Attacker-controlled strings are rendered as text or canvas text, not injected HTML.
 - Operational deployment details are intentionally omitted from public documentation.
 
@@ -80,16 +82,22 @@ silhouette build, so `app/index.html` remains the judge-facing artifact.
 - Defanged payload and IOC summaries.
 - RPG, map, NORAD, battle, and FPS-style visual interpretations.
 - Repeatable demo scenes for judges when live event volume is low.
+- A "Global Threat Intel" counter: how many confirmed attackers this defense has filed to the AbuseIPDB community feed (reports, unique IPs, average confidence).
+
+## Community Impact (Apps for Your Life)
+
+Defending one personal server is a hobby, but the attackers hitting it also hit everyone else. When a honeypot event is confirmed high-confidence, the backend files the source IP to the [AbuseIPDB](https://www.abuseipdb.com/) community threat-intelligence feed. Firewalls, hosting providers, and other defenders worldwide consume that feed, so a small home server quietly contributes to global takedown signal. The claim stays verifiable and modest: the app reports the number of contributions filed, not "the internet is now safe."
 
 ## Codex and GPT-5.6 Collaboration
 
 Codex and GPT-5.6 were used to:
 
-- convert the project into a more complete product experience for judging;
+- build the judge-facing product (viewer modes, UI, and rendering);
+- implement the automatic AbuseIPDB community threat-intel contribution pipeline and in-app counter;
 - add repeatable demo modes and deterministic build checks;
 - harden the public display layer by redacting IPs and defanging risky strings;
 - add bilingual English/Korean UI controls;
-- prepare the Devpost-facing README and testing instructions.
+- prepare the Devpost-facing documentation and testing instructions.
 
 Human decisions covered the product direction, privacy posture, visual style, safety boundaries, and final submission framing.
 

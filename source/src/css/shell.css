@@ -87,6 +87,22 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:10px;min-height:
   color:#5a6478;filter:grayscale(1)}
 .skill.got{color:var(--gold);border-color:var(--gold);filter:none}
 #costume{color:var(--sub);font-size:11px}
+/* 글로벌 위협 인텔 기여 패널 + 처치 뱃지 */
+#intel{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+#intel .icell{border:1px solid var(--bd2);border-radius:3px;padding:3px 5px;text-align:center;
+  background:rgba(95,208,127,.05)}
+#intel .icell b{display:block;color:#5fd07f;font-size:13px}
+#intel .icell span{color:var(--sub);font-size:10px}
+#intel .iline{grid-column:1/-1;color:var(--sub);font-size:10px;margin-top:2px;text-align:center}
+#intel .iline b{color:var(--gold)}
+#intelBadge{position:absolute;left:50%;top:14px;transform:translateX(-50%);
+  background:rgba(6,20,14,.92);border:1px solid #5fd07f;border-radius:4px;
+  color:#c9ffe0;font-size:11px;padding:5px 12px;letter-spacing:.5px;z-index:6;
+  box-shadow:0 0 18px rgba(95,208,127,.4);white-space:nowrap;
+  animation:intelpop 2.6s ease forwards}
+#intelBadge b{color:#5fd07f}
+@keyframes intelpop{0%{opacity:0;transform:translate(-50%,-8px)}12%{opacity:1;transform:translateX(-50%)}
+  82%{opacity:1}100%{opacity:0}}
 
 #dex{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
 .dexcell{border:1px solid var(--bd2);border-radius:3px;padding:2px;text-align:center;

@@ -66,18 +66,18 @@ fonts:
 <div class="corner">BUILD WEEK · JULY 2026</div>
 <div class="kicker">Development pipeline</div>
 <div class="rule"></div>
-<h1 class="display">A pre-existing viewer, <span class="green">meaningfully extended</span> with Codex + GPT-5.6.</h1>
+<h1 class="display">Built with <span class="green">Codex + GPT-5.6</span> — from raw logs to a real product.</h1>
 <div class="build-grid">
   <div class="timeline">
-    <div class="timeline-step">Existing RPG / map / battle core</div>
-    <div class="timeline-step">Codex analysis & product framing</div>
-    <div class="timeline-step">Privacy boundary hardening</div>
+    <div class="timeline-step">Codex builds the judge-facing product</div>
+    <div class="timeline-step">Privacy redaction boundary</div>
+    <div class="timeline-step">AbuseIPDB threat-intel contribution</div>
     <div class="timeline-step">Full EN / KO judge surface</div>
     <div class="timeline-step">Deterministic demo modes</div>
     <div class="timeline-step">Six-mode automated QA</div>
   </div>
   <div class="diff-box">
-    <div class="diff-row"><b>Codex + GPT-5.6</b><span>Implementation, redaction review, bilingual coverage, deterministic checks, documentation</span></div>
+    <div class="diff-row"><b>Codex + GPT-5.6</b><span>Product build, contribution pipeline, redaction, bilingual coverage, deterministic checks, docs</span></div>
     <div class="diff-row"><b>Human</b><span>Product direction, privacy boundaries, visual language, safety decisions, final acceptance</span></div>
     <div class="diff-row"><b>Evidence</b><span>Dated commits · usage record · public repo · repeatable build · live demo</span></div>
     <div class="diff-row"><b>Gate</b><span class="green">6 / 6 modes passed · deterministic build</span></div>
@@ -101,6 +101,22 @@ fonts:
 
 ---
 
+<div class="corner">APPS FOR YOUR LIFE · REAL-WORLD IMPACT</div>
+<div class="kicker">Beyond one server</div>
+<div class="rule"></div>
+<h1 class="display">Defending my server <span class="green">helps the whole internet.</span></h1>
+<div class="pipeline">
+  <div class="pipe-card"><div class="eyebrow">Confirmed attack</div><h3>High-confidence event</h3><ul><li>Payload or brute-force</li><li>Gated & de-duplicated</li></ul></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-card privacy"><div class="eyebrow">Backend only</div><h3>Auto-file to AbuseIPDB</h3><ul><li>IP + category codes only</li><li>No victim / host data</li><li>24h per-IP dedup</li></ul></div>
+  <div class="pipe-arrow">→</div>
+  <div class="pipe-card"><div class="eyebrow">Community</div><h3>Global threat intel</h3><ul><li>Firewalls & hosts consume it</li><li>Shared takedown signal</li></ul></div>
+</div>
+<div class="privacy-note"><b>A hobby defense becomes shared protection</b> — the app files reports, and shows exactly how many.</div>
+<div class="footer"><span>ONE SMALL SERVER · GLOBAL CONTRIBUTION</span><span>06 / IMPACT</span></div>
+
+---
+
 <div class="corner">VERIFIED RESULT</div>
 <div class="kicker">What shipped</div>
 <div class="rule"></div>
@@ -116,7 +132,7 @@ fonts:
   <div class="result-pill">READ-ONLY PUBLIC DEMO</div>
   <div class="result-pill">6 / 6 QA MODES PASSED</div>
 </div>
-<div class="footer"><span>LIVE · PUBLIC · PRIVACY-FILTERED</span><span>06 / RESULT</span></div>
+<div class="footer"><span>LIVE · PUBLIC · PRIVACY-FILTERED</span><span>07 / RESULT</span></div>
 
 ---
 
@@ -133,4 +149,4 @@ fonts:
     <p class="lede" style="margin:34px auto 0;font-size:19px">Built with Codex + GPT-5.6 for OpenAI Build Week</p>
   </div>
 </div>
-<div class="footer"><span>TRY THE LIVE DEMO</span><span>07 / CLOSE</span></div>
+<div class="footer"><span>TRY THE LIVE DEMO</span><span>08 / CLOSE</span></div>
