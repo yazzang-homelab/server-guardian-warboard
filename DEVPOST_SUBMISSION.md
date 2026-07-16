@@ -103,7 +103,7 @@ that preserve the same public redaction contract.
 ## Links To Add Before Submission
 
 - Public source repository: https://github.com/yazzang-homelab/server-guardian-warboard
-- Public 3-minute YouTube demo: https://youtu.be/J-gfPQeM5WA
+- Public 3-minute YouTube demo: **pending v4 upload** (supersedes previous v2: https://youtu.be/J-gfPQeM5WA)
 - GPT-5.6 usage record: `docs/GPT-5.6-USAGE.md`
 
 ## Final Checklist
@@ -118,17 +118,16 @@ that preserve the same public redaction contract.
 - [x] Privacy-safe GPT-5.6 usage record is included.
 - [x] Repository licensing resolved (MIT + THIRD_PARTY_NOTICES.md).
 - [x] Publish a shareable source repository and insert its URL above.
-- [x] Produce the cinematic v2 review master (`video/out/v2/final.mp4`: 2:55,
-      1080p30 H.264/AAC, ten-second Higgsfield cyber-defense opening with generated
-      effects, English ElevenLabs narration, burned English subtitles, real product
-      footage) and the YouTube package. The user accepted this cut at 65/100 and
-      explicitly requested no further editing investment.
+- [x] Produce and approve the v4 review master (`video/out/v2/final.mp4`: 2:55,
+      1080p30 H.264/AAC, full-frame object-animated presentation, English
+      ElevenLabs narration, 47 burned English subtitle cues, live 200/200/98%
+      AbuseIPDB contribution proof, real product footage). SHA256:
+      `1bbfc173ac4d6f475e6e4f43bf410819937914449756373ea0b3b6448082069c`.
 - [x] Produce and verify the `SERVER GUARDIAN` 4K/HD custom thumbnail, mobile proof,
       grayscale hierarchy proof, and alignment overlay.
-- [x] Commit and push the reviewed v2.8 application, video tooling, thumbnail tooling,
-      licensing update, and submission documentation to the public repository. (1541c26)
-- [x] Upload the video to YouTube (public) and insert its URL above.
-      (https://youtu.be/J-gfPQeM5WA)
+- [x] Commit and push the v4 application, automatic-reporting feature, motion
+      capture/render tooling, and submission documentation. (`432323d`)
+- [ ] Upload v4 video to YouTube as Public and replace the pending URL above. (user)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
 - [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)
 
