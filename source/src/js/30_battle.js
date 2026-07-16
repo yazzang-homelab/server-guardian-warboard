@@ -497,38 +497,67 @@ function say(st) { B.say = { who: st.who, name: st.name || '', text: String(st.t
 const DRAW = { skirmish: drawSkirmish, dq: drawDQ, srw: drawSRW };
 
 function drawBattleBG(kind) {
-  const c = G.ctx, sky = G.skyAt(G.kstHour()), gY = G.H - 54;   // 지면선 — 4:3(360)에서 306
+  const c = G.ctx, sky = G.skyAt(G.kstHour()), gY = G.H - 54, seed = B.bgSeed >>> 0;
   const gr = c.createLinearGradient(0, 0, 0, G.H);
-  gr.addColorStop(0, sky.top); gr.addColorStop(0.55, sky.mid); gr.addColorStop(1, sky.low);
+  gr.addColorStop(0, sky.top); gr.addColorStop(0.48, sky.mid); gr.addColorStop(0.72, sky.low); gr.addColorStop(1, '#111a16');
   c.fillStyle = gr; c.fillRect(0, 0, G.W, G.H);
-  if (sky.stars > 0.05) { const r = G.rng(7); c.fillStyle = `rgba(230,238,255,${0.7 * sky.stars})`;
-    for (let i = 0; i < 40; i++) c.fillRect(Math.floor(r() * G.W), Math.floor(r() * (G.H - 150)), 1, 1); }
-  // parallax 실루엣 스트립(아틀라스) 또는 스탠드인 언덕
+  // 수평 안개와 달빛은 뒤쪽 레이어에만 두어 배우와 HUD의 대비를 남긴다.
+  c.fillStyle = 'rgba(174,220,210,.08)'; c.fillRect(0, gY - 92, G.W, 2);
+  c.fillStyle = 'rgba(5,10,20,.12)'; c.fillRect(0, gY - 48, G.W, 20);
+  if (sky.stars > 0.05) {
+    const r = G.rng(7); c.fillStyle = `rgba(230,238,255,${0.75 * sky.stars})`;
+    for (let i = 0; i < 40; i++) c.fillRect(Math.floor(r() * G.W), Math.floor(r() * (G.H - 150)), 1, 1);
+    const mx = 54 + seed % 110, my = 42 + (seed >>> 7) % 34;
+    c.fillStyle = `rgba(210,238,230,${0.18 + sky.stars * 0.28})`; c.fillRect(mx - 4, my - 4, 8, 8);
+    c.fillStyle = `rgba(235,250,235,${0.22 + sky.stars * 0.35})`; c.fillRect(mx - 2, my - 2, 4, 4);
+  }
+  // 아틀라스 풍경은 그대로 반복하고, 부재 시에도 고정 시드 능선으로 세 층 깊이를 유지한다.
   for (let L = 0; L < 3; L++) {
     const spr = G.spr(`bg_${kind}_${L}`);
     const yBase = gY - 66 + L * 24;
-    if (spr) { const [t, sx, sy, w, h] = spr;
-      const start = -((B.bgSeed >> (L * 3)) % w), dy = yBase - h + 60;
+    if (spr) {
+      const [t, sx, sy, w, h] = spr;
+      const start = -((seed >> (L * 3)) % w), dy = yBase - h + 60;
       for (let x = start, i = 0; x < G.W; x += w - 1, i++) {
         const dx = Math.round(x);
-        if (kind === 'srw' && (i & 1)) {                    // 비루프 스트립: 미러 반복+1px 겹침으로 수직 심 제거
+        if (kind === 'srw' && (i & 1)) {
           c.save(); c.translate(dx + w + 1, 0); c.scale(-1, 1);
           c.drawImage(G.tex[t], sx, sy, w, h, 0, dy, w + 1, h); c.restore();
         } else c.drawImage(G.tex[t], sx, sy, w, h, dx, dy, w + 1, h);
       }
-    } else { c.fillStyle = ['#1a2438', '#141c2c', '#0e1420'][L];
-      const r = G.rng(B.bgSeed + L); c.beginPath(); c.moveTo(0, G.H);
-      for (let x = 0; x <= G.W; x += 40) c.lineTo(x, yBase - r() * 34); c.lineTo(G.W, G.H); c.fill(); }
+    } else {
+      c.fillStyle = ['#24364a', '#18283a', '#101c2b'][L];
+      const r = G.rng(seed + L); c.beginPath(); c.moveTo(0, G.H);
+      for (let x = 0; x <= G.W; x += 40) c.lineTo(x, yBase - r() * 34);
+      c.lineTo(G.W, G.H); c.fill();
+    }
   }
-  c.fillStyle = '#141c14'; c.fillRect(0, gY, G.W, G.H - gY);
-  c.fillStyle = '#0c120c'; c.fillRect(0, gY, G.W, 2);
-  const rg = G.rng(B.bgSeed ^ 0x51);                   // 지면 풀숲 텍스처
-  c.fillStyle = '#1d2a1a';
-  for (let i = 0; i < 46; i++) { const gx = Math.floor(rg() * G.W), gy = gY + 3 + Math.floor(rg() * 46);
-    c.fillRect(gx, gy, 2, 1); if (rg() > 0.6) c.fillRect(gx + 1, gy - 1, 1, 1); }
+  c.fillStyle = 'rgba(110,190,160,.08)'; c.fillRect(0, gY - 10, G.W, 10);
+  c.fillStyle = '#14221a'; c.fillRect(0, gY, G.W, G.H - gY);
+  c.fillStyle = '#07100c'; c.fillRect(0, gY, G.W, 2);
+  c.fillStyle = '#2d4930'; c.fillRect(0, gY + 2, G.W, 1);
+  const rg = G.rng(seed ^ 0x51);
+  c.fillStyle = '#243b25';
+  for (let i = 0; i < 58; i++) {
+    const gx = Math.floor(rg() * G.W), gy = gY + 3 + Math.floor(rg() * 46);
+    c.fillRect(gx, gy, 2, 1);
+    if (rg() > 0.55) c.fillRect(gx + 1, gy - 2, 1, 2);
+    if (rg() > 0.82) { c.fillStyle = '#5c7145'; c.fillRect(gx - 1, gy + 3, 2, 1); c.fillStyle = '#243b25'; }
+  }
 }
 
+function drawActorFloor(a, target) {
+  const c = G.ctx, b = actorBox(a), rx = Math.max(10, Math.round(b.w * 0.38)), ry = Math.max(3, Math.round(rx * 0.28));
+  c.fillStyle = 'rgba(3,7,12,.56)'; c.beginPath(); c.ellipse(a.x, b.b + 2, rx, ry, 0, 0, 7); c.fill();
+  if (target) {
+    c.strokeStyle = target === 'foe' ? 'rgba(255,127,106,.78)' : 'rgba(95,208,127,.64)';
+    c.beginPath(); c.ellipse(a.x, b.b + 1, Math.max(8, rx - 3), Math.max(2, ry - 1), 0, 0, 7); c.stroke();
+  }
+}
 function drawActors() {
+  for (const k of ['foe2', 'foe', 'merc', 'hero']) {
+    const a = B.actors[k]; if (a) drawActorFloor(a, !a.dead && (k === 'foe' ? 'foe' : k === 'hero' ? 'hero' : ''));
+  }
   for (const k of ['foe2', 'foe', 'merc', 'hero']) {
     const a = B.actors[k]; if (!a) continue;
     const blink = a.hurtT > 0 && Math.floor(a.hurtT * 30) % 2;   // 피격 점멸 = 감쇠(완전 비가시 금지)
@@ -537,49 +566,60 @@ function drawActors() {
   drawFxs();
 }
 function drawFxs() {
-  for (const f of B.fxs) f.anim.draw(f.x, f.y, { scale: f.scale, flip: f.flip });
+  const c = G.ctx;
+  for (const f of B.fxs) {
+    c.fillStyle = 'rgba(174,232,255,.10)'; c.beginPath(); c.ellipse(f.x, f.y + 2, 8 * f.scale, 4 * f.scale, 0, 0, 7); c.fill();
+    f.anim.draw(f.x, f.y, { scale: f.scale, flip: f.flip });
+  }
   G.drawParts(1);                                        // spawnFx 파편 파티클 — 전투 씬 공통 draw (v2.3 결함 수정)
 }
 
 function drawHUD() {
-  // HP 바 (각본 수치)
-  G.win(8, 8, 150, 30); G.text('수호자', 14, 12, { size: 9, color: '#cfe0ff' });
-  G.ctx.fillStyle = '#233'; G.ctx.fillRect(14, 24, 138, 7);
-  G.ctx.fillStyle = B.heroHP > 0.4 ? '#5fd07f' : '#ffd23b'; G.ctx.fillRect(14, 24, Math.round(138 * B.heroHP), 7);
-  G.win(G.W - 158, 8, 150, 30);
+  const c = G.ctx;
+  // HP 바와 식별자를 같은 고대비 창에 묶어 배경·연출 위에서도 즉시 읽힌다.
+  G.win(8, 8, 150, 43, { bg: 'rgba(6,13,18,.94)', border: '#5fd07f' });
+  G.text('수호자', 14, 12, { size: 9, color: '#cfe0ff', outline: '#000c' });
+  c.fillStyle = '#14231d'; c.fillRect(14, 24, 138, 8); c.fillStyle = '#07100c'; c.fillRect(15, 25, 136, 6);
+  c.fillStyle = B.heroHP > 0.4 ? '#5fd07f' : '#ffd23b'; c.fillRect(15, 25, Math.round(136 * B.heroHP), 6);
+  c.fillStyle = 'rgba(255,255,255,.28)'; c.fillRect(15, 25, Math.round(136 * B.heroHP), 1);
+  G.win(G.W - 158, 8, 150, 43, { bg: 'rgba(22,8,14,.94)', border: '#ff7f6a' });
   const extraN = B.mode === 'dq' && B.wave && B.wave.foes.length > 1
     ? ` 외 ${Math.min(2, B.wave.foes.length - 1)}` : '';
-  G.text(G.trunc(B.foe.name, 14) + extraN, G.W - 152, 12, { size: 9, color: '#ffd6c8' });
-  G.ctx.fillStyle = '#233'; G.ctx.fillRect(G.W - 152, 24, 138, 7);
-  G.ctx.fillStyle = '#ff7f6a'; G.ctx.fillRect(G.W - 152, 24, Math.round(138 * B.foeHP), 7);
-  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 152, 40, { size: 9, color: '#8fa3bd', outline: '#0008' });
+  G.text(G.trunc(B.foe.name, 14) + extraN, G.W - 152, 12, { size: 9, color: '#ffd6c8', outline: '#000c' });
+  c.fillStyle = '#2a1620'; c.fillRect(G.W - 152, 24, 138, 8); c.fillStyle = '#13070c'; c.fillRect(G.W - 151, 25, 136, 6);
+  c.fillStyle = '#ff7f6a'; c.fillRect(G.W - 151, 25, Math.round(136 * B.foeHP), 6);
+  c.fillStyle = 'rgba(255,240,220,.28)'; c.fillRect(G.W - 151, 25, Math.round(136 * B.foeHP), 1);
+  G.text(`${G.flagCC(B.foe.cc)} ${G.actorAlias(B.foe.ip)}`, G.W - 152, 40, { size: 9, color: '#c6d6e8', outline: '#000c' });
   drawBattleOverlay();
 }
 
 /* 팝업/투사체/대사/컷인/리절트 — 모드 공통 오버레이 (fps 는 자체 HUD + 이것만 사용) */
 function drawBattleOverlay() {
   if (B.wave && B.wave.replay)
-    G.text('~ 지난 침입 재연 ~', G.W / 2, 8, { size: 9, color: '#8fa3bd', align: 'center', outline: '#0008' });
+    G.text('~ 지난 침입 재연 ~', G.W / 2, 8, { size: 9, color: '#c6d6e8', align: 'center', outline: '#000c' });
   // 팝업
   for (const p of B.popups) {
     if (p.ghost) { if (p.t >= 0) p.ghost.anim.draw(p.x, p.y + 26, { alpha: 0.25, flip: p.ghost.flip }); continue; }
     const y = p.y - p.t * 26;
     G.text(p.txt, p.x, y, { size: p.txt.length > 3 ? 9 : 18, color: p.c, align: 'center', outline: '#000c' });
   }
-  // 투사체
+  // 투사체는 1px 잔상으로 방향을 읽히게 하고 스프라이트가 있으면 그대로 우선한다.
   for (const p of B.projectiles) {
     const k = Math.min(1, p.t / p.ms), x = p.x0 + (p.x1 - p.x0) * k, y = p.y0 + (p.y1 - p.y0) * k - Math.sin(k * Math.PI) * 24;
+    const tx = p.x0 + (p.x1 - p.x0) * Math.max(0, k - 0.06), ty = p.y0 + (p.y1 - p.y0) * Math.max(0, k - 0.06) - Math.sin(Math.max(0, k - 0.06) * Math.PI) * 24;
+    G.ctx.strokeStyle = 'rgba(255,224,127,.45)'; G.ctx.beginPath(); G.ctx.moveTo(tx, ty); G.ctx.lineTo(x, y); G.ctx.stroke();
     if (G.spr(p.spr)) G.drawSpr(p.spr, x, y, {});
     else { G.ctx.fillStyle = '#ffe07f'; G.ctx.fillRect(Math.round(x), Math.round(y), 3, 3); }
   }
   // 대사 윈도우 (fps 는 하단 HUD 밴드 위로 상향)
   if (B.say) {
     const w = 300, x = (G.W - w) / 2, isFoe = B.say.who === 'foe';
-    const sy = B.mode === 'fps' ? G.H - 94 : G.H - 58;
-    G.win(x, sy, w, 46);
-    G.text(B.say.name, x + 8, sy + 4, { size: 9, color: isFoe ? '#ff9f8a' : '#8ad0ff' });
+    const sy = B.mode === 'fps' ? G.H - 96 : G.H - 60, accent = isFoe ? '#ff7f6a' : '#7fd8ff';
+    G.win(x, sy, w, 48, { bg: 'rgba(5,10,22,.96)', border: accent });
+    G.ctx.fillStyle = accent; G.ctx.fillRect(x + 5, sy + 5, 2, 38);
+    G.text(B.say.name, x + 12, sy + 4, { size: 9, color: isFoe ? '#ffb0a0' : '#a8e5ff', outline: '#000c' });
     const shown = G.sceneText(B.say.text);
-    G.text(shown.slice(0, B.msgCh), x + 8, sy + 18, { size: 9, color: '#efe9da' });
+    G.text(shown.slice(0, B.msgCh), x + 12, sy + 19, { size: 9, color: '#efe9da', outline: '#000c' });
   }
   // 컷인 (슈로대풍 배너 밴드 — 필드 위 무배경 확대 금지, 슬라이드 인/아웃)
   if (B.cutin) {
@@ -588,16 +628,16 @@ function drawBattleOverlay() {
     const tIn = Math.min(1, B.cutin.t / 0.22), kIn = 1 - (1 - tIn) ** 3;
     const kOut = B.cutin.out ? Math.min(1, (B.cutin.t - B.cutin.out) / 0.18) ** 2 : 0;
     if (a && kOut < 1) {
-      const y0 = Math.round(G.H / 2) - 73, bh = 106, dir = side ? 1 : -1;   // 세로 중앙 밴드 (270 시절 62 등가)
+      const y0 = Math.round(G.H / 2) - 73, bh = 106, dir = side ? 1 : -1;
       const off = Math.round(dir * ((1 - kIn) * 200 + kOut * 160));
       c.save(); c.globalAlpha = Math.min(1, tIn * 2.5) * (1 - kOut);
       const grd = c.createLinearGradient(0, y0, 0, y0 + bh);
-      grd.addColorStop(0, 'rgba(5,7,18,.96)'); grd.addColorStop(1, 'rgba(11,14,32,.96)');
+      grd.addColorStop(0, 'rgba(4,7,18,.98)'); grd.addColorStop(0.5, 'rgba(14,21,42,.96)'); grd.addColorStop(1, 'rgba(5,7,18,.98)');
       c.fillStyle = grd; c.fillRect(0, y0, G.W, bh);
       c.fillStyle = side ? '#ff9f8a' : '#8ad0ff';
       c.fillRect(0, y0, G.W, 2); c.fillRect(0, y0 + bh - 2, G.W, 2);
       c.beginPath(); c.rect(0, y0 + 2, G.W, bh - 4); c.clip();
-      c.strokeStyle = 'rgba(255,255,255,.10)';                    // 흐르는 스피드라인
+      c.strokeStyle = 'rgba(255,255,255,.10)';
       const sl = (B.cutin.t * 260) % 48;
       for (let x = -60 + sl; x < G.W + 60; x += 48) {
         c.beginPath(); c.moveTo(x + off, y0); c.lineTo(x - 26 + off, y0 + bh); c.stroke(); }
@@ -609,18 +649,18 @@ function drawBattleOverlay() {
         a.anim.draw(px, y0 + bh - 8, { flip, scale: Math.max(1.2, Math.min(2.5, 84 / Math.max(20, raw))) }); }
       // 명판
       const nx = (side ? 16 : G.W - 16) + off, al = side ? 'left' : 'right';
-      G.text(side ? '침입자' : '수호자', nx, y0 + 30, { size: 9, color: side ? '#ff9f8a' : '#8ad0ff', align: al });
+      G.text(side ? '침입자' : '수호자', nx, y0 + 30, { size: 9, color: side ? '#ff9f8a' : '#8ad0ff', align: al, outline: '#000c' });
       G.text(side ? B.foe.name : G.titleOf(G.lvlOf(Math.max((G.ST && G.ST.stats.total_events) || 0, G.SAVE.bestXp || 0))),
         nx, y0 + 44, { size: 18, color: '#efe9da', align: al, outline: '#000c' });
       c.restore();
     }
   }
   if (B.result === 'win') {
-    const wy = Math.round(G.H / 2) - 61;               // 세로 중앙 (270 시절 74 등가)
-    G.win(G.W / 2 - 80, wy, 160, 40);
+    const wy = Math.round(G.H / 2) - 61;
+    G.win(G.W / 2 - 80, wy, 160, 40, { bg: 'rgba(10,16,26,.96)', border: '#ffd23b' });
     G.text('침공 격퇴!', G.W / 2, wy + 8, { size: 18, color: '#ffd23b', align: 'center', outline: '#000' });
     G.text(B.wave && B.wave.replay ? '기록 재연 · 전과 미집계' : `+${B.foe.xp} XP`,
-      G.W / 2, wy + 26, { size: 9, color: '#cfe0ff', align: 'center' });
+      G.W / 2, wy + 26, { size: 9, color: '#cfe0ff', align: 'center', outline: '#000c' });
   }
 }
 
@@ -628,34 +668,39 @@ function drawSkirmish() {
   // 마을을 배경으로 하단 밴드 사이드뷰
   const v = G.sceneMap.village; v && v.drawBase && v.drawBase(0.45);
   const c = G.ctx, y0 = G.H - 100;
-  c.fillStyle = 'rgba(6,8,18,.82)'; c.fillRect(0, y0, G.W, 100);
-  c.fillStyle = '#141c14'; c.fillRect(0, G.H - 30, G.W, 30);
-  c.fillStyle = '#efe9da'; c.fillRect(0, y0, G.W, 1);
+  c.fillStyle = 'rgba(5,9,19,.87)'; c.fillRect(0, y0, G.W, 100);
+  c.fillStyle = '#0b160f'; c.fillRect(0, G.H - 30, G.W, 30);
+  c.fillStyle = '#31582d'; c.fillRect(0, G.H - 30, G.W, 1);
+  c.fillStyle = '#cfe0ff'; c.fillRect(0, y0, G.W, 1);
   drawActors(); drawHUD();
-  G.text('국지전', 10, y0 + 6, { size: 9, color: '#8fa3bd' });
+  G.text('국지전', 10, y0 + 6, { size: 9, color: '#c6d6e8', outline: '#000c' });
 }
 
 function drawDQ() {
-  const c = G.ctx, winB = G.H - 104;                   // 풍경 창 하단 (270 시절 166 등가)
+  const c = G.ctx, winB = G.H - 104;
   c.fillStyle = '#05060f'; c.fillRect(0, 0, G.W, G.H);
   // 지면 패턴 + 비네트
   const r = G.rng(B.bgSeed); c.fillStyle = '#10142a';
   for (let i = 0; i < 60; i++) c.fillRect(Math.floor(r() * G.W), G.H - 120 + Math.floor(r() * 90), 2, 1);
-  // 풍경 창(DQ 정석) — G.win 이중 보더 + 기존 배경 스트립 재사용(어둡게) — 자산/팔레트 비용 0 (v2.3)
-  G.win(40, 36, G.W - 80, winB - 36, { bg: '#0a0d1e' });
+  // 풍경 창은 이중 테두리와 얇은 빛선으로 분리해, 뒤 풍경과 전투 대상을 함께 읽게 한다.
+  G.win(40, 36, G.W - 80, winB - 36, { bg: '#0a0d1e', border: '#6a7280' });
+  c.fillStyle = '#7fd8ff'; c.fillRect(44, 40, G.W - 88, 1);
   c.save(); c.beginPath(); c.rect(43, 39, G.W - 86, winB - 42); c.clip();
-  c.translate(0, -36);                                 // 실루엣 3층이 창 하부에 들어오도록 상향
-  drawBattleBG(['forest', 'mount', 'ruins'][B.bgSeed % 3]);
+  c.translate(0, -36);
+  drawBattleBG(['forest', 'mount', 'ruins'][(B.bgSeed >>> 0) % 3]);
   c.restore();
   c.save(); c.beginPath(); c.rect(43, 39, G.W - 86, winB - 42); c.clip();
-  c.fillStyle = 'rgba(5,8,20,.45)'; c.fillRect(43, 39, G.W - 86, winB - 42);
-  c.fillStyle = '#232b4a'; c.fillRect(43, winB - 6, G.W - 86, 1);   // 지면 라인 — 부유감 제거
+  c.fillStyle = 'rgba(5,8,20,.31)'; c.fillRect(43, 39, G.W - 86, winB - 42);
+  c.fillStyle = '#385374'; c.fillRect(43, winB - 6, G.W - 86, 1);
   c.restore();
   // 발밑 타원(DQ 무대 바닥) — 사이드 몬스터 있으면 확대
   const wide = B.actors.foeL || B.actors.foeR;
   const erx = wide ? 96 : 72;
-  c.fillStyle = '#0d1124'; c.beginPath(); c.ellipse(G.W / 2, winB + 10, erx, 13, 0, 0, 7); c.fill();
-  c.strokeStyle = '#232b4a'; c.beginPath(); c.ellipse(G.W / 2, winB + 10, erx, 13, 0, 0, 7); c.stroke();
+  c.fillStyle = '#0a1220'; c.beginPath(); c.ellipse(G.W / 2, winB + 10, erx, 13, 0, 0, 7); c.fill();
+  c.strokeStyle = '#426078'; c.beginPath(); c.ellipse(G.W / 2, winB + 10, erx, 13, 0, 0, 7); c.stroke();
+  for (const k of ['foeL', 'foeR', 'foe', 'merc', 'hero']) {
+    const a = B.actors[k]; if (a) drawActorFloor(a, !a.dead && (k === 'foe' ? 'foe' : k === 'hero' ? 'hero' : ''));
+  }
   // 사이드 몬스터 (표시 전용, 페인터 순서 = 중앙보다 먼저) — 중앙 격파 시 도주(비표시)
   const foe = B.actors.foe;
   if (foe && !foe.dead) for (const k of ['foeL', 'foeR']) {
@@ -673,7 +718,6 @@ function drawDQ() {
   if (merc) merc.anim.draw(merc.x, merc.y, { flip: merc.flip });
   const hero = B.actors.hero;                          // 하단 좌측 아군석 — 영웅 실표시 (구 -999 비표시 폐지)
   if (hero) {
-    c.fillStyle = 'rgba(0,0,0,.35)'; c.beginPath(); c.ellipse(hero.x, hero.y + 2, 15, 5, 0, 0, 7); c.fill();
     const blink = hero.hurtT > 0 && Math.floor(hero.hurtT * 30) % 2;
     hero.anim.draw(hero.x, hero.y, { flip: hero.flip, alpha: blink ? 0.35 : 1 });
   }
@@ -682,6 +726,6 @@ function drawDQ() {
 }
 
 function drawSRW() {
-  drawBattleBG(['forest', 'mount', 'ruins'][B.bgSeed % 3]);
+  drawBattleBG(['forest', 'mount', 'ruins'][(B.bgSeed >>> 0) % 3]);
   drawActors(); drawHUD();
 }

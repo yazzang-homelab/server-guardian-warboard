@@ -157,6 +157,31 @@ body.crt #crtfx::after{content:'';position:absolute;inset:0;
   header h1{font-size:16px}
   #mood{margin-left:0}
 }
+/* 낮은 가로 화면: 844×390/915×412에서 조작부는 44px을 유지하고, 4:3 스테이지를 첫 화면에 고정한다. */
+@media (orientation:landscape) and (max-height:500px) and (max-width:960px){
+  body{font-size:11px;line-height:1.25}
+  #app{max-width:none;padding:4px 6px 10px;gap:4px}
+  header{height:44px;min-height:44px;padding:0 5px;gap:5px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden}
+  header>div:first-child{min-width:0;flex:1 1 auto}
+  header h1{font-size:13px;white-space:nowrap;letter-spacing:0}
+  header .sub,#xptxt,#clock,#heroChip>div{display:none}
+  #heroChip{flex:0 0 auto;min-height:34px;padding:3px 6px;gap:3px}
+  #heroChip b{font-size:13px}
+  #mood{flex:0 0 auto;margin-left:0;padding:3px 6px;white-space:nowrap}
+  header .btns{flex:0 0 auto;gap:4px;flex-wrap:nowrap}
+  header button{min-width:44px;min-height:44px;padding:4px 6px;font-size:11px;white-space:nowrap}
+  #ticker{height:20px;min-height:20px}
+  #taunt{min-height:18px;padding:2px 0;font-size:11px;line-height:14px}
+  main{grid-template-columns:auto minmax(0,1fr);gap:6px;height:calc(100svh - 76px);min-height:0}
+  #stageBox{height:100%;width:auto;min-width:0;min-height:0;aspect-ratio:4/3;align-self:start}
+  #stage{width:100%;height:100%;image-rendering:pixelated}
+  .side{height:100%;max-height:100%;gap:4px;overflow-y:auto}
+  .panel{padding:4px 6px}
+  .side .panel,.side .panel *,#feedPanel,#feedPanel *,#about,#about *,#submission,#submission *{font-size:11px}
+  .panel h3{margin-bottom:2px;padding-bottom:2px}
+  #feed{max-height:88px}
+  #feedPanel,#about,#submission{padding:5px 7px}
+}
 @media(prefers-reduced-motion:reduce){
   #taunt{animation:none}
   #mood[data-lv="1"],#mood[data-lv="2"]{animation:none}

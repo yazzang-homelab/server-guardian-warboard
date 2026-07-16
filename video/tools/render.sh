@@ -22,7 +22,7 @@ drawtext=fontfile=$FONT_R:text='OpenAI Build Week - Apps for Your Life - Codex +
 format=yuv420p" "${VOPT[@]}" out/seg/01_title.mp4
 
 # 2-8. Browser takes
-norm s02_dashboard.webm 3   22 02_dashboard.mp4
+norm s02_command_view.webm 3   22 02_command_view.mp4
 norm s03_redaction.webm 4   26 03_redaction.mp4
 norm s04_lang.webm      3   22 04_lang.mp4
 norm s05_modes.webm     4   30 05_modes.mp4
@@ -40,7 +40,7 @@ format=yuv420p" "${VOPT[@]}" out/seg/09_end.mp4
 
 # Concat
 : > out/seg/list.txt
-for f in 01_title 02_dashboard 03_redaction 04_lang 05_modes 06_skirmish 07_fps 08_github 09_end; do
+for f in 01_title 02_command_view 03_redaction 04_lang 05_modes 06_skirmish 07_fps 08_github 09_end; do
   echo "file '$f.mp4'" >> out/seg/list.txt
 done
 ffmpeg -y -v error -f concat -safe 0 -i out/seg/list.txt -c copy out/seg/master_silent.mp4

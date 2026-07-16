@@ -30,8 +30,8 @@ SEGMENTS = [
     (8.5, 22, [
         ("Raw security logs are hard to scan, and risky to share.",
          "Raw security logs are hard to scan, and risky to share."),
-        ("Server Guardian Warboard is a read only viewer that turns honeypot style events from a live decoy server into an explainable game dashboard.",
-         "Server Guardian Warboard is a read-only viewer that turns\nhoneypot-style events from a live decoy server\ninto an explainable game dashboard."),
+        ("Server Guardian Warboard is a read only viewer that turns honeypot style events from a live decoy server into an explainable command view.",
+         "Server Guardian Warboard is a read-only viewer that turns\nhoneypot-style events from a live decoy server\ninto an explainable command view."),
         ("This is the public judging surface. No account, and no write actions.",
          "This is the public judging surface.\nNo account, and no write actions."),
     ]),

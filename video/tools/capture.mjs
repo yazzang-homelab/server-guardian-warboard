@@ -54,8 +54,8 @@ const waitBoot = async page => {
   await page.waitForTimeout(1500);
 };
 
-// S2 dashboard overview
-await scene('s02_dashboard', async page => {
+// S2 command-view overview
+await scene('s02_command_view', async page => {
   await page.goto(DEMO, { waitUntil: 'domcontentloaded' });
   await waitBoot(page);
   await page.waitForTimeout(26000);

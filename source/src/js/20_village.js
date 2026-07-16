@@ -153,7 +153,8 @@ function nextAct(forceId) {                              // forceId = QA 하네�
 G.regScene('village', {
   enter() {
     if (!V.guard) {
-      V.guard = { x: POI.camp[0], y: POI.camp[1], tx: POI.camp[0], ty: POI.camp[1],
+      V.guard = { x: POI.camp[0] - 24, y: POI.camp[1] + 10,
+        tx: POI.camp[0] - 24, ty: POI.camp[1] + 10,
         anim: new G.Anim('td_hero_'), flip: !1 };
       V.guard.anim.set('idle', { loop: !0 });
       V.fireAnim = new G.Anim(''); V.fireAnim.set('p_fire', { loop: !0 });
@@ -222,9 +223,9 @@ G.regScene('village', {
     if (sky.stars > 0.5 && Math.random() < dt * 2) G.emit(1, () => ({
       x: Math.random() * G.W, y: 120 + Math.random() * (G.H - 140), vx: (Math.random() - 0.5) * 12,
       vy: (Math.random() - 0.5) * 10, life: 2.5, t: 0, c: '#cfe86a', s: 1, fade: 1, layer: 0 }));
-    // 처형대 핏방울 — 효수 중인 랭커 아래로 낙하 (RM 제외, 시드 스트림)
+    // 처형대의 낡은 흔적 — 색과 빈도를 눌러 마을의 평온한 톤을 유지
     if (!G.RM && G.TOP3.length) for (let i = 0; i < Math.min(3, G.TOP3.length); i++)
-      if (rB() < dt * 0.4) spawnActFx('blood', GIBBET.x + GIBBET.hooks[i], GIBBET.y - 4);
+      if (rB() < dt * 0.2) spawnActFx('blood', GIBBET.x + GIBBET.hooks[i], GIBBET.y - 4);
     // ── 큐 펌프 (불멍 보장: 최소 6s 간격 + 60s 롤링 전투 ≤40%) ──
     if (G.queue.length && performance.now() - V.idleSince > 6000 && G.combatSpent() < 0.4) {
       const wave = G.queue.shift();
@@ -268,7 +269,7 @@ G.regScene('village', {
 });
 
 function drawTiles(c, noFire) {
-  // 잔디 기반 (아틀라스 tt_grass 있으면 타일, 없으면 톤 사각)
+  // 들판 바탕: 기존 아틀라스가 있으면 그대로 반복하고, 없으면 결정론적 픽셀 질감을 쓴다.
   const gs = G.spr('tt_grass');
   if (gs) {
     const v2 = G.spr('tt_grass2'), v3 = G.spr('tt_grass3');
@@ -277,58 +278,128 @@ function drawTiles(c, noFire) {
       const s = (n === 3 && v2) || (n === 17 && v3) || gs;
       c.drawImage(G.tex[s[0]], s[1], s[2], s[3], s[4], x, y, s[3], s[4]);
     }
-  } else { c.fillStyle = '#20301c'; c.fillRect(0, 84, G.W, G.H - 84);
-    const r = G.rng(11); c.fillStyle = '#283a22';
-    for (let i = 0; i < 160; i++) c.fillRect(Math.floor(r() * G.W), 84 + Math.floor(r() * (G.H - 84)), 2, 1); }
-  // 연못
-  c.fillStyle = '#1b2c46'; c.beginPath(); c.ellipse(POI.pond[0] - 14, POI.pond[1] + 8, 46, 18, 0, 0, 7); c.fill();
-  c.fillStyle = '#28405e'; c.beginPath(); c.ellipse(POI.pond[0] - 14, POI.pond[1] + 8, 40, 14, 0, 0, 7); c.fill();
-  // 길
-  c.fillStyle = '#4a3c28';
-  c.fillRect(210, 84, 14, G.H - 84);
-  c.fillRect(60, 197, 300, 12);
-  // 처형대 아래 핏자국 (정적 얼룩 — 고정 시드, 캔버스 직화 = 팔레트 비용 0)
-  { const rs = G.rng(0xb10d2); c.fillStyle = '#5a1010';
-    for (let i = 0; i < 26; i++) c.fillRect(205 + Math.floor(rs() * 26), 110 + Math.floor(rs() * 8), 2, 1);
-    c.fillStyle = '#3e0c0c';
-    for (let i = 0; i < 14; i++) c.fillRect(208 + Math.floor(rs() * 20), 112 + Math.floor(rs() * 6), 1, 1); }
-  // 오두막/우물/울타리/나무 (아틀라스 소품 우선)
+  } else {
+    c.fillStyle = '#20341f'; c.fillRect(0, 84, G.W, G.H - 84);
+    const r = G.rng(11); c.fillStyle = '#294425';
+    for (let i = 0; i < 180; i++) c.fillRect(Math.floor(r() * G.W), 84 + Math.floor(r() * (G.H - 84)), 2, 1);
+  }
+
+  // 하늘 아래 먼 언덕 → 나무선 → 들판의 세 단계. 전부 화면 좌표만 사용해 이동/충돌 계약을 건드리지 않는다.
+  const ridge = G.rng(0x6a7e);
+  c.fillStyle = '#294431'; c.beginPath(); c.moveTo(0, 119);
+  for (let x = 0; x <= G.W; x += 24) c.lineTo(x, 102 + Math.floor(ridge() * 12));
+  c.lineTo(G.W, 137); c.lineTo(0, 137); c.fill();
+  c.fillStyle = '#1b3428'; c.beginPath(); c.moveTo(0, 132);
+  for (let x = 0; x <= G.W; x += 16) c.lineTo(x, 114 + Math.floor(ridge() * 13));
+  c.lineTo(G.W, 148); c.lineTo(0, 148); c.fill();
+  c.fillStyle = '#142a22';
+  for (let x = -4; x < G.W + 8; x += 12) {
+    const h = 5 + Math.floor(ridge() * 10), w = 5 + Math.floor(ridge() * 5);
+    c.fillRect(x, 126 - h, w, h + 8);
+    if (ridge() > 0.55) c.fillRect(x - 2, 122 - h, w + 4, 4);
+  }
+  c.fillStyle = 'rgba(95,208,127,.08)'; c.fillRect(0, 146, G.W, 12);
+  c.fillStyle = 'rgba(5,12,12,.14)'; c.fillRect(0, G.H - 46, G.W, 46);
+
+  // 길은 외곽의 어두운 흙과 밝은 보행선, 고정 시드 조약돌로 깊이를 준다.
+  c.fillStyle = '#28251b'; c.fillRect(207, 84, 20, G.H - 84); c.fillRect(57, 194, 306, 18);
+  c.fillStyle = '#5a4930'; c.fillRect(211, 84, 12, G.H - 84); c.fillRect(60, 198, 300, 10);
+  c.fillStyle = '#8b7044'; c.fillRect(212, 84, 2, G.H - 84); c.fillRect(60, 198, 300, 2);
+  const pathR = G.rng(0x1a7d);
+  c.fillStyle = '#3c3223';
+  for (let i = 0; i < 64; i++) {
+    const px = i & 1 ? 212 + Math.floor(pathR() * 10) : 62 + Math.floor(pathR() * 294);
+    const py = i & 1 ? 88 + Math.floor(pathR() * (G.H - 92)) : 200 + Math.floor(pathR() * 6);
+    c.fillRect(px, py, 2, 1);
+  }
+
+  // 연못은 진한 바깥 그림자, 얕은 테두리, 물결 하이라이트와 갈대로 식별성을 높인다.
+  const [px, py] = POI.pond, waterX = px - 14, waterY = py + 8;
+  c.fillStyle = '#102821'; c.beginPath(); c.ellipse(waterX, waterY + 2, 53, 24, 0, 0, 7); c.fill();
+  c.fillStyle = '#35542f'; c.beginPath(); c.ellipse(waterX, waterY, 50, 21, 0, 0, 7); c.fill();
+  c.fillStyle = '#1b2c46'; c.beginPath(); c.ellipse(waterX, waterY, 46, 18, 0, 0, 7); c.fill();
+  c.fillStyle = '#315a78'; c.beginPath(); c.ellipse(waterX - 2, waterY - 2, 39, 13, 0, 0, 7); c.fill();
+  c.fillStyle = '#86c9d8';
+  c.fillRect(waterX - 25, waterY - 6, 13, 1); c.fillRect(waterX + 7, waterY + 4, 16, 1);
+  c.fillRect(waterX + 24, waterY - 2, 7, 1);
+  c.fillStyle = '#264a2b';
+  for (let i = 0; i < 12; i++) {
+    const a = i * Math.PI / 6, rx = Math.round(waterX + Math.cos(a) * 47), ry = Math.round(waterY + Math.sin(a) * 19);
+    if (i % 2) c.fillRect(rx, ry - 4, 1, 5); else c.fillRect(rx - 1, ry - 3, 2, 4);
+  }
+
+  // 관심지점의 접지 그림자와 환경 클러스터는 소품보다 먼저 그려 Y-소트와 상호작용을 보존한다.
+  const shadows = [[POI.hut, 28], [POI.well, 12], [POI.forge, 14], [POI.bench, 12], [POI.mine, 18]];
+  c.fillStyle = 'rgba(5,12,12,.35)';
+  for (const [[x, y], rx] of shadows) { c.beginPath(); c.ellipse(x, y + 8, rx, Math.max(3, rx / 4), 0, 0, 7); c.fill(); }
+  c.fillStyle = 'rgba(255,159,59,.10)'; c.beginPath(); c.ellipse(POI.camp[0], POI.camp[1] + 5, 31, 15, 0, 0, 7); c.fill();
+  const tufts = G.rng(0x42c0);
+  c.fillStyle = '#31582d';
+  for (let i = 0; i < 78; i++) {
+    const x = Math.floor(tufts() * G.W), y = 144 + Math.floor(tufts() * (G.H - 148));
+    if ((x > 202 && x < 230) || (y > 192 && y < 212)) continue;
+    c.fillRect(x, y, 1, 3); if (tufts() > 0.5) c.fillRect(x + 2, y + 1, 1, 2);
+  }
+  c.fillStyle = '#526445';
+  for (const [x, y] of [[28, 168], [144, 246], [174, 310], [454, 284], [338, 250], [392, 330]])
+    { c.fillRect(x - 2, y, 5, 2); c.fillRect(x, y - 2, 2, 2); }
+
+  // 오두막/우물/울타리/나무는 아틀라스 소품을 우선한다.
   drawProp('tt_house', POI.hut[0], POI.hut[1], 40, 34, '#5a4632');
   drawProp('tt_well', POI.well[0], POI.well[1], 16, 18, '#6a7280');
   for (const [tx, ty] of [[40, 108], [70, 96], [430, 102], [452, 149], [418, 309], [60, 330]])
     drawProp('tt_tree', tx, ty, 18, 26, '#1e4020');
-  // 모닥불 (마을 씬은 Y-소트를 위해 noFire 로 생략 후 별도 draw)
+  c.fillStyle = '#6d5737';
+  for (let x = 286; x <= 334; x += 8) { c.fillRect(x, 126, 2, 10); c.fillRect(x, 128, 8, 2); }
+
+  // 모닥불은 마을 씬에서만 Y-소트 전 별도 렌더한다.
   if (!noFire) drawCampfire();
-  // 채집지 표시
-  c.fillStyle = '#2c5a2e'; for (let i = 0; i < 5; i++) c.fillRect(POI.herb[0] - 12 + i * 6, POI.herb[1] + 6, 2, 4);
-  // 대장간 구역: 화덕(석재+개구부 글로우) + 작업대 (v2.2)
+
+  // 채집지는 잎·꽃 클러스터로, 대장간/광산은 밝은 작업색으로 즉시 구분한다.
+  c.fillStyle = '#24542d';
+  for (let i = 0; i < 7; i++) {
+    const hx = POI.herb[0] - 15 + i * 5, hy = POI.herb[1] + 7 - (i % 3);
+    c.fillRect(hx, hy, 3, 3); c.fillStyle = i % 2 ? '#7fbf6a' : '#5fd07f'; c.fillRect(hx + 1, hy - 2, 1, 2); c.fillStyle = '#24542d';
+  }
   const [ox, oy] = POI.forge;
-  c.fillStyle = '#3c3f4a'; c.fillRect(ox - 8, oy - 12, 16, 12);
-  c.fillStyle = '#2b2e38'; c.fillRect(ox - 8, oy - 14, 16, 3);
-  c.fillStyle = '#23252e'; c.fillRect(ox - 4, oy - 8, 8, 7);
-  const glow = 0.55 + 0.35 * Math.sin(performance.now() / 220);
-  c.fillStyle = `rgba(255,140,50,${glow.toFixed(3)})`; c.fillRect(ox - 3, oy - 7, 6, 5);
-  c.fillStyle = `rgba(255,214,89,${(glow * 0.9).toFixed(3)})`; c.fillRect(ox - 1, oy - 5, 2, 2);
+  c.fillStyle = '#252a31'; c.fillRect(ox - 10, oy - 10, 20, 13);
+  c.fillStyle = '#4d5360'; c.fillRect(ox - 8, oy - 13, 16, 4); c.fillRect(ox - 6, oy - 16, 12, 3);
+  c.fillStyle = '#111820'; c.fillRect(ox - 5, oy - 7, 10, 8);
+  const glow = 0.5 + 0.25 * Math.sin(performance.now() / 220);
+  c.fillStyle = `rgba(255,159,59,${glow.toFixed(3)})`; c.fillRect(ox - 3, oy - 6, 6, 5);
+  c.fillStyle = '#ffd23b'; c.fillRect(ox - 1, oy - 5, 2, 2);
   const [wx, wy] = POI.bench;
-  c.fillStyle = '#5a4632'; c.fillRect(wx - 7, wy - 8, 14, 6);
-  c.fillStyle = '#3e2f20'; c.fillRect(wx - 6, wy - 2, 2, 4); c.fillRect(wx + 4, wy - 2, 2, 4);
-  c.fillStyle = '#8a8f9c'; c.fillRect(wx + 1, wy - 10, 4, 2);
-  // 바위지대(채광) + IOC 원석 반짝이 (v2.2)
+  c.fillStyle = '#38291e'; c.fillRect(wx - 9, wy - 7, 18, 7);
+  c.fillStyle = '#7a5b38'; c.fillRect(wx - 7, wy - 9, 14, 4);
+  c.fillStyle = '#3e2f20'; c.fillRect(wx - 6, wy, 2, 4); c.fillRect(wx + 4, wy, 2, 4);
+  c.fillStyle = '#9fd8ff'; c.fillRect(wx + 1, wy - 11, 4, 2);
   const [mx, my] = POI.mine;
-  c.fillStyle = '#4a4f5c'; c.fillRect(mx - 10, my - 6, 9, 7); c.fillRect(mx + 2, my - 9, 11, 10);
-  c.fillStyle = '#6a7080'; c.fillRect(mx - 8, my - 5, 3, 2); c.fillRect(mx + 5, my - 7, 4, 3);
-  c.fillStyle = '#31343e'; c.fillRect(mx + 2, my - 1, 11, 2); c.fillRect(mx - 10, my, 9, 1);
-  c.fillStyle = '#9fd8ff'; c.fillRect(mx + 7, my - 5, 1, 1); c.fillRect(mx - 5, my - 3, 1, 1);
+  c.fillStyle = '#242d31'; c.beginPath(); c.ellipse(mx, my + 3, 18, 9, 0, 0, 7); c.fill();
+  c.fillStyle = '#4a4f5c'; c.fillRect(mx - 12, my - 6, 11, 8); c.fillRect(mx + 1, my - 10, 13, 12);
+  c.fillStyle = '#737d8a'; c.fillRect(mx - 9, my - 5, 4, 2); c.fillRect(mx + 5, my - 8, 5, 3);
+  c.fillStyle = '#31343e'; c.fillRect(mx + 1, my, 13, 2); c.fillRect(mx - 12, my + 1, 11, 1);
+  c.fillStyle = '#9fd8ff'; c.fillRect(mx + 8, my - 5, 2, 1); c.fillRect(mx - 6, my - 3, 1, 1);
+
+  // 처형대 아래는 피 대신 오래된 흙과 재로 낮춘다.
+  { const rs = G.rng(0xb10d2); c.fillStyle = '#4a2b2d';
+    for (let i = 0; i < 14; i++) c.fillRect(207 + Math.floor(rs() * 22), 112 + Math.floor(rs() * 6), 2, 1);
+    c.fillStyle = '#30272a';
+    for (let i = 0; i < 10; i++) c.fillRect(210 + Math.floor(rs() * 18), 113 + Math.floor(rs() * 5), 1, 1); }
 }
 
 function drawCampfire() {
-  const c = G.ctx;
-  const [fx, fy] = POI.camp;
-  c.fillStyle = '#3a3430'; c.fillRect(fx - 8, fy + 2, 16, 4);
+  const c = G.ctx, [fx, fy] = POI.camp;
+  c.fillStyle = 'rgba(5,10,12,.52)'; c.beginPath(); c.ellipse(fx, fy + 7, 15, 5, 0, 0, 7); c.fill();
+  c.fillStyle = '#403b35';
+  for (const [dx, dy] of [[-10, 4], [-5, 6], [3, 6], [9, 4], [-8, 1], [7, 1]]) c.fillRect(fx + dx, fy + dy, 4, 3);
+  c.fillStyle = '#5a3c26'; c.fillRect(fx - 8, fy + 2, 16, 3); c.fillStyle = '#2b2119'; c.fillRect(fx - 7, fy + 3, 14, 2);
   if (G.animDef('p_fire')) V.fireAnim.draw(fx, fy + 4, { scale: V.fireScale });
-  else { const f = Math.sin(performance.now() / 90) * 2;
-    c.fillStyle = '#ff9f3b'; c.fillRect(fx - 4, fy - 8 - f, 8, 10 + f);
-    c.fillStyle = '#ffd23b'; c.fillRect(fx - 2, fy - 3 - f, 4, 5 + f); }
+  else {
+    const f = Math.round(Math.sin(performance.now() / 90) * 2);
+    c.fillStyle = '#ff9f3b'; c.fillRect(fx - 5, fy - 8 - f, 10, 11 + f);
+    c.fillStyle = '#ffd23b'; c.fillRect(fx - 2, fy - 4 - f, 4, 7 + f);
+    c.fillStyle = '#fff1a8'; c.fillRect(fx - 1, fy - 1 - f, 2, 3);
+  }
 }
 function drawProp(spr, x, y, w, h, col) {
   if (G.spr(spr)) { G.drawSpr(spr, x, y + h / 2, {}); return; }
@@ -361,7 +432,12 @@ function drawGibbet() {
 
 function drawGuardian() {
   const g = V.guard, c = G.ctx;
-  c.fillStyle = 'rgba(0,0,0,.3)'; c.beginPath(); c.ellipse(g.x, g.y + 1, 7, 3, 0, 0, 7); c.fill();
+  // 짙은 발밑 그림자와 청록 림으로 작은 스프라이트도 배경에서 분리한다.
+  c.fillStyle = 'rgba(4,9,12,.58)'; c.beginPath(); c.ellipse(g.x, g.y + 2, 11, 4, 0, 0, 7); c.fill();
+  c.fillStyle = 'rgba(95,208,127,.14)'; c.beginPath(); c.ellipse(g.x, g.y - 10, 10, 16, 0, 0, 7); c.fill();
+  c.fillStyle = 'rgba(5,10,18,.68)'; c.beginPath();
+  c.moveTo(g.x, g.y - 30); c.lineTo(g.x - 9, g.y - 18); c.lineTo(g.x - 7, g.y); c.lineTo(g.x + 7, g.y);
+  c.lineTo(g.x + 9, g.y - 18); c.closePath(); c.fill();
   g.anim.draw(g.x, g.y, { flip: g.flip });
   // 액션 소품 — 베이크 모션(td_hero_*)이 있으면 소품이 프레임에 포함되므로 오버레이 생략
   const baked = V.act && V.act.anim && G.animDef('td_hero_' + V.act.anim);
@@ -381,8 +457,8 @@ function drawGuardian() {
   if (V.bubble) {
     const w = Math.min(230, G.textW(V.bubble, 9) + 14);
     const bx = Math.max(4, Math.min(G.W - w - 4, g.x - w / 2));
-    G.win(bx, g.y - 46, w, 20, { bg: 'rgba(12,14,30,.94)' });
-    G.text(V.bubble, bx + 7, g.y - 40, { size: 9, color: '#e6e0d0' });
+    G.win(bx, g.y - 46, w, 20, { bg: 'rgba(7,12,25,.96)', border: '#8fa3bd' });
+    G.text(V.bubble, bx + 7, g.y - 40, { size: 9, color: '#efe9da' });
   }
 }
 
@@ -415,23 +491,28 @@ function spawnActFx(kind, x, y) {
       vx: (Math.random() - 0.5) * 6, vy: -16 - Math.random() * 10, life: 0.9, t: 0,
       c: ['#ffd23b', '#ff9f3b', '#ff6a3b'][Math.random() * 3 | 0], s: 1, fade: 1, layer: 1 }),
     blood: () => ({ x: x + (rB() * 4 - 2), y, vx: (rB() - 0.5) * 6, vy: 16 + rB() * 14, g: 180,
-      life: 0.55, t: 0, c: rB() < 0.5 ? '#a01018' : '#c33', s: 1, fade: 1, layer: 1 }),
+      life: 0.5, t: 0, c: rB() < 0.5 ? '#613a40' : '#80504a', s: 1, fade: 1, layer: 1 }),
   };
   const f = defs[kind]; if (f) G.emit(1, f);
 }
 
 function drawVillageHUD() {
   G.drawParts(0); G.drawParts(1);
-  // 상단 지표 리본
+  // 상단을 얇은 고대비 패널로 묶어 하늘·별 위에서도 수치와 경고가 읽힌다.
   const st = G.ST;
   if (st) {
     const mood = G.moodOf(st.defcon);
-    G.text(`${mood[0]}`, 6, 5, { size: 9, color: '#ffd6a0', outline: '#0008' });
-    G.text(G.lang === 'en'
+    const stat = G.lang === 'en'
       ? `Today's marsh · intrusions ${st.stats.total_events.toLocaleString()} · captures ${st.stats.blocked}`
-      : `오늘의 늪 · 침입 ${st.stats.total_events.toLocaleString()} · 포획 ${st.stats.blocked}`,
-      6, 16, { size: 9, color: '#9fb2c8', outline: '#0008' });
+      : `오늘의 늪 · 침입 ${st.stats.total_events.toLocaleString()} · 포획 ${st.stats.blocked}`;
+    const w = Math.min(G.W - 8, Math.max(220, G.textW(stat, 9) + 14));
+    G.win(3, 3, w, 21, { bg: 'rgba(6,11,22,.84)', border: '#6a7280' });
+    G.text(`${mood[0]}`, 8, 5, { size: 9, color: '#ffd23b', outline: '#000c' });
+    G.text(stat, 8, 16, { size: 9, color: '#cfe0ff', outline: '#000c' });
   }
-  if (G.queue.length) G.text(`⚔ 접근 중인 몬스터 ${G.queue.length}무리`, G.W - 6, 5,
-    { size: 9, color: '#ff9f8a', align: 'right', outline: '#0008' });
+  if (G.queue.length) {
+    const s = `⚔ 접근 중인 몬스터 ${G.queue.length}무리`, w = G.textW(s, 9) + 14;
+    G.win(G.W - w - 3, 3, w, 15, { bg: 'rgba(24,10,18,.88)', border: '#ff7f6a' });
+    G.text(s, G.W - 10, 5, { size: 9, color: '#ffb0a0', align: 'right', outline: '#000c' });
+  }
 }

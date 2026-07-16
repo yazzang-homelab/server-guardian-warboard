@@ -7,6 +7,10 @@ __pycache__/
 *.pyc
 source/tools/*
 !source/tools/build.py
+!source/tools/qa_build.py
+!source/tools/qa_check.py
+!source/tools/qa_run.sh
+!source/tools/qa_srv.py
 source/src.bak-*
 build/
 video/takes/
@@ -16,3 +20,4 @@ video/package-lock.json
 video/deck/dist/
 video/deck/index.html
 UPGRADE_PLAN.md
+.gjc/

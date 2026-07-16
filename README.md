@@ -15,7 +15,7 @@ Server Guardian Warboard is a read-only, privacy-preserving command view for hon
 - Judge-facing URL: https://plzhacknono.duckdns.org/
 - No account, payment, private hardware, or write access is required.
 
-For OpenAI Build Week, the judge-facing product was built with Codex and GPT-5.6: new viewer modes, deterministic demo scenes, privacy-preserving public output, bilingual UI, the automatic community threat-intel contribution pipeline, and this documentation. An earlier private prototype of the honeypot capture and RPG engine predates the Submission Period; the table below separates that groundwork from the Build Week work judges should evaluate, as the rules require.
+For OpenAI Build Week, Codex and GPT-5.6 built the judge-facing product: new viewer modes, deterministic demo scenes, privacy-preserving public output, bilingual UI, the automatic community threat-intel contribution pipeline, a complete mobile-landscape visual evolution, fail-closed QA evidence contracts, presentation motion, and the final demo video. An earlier private prototype of the honeypot capture and RPG engine predates the Submission Period; the table below separates that groundwork from the Build Week work judges should evaluate, as the rules require.
 
 ## Prior Work vs. Build Week Work
 
@@ -26,9 +26,9 @@ evaluate the Build Week work listed below.
 | Period | Work | Evidence |
 | --- | --- | --- |
 | Before the Submission Period (July 10-13, 2026 KST) | Earlier private prototype: honeypot capture, RPG village/battle engine, sprite atlas pipeline, map and NORAD views, audio, FPS mode, visual effects | Pre-existing deployment; summarized in commit `dad3ced` |
-| Submission Period (from July 14, 2026 KST) | Built with Codex + GPT-5.6: bilingual English/Korean UI with full English coverage of all judge-facing text (nameplates, dialogue, ticker, panels), backend privacy redaction boundary (`bot-xxxxxxxx` aliases, `login-xxxxxx`, `Protected Sandbox`, defanged strings), the automatic AbuseIPDB community threat-intel contribution pipeline with the in-app "Global Threat Intel" counter, deterministic demo scenes, submission guide page, licensing and notices, this public repository, and the demo video | Dated commit history of this repository; privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
+| Submission Period (from July 14, 2026 KST) | Built with Codex + GPT-5.6: bilingual English/Korean UI; backend privacy redaction; the live AbuseIPDB contribution pipeline and "Global Threat Intel" evidence; deterministic demo scenes; upgraded RPG terrain, battle lighting, HUD contrast, and mobile-landscape layout; object-animated 16:9 presentation; fail-closed six-mode QA and candidate/release manifests; independently scored 85+ visual package; submission documentation, public repository, and final video | Dated commit history; live public app; `video/evidence/v5/`; privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
 
-All Build Week work was performed with Codex and GPT-5.6.
+All listed Build Week implementation work was performed with Codex and GPT-5.6.
 
 ## How to Test
 
@@ -113,12 +113,12 @@ raw addresses, API responses, request IDs, and credentials are never published.
 
 Codex and GPT-5.6 were used to:
 
-- build the judge-facing product (viewer modes, UI, and rendering);
-- implement the automatic AbuseIPDB community threat-intel contribution pipeline and in-app counter;
-- add repeatable demo modes and deterministic build checks;
-- harden the public display layer by redacting IPs and defanging risky strings;
-- add bilingual English/Korean UI controls;
-- prepare the Devpost-facing documentation and testing instructions.
+- build the judge-facing product across rendering, UI, mobile layout, and deterministic demo modes;
+- implement and verify the live AbuseIPDB community threat-intel contribution pipeline and in-app evidence;
+- evolve the app, presentation, and final video from a frozen 40-point visual baseline to independently reviewed 85+ evidence;
+- create fail-closed six-mode QA provenance, candidate/release manifests, secret-scan policy, and deterministic scoring tools;
+- harden the public display layer with privacy redaction, defanged strings, bilingual controls, and read-only boundaries;
+- produce the object-animated presentation, sub-three-minute English demo, Devpost copy, and reproducible review package.
 
 Human decisions covered the product direction, privacy posture, visual style, safety boundaries, and final submission framing.
 

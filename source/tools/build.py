@@ -138,6 +138,9 @@ def main() -> int:
     if len(audio_js.encode()) > 300 * 1024:
         print("  ★audio 300KB 상한 초과 — 파일 수/샘플레이트 축소 검토★")
     print("sha256", hashlib.sha256(html.encode()).hexdigest()[:16])
+    if tot > 1572864:
+        print("build: embedded index.html exceeds 1572864-byte limit", file=sys.stderr)
+        return 1
     return 0
 
 

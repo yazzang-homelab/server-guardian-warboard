@@ -98,7 +98,7 @@ ffmpeg -y -v error \
   -stream_loop -1 -i "$OUT/score.wav" \
   -i "$OPENING" \
   -filter_complex \
-  "[1:a]atrim=0:165,adelay=10000:all=1,apad,atrim=0:$DURATION,volume=1[n];[2:a]atrim=0:165,adelay=10000:all=1,apad,atrim=0:$DURATION,volume=0.10[s];[3:a:0]atrim=0:10,loudnorm=I=-18:TP=-3:LRA=7,apad,atrim=0:$DURATION[o];[n][s][o]amix=inputs=3:duration=longest:normalize=0,alimiter=limit=0.95,atrim=0:$DURATION[a]" \
+  "[1:a]atrim=0:165,adelay=10000:all=1,apad,atrim=0:$DURATION,volume=1[n];[2:a]atrim=0:165,adelay=10000:all=1,apad,atrim=0:$DURATION,volume=0.10[s];[3:a:0]atrim=0:10,loudnorm=I=-18:TP=-3:LRA=7,apad,atrim=0:$DURATION[o];[n][s][o]amix=inputs=3:duration=longest:normalize=0,alimiter=limit=0.95,volume=0.96,atrim=0:$DURATION[a]" \
   -vf "subtitles=$OUT/subtitles.srt:force_style='FontName=DejaVu Sans,FontSize=20,PrimaryColour=&HF4F4F4,OutlineColour=&H101010,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=48'" \
   -map 0:v:0 -map '[a]' -t "$DURATION" \
   -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -r 30 \

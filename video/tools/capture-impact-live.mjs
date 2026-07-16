@@ -26,7 +26,7 @@ await context.addInitScript(() => {
 });
 const page = await context.newPage();
 try {
-  await page.goto(URL, { waitUntil: 'networkidle', timeout: 45_000 });
+  await page.goto(URL, { waitUntil: 'domcontentloaded', timeout: 45_000 });
   await page.waitForSelector('#intelPanel', { state: 'visible', timeout: 20_000 });
   await page.waitForFunction(() => {
     const box = document.querySelector('#intel');

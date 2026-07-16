@@ -122,7 +122,7 @@ that preserve the same public redaction contract.
 ## Links To Add Before Submission
 
 - Public source repository: https://github.com/yazzang-homelab/server-guardian-warboard
-- Public 3-minute YouTube demo: **pending v4 upload** (supersedes previous v2: https://youtu.be/J-gfPQeM5WA)
+- Public 3-minute YouTube demo: **pending v5 upload** (supersedes previous v2: https://youtu.be/J-gfPQeM5WA)
 - GPT-5.6 usage record: `docs/GPT-5.6-USAGE.md`
 
 ## Final Checklist
@@ -137,18 +137,21 @@ that preserve the same public redaction contract.
 - [x] Privacy-safe GPT-5.6 usage record is included.
 - [x] Repository licensing resolved (MIT + THIRD_PARTY_NOTICES.md).
 - [x] Publish a shareable source repository and insert its URL above.
-- [x] Produce and approve the v4 review master (`video/out/v2/final.mp4`: 2:55,
-      1080p30 H.264/AAC, full-frame object-animated presentation, English
-      ElevenLabs narration, 47 burned English subtitle cues, live 200/200/98%
-      AbuseIPDB contribution proof, real product footage). SHA256:
-      `1bbfc173ac4d6f475e6e4f43bf410819937914449756373ea0b3b6448082069c`.
-- [x] Produce and verify the `SERVER GUARDIAN` 4K/HD custom thumbnail, mobile proof,
-      grayscale hierarchy proof, and alignment overlay.
+- [x] Produce and approve the v5 review master (`video/out/v2/final.mp4`: 2:55,
+      1080p30 H.264/AAC yuv420p, full-frame object-animated presentation,
+      upgraded mobile-landscape app footage, 47 burned English subtitle cues,
+      live 200/200/98% AbuseIPDB contribution evidence). Independent visual raters:
+      85.25 / 85.59; conservative combined gate: 85.12 PASS. SHA256:
+      `b69c77d3bc14da46ba1c3ba93a6c26fb396431aec3747e2da8d12880d5e35bcf`.
+- [x] Produce and verify the `SERVER GUARDIAN` 4K/HD custom thumbnail, mobile check,
+      grayscale hierarchy check, and alignment overlay.
 - [x] Commit and push the v4 application, automatic-reporting feature, motion
       capture/render tooling, and submission documentation. (`432323d`)
 - [x] Publish the deployment-neutral AbuseIPDB reporter, seven network-free tests,
       aggregate API contract, and privacy-safe evidence snapshot.
-- [ ] Upload v4 video to YouTube as Public and replace the pending URL above. (user)
+- [x] Upgrade and verify the app, presentation, and video with exact six-mode QA,
+      candidate/release manifests, Gitleaks positive/negative scans, and NAS hashes.
+- [ ] Upload v5 video to YouTube as Public and replace the pending URL above. (user)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
 - [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)
 
@@ -163,8 +166,8 @@ that preserve the same public redaction contract.
   pipeline, followed by the same safe stream in the live NORAD view.
 - **1:15-1:27 — Codex build:** show the judge-facing work built with Codex/GPT-5.6.
 - **1:27-1:42 — New automatic-reporting feature:** animate the complete path from
-  confirmed attack → high-confidence gate → AbuseIPDB → measurable proof.
-- **1:42-1:54 — Live feature proof:** show the real public app at 200 filed reports,
+  confirmed attack → high-confidence gate → AbuseIPDB → measurable evidence.
+- **1:42-1:54 — Live feature evidence:** show the real public app at 200 filed reports,
   200 unique IPs, 98% average confidence, and trigger the report badge.
 - **1:54-2:30 — Real game scenes:** deterministic skirmish, SRW battle, and FPS.
 - **2:30-2:39 — Potential Impact:** apply the official judging test — a credible,

@@ -1,0 +1,41 @@
+{
+  "schema": "asset-quality/ocr-scan/v1",
+  "engine": {
+    "name": "tesseract",
+    "version": "5.5.0",
+    "languages": [
+      "eng"
+    ],
+    "arguments": [
+      "--oem",
+      "1",
+      "--psm",
+      "6"
+    ]
+  },
+  "confidence": {
+    "floor_percent": 60
+  },
+  "sampling": {
+    "regular_cadence_seconds": 1,
+    "cut_boundary_offsets_seconds": [
+      -0.5,
+      0,
+      0.5
+    ],
+    "thumbnail_samples": {
+      "cadence_seconds": 1,
+      "required": true
+    },
+    "frozen_frame_samples": {
+      "cadence_seconds": 1,
+      "required": true
+    }
+  },
+  "ffmpeg": {
+    "pinned_version": "7.1",
+    "identity": "same-as-render",
+    "must_match_render_toolchain": true,
+    "verification": "ffmpeg binary and version must match the render toolchain"
+  }
+}

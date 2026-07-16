@@ -90,49 +90,49 @@ fonts:
 <div class="corner">ONE STREAM · MANY WAYS TO READ IT</div>
 <div class="kicker">Game composition</div>
 <div class="rule"></div>
-<h1 class="display">The same filtered event stream — <span class="accent">four scanning workflows.</span></h1>
+<h1 class="display">One filtered stream. <span class="accent">Four ways to scan it.</span></h1>
 <div class="mode-grid">
-  <div class="mode-card"><div class="shot" style="background-image:url('/assets/village.png')"></div><div class="body"><h3>RPG Village</h3><p>Activity becomes life, patrols, crafting, and battles.</p></div></div>
-  <div class="mode-card"><div class="shot" style="background-image:url('/assets/map.png')"></div><div class="body"><h3>Strategic Map</h3><p>Country-level origin signals and active routes.</p></div></div>
-  <div class="mode-card"><div class="shot" style="background-image:url('/assets/norad.png')"></div><div class="body"><h3>NORAD</h3><p>An operations-room view for rapid scanning.</p></div></div>
-  <div class="mode-card"><div class="shot" style="background-image:url('/assets/fps.png')"></div><div class="body"><h3>Battle / FPS</h3><p>Deterministic scenes make the system judgeable on demand.</p></div></div>
+  <div class="mode-card"><div class="shot" style="background-image:url('/assets/village.png')"></div><div class="body"><h3>RPG Village</h3><p>Signals become patrols and battles.</p></div></div>
+  <div class="mode-card"><div class="shot" style="background-image:url('/assets/map.png')"></div><div class="body"><h3>Strategic Map</h3><p>Country-level origins and routes.</p></div></div>
+  <div class="mode-card"><div class="shot" style="background-image:url('/assets/norad.png')"></div><div class="body"><h3>NORAD</h3><p>Operations view for rapid triage.</p></div></div>
+  <div class="mode-card"><div class="shot" style="background-image:url('/assets/fps.png')"></div><div class="body"><h3>Battle / FPS</h3><p>Repeatable scene for judge review.</p></div></div>
 </div>
 <div class="footer"><span>VISUALIZATION WITHOUT EXPOSING INFRASTRUCTURE</span><span>05 / GAME</span></div>
 
 ---
 
 <div class="corner">NEW BUILD WEEK FEATURE · APPS FOR YOUR LIFE</div>
-<div class="kicker">Automatic community reporting</div>
+<div class="kicker">From a life app to shared protection</div>
 <div class="rule"></div>
 <h1 class="display">A captured attack becomes <span class="green">shared protection.</span></h1>
 <div class="pipeline feature-pipeline">
-  <div class="pipe-card feature-card"><div class="eyebrow">01 · Capture</div><h3>Confirmed attack</h3><ul><li>Payload execution</li><li>Repeated SSH brute-force</li></ul></div>
+  <div class="pipe-card feature-card"><div class="eyebrow">01 · Capture</div><h3>Confirmed attack</h3><ul><li>Payload execution</li><li>Repeated SSH attempts</li></ul></div>
   <div class="pipe-arrow feature-arrow">→</div>
-  <div class="pipe-card privacy feature-card"><div class="eyebrow">02 · Safety gate</div><h3>Report only high confidence</h3><ul><li>24h per-IP dedup</li><li>Rate + daily limits</li><li>No victim data</li></ul></div>
+  <div class="pipe-card privacy feature-card"><div class="eyebrow">02 · Safety gate</div><h3>High-confidence only</h3><ul><li>24h per-IP dedup</li><li>Rate + daily limits</li><li>No victim data</li></ul></div>
   <div class="pipe-arrow feature-arrow">→</div>
-  <div class="pipe-card feature-card"><div class="eyebrow">03 · Contribution</div><h3>File to AbuseIPDB</h3><ul><li>IP + standard categories</li><li>Backend-only write</li></ul></div>
+  <div class="pipe-card feature-card"><div class="eyebrow">03 · Contribution</div><h3>Share a vetted signal</h3><ul><li>IP + standard categories</li><li>Backend-only write</li></ul></div>
   <div class="pipe-arrow feature-arrow">→</div>
-  <div class="pipe-card feature-card"><div class="eyebrow">04 · Proof</div><h3>Show verifiable impact</h3><ul><li>Reports + unique IPs</li><li>Confidence score</li><li>In-app report badge</li></ul></div>
+  <div class="pipe-card feature-card"><div class="eyebrow">04 · Proof</div><h3>Evidence, not hype</h3><ul><li>Reports + unique IPs</li><li>Confidence score</li><li>In-app report badge</li></ul></div>
 </div>
-<div class="privacy-note feature-note"><b>The public app stays read-only.</b> Reporting happens only behind the privacy boundary.</div>
+<div class="privacy-note feature-note"><b>The public app stays read-only.</b> Reporting stays behind the privacy boundary.</div>
 <div class="footer"><span>CODEX-BUILT · GATED · DEDUPLICATED · MEASURABLE</span><span>06 / NEW FEATURE</span></div>
 
 ---
 
 <div class="corner">JUDGING CRITERION · POTENTIAL IMPACT</div>
-<div class="kicker">A real problem · a real audience · demonstrated evidence</div>
+<div class="kicker">From one life app to shared protection</div>
 <div class="rule"></div>
-<h1 class="display">One life app. <span class="green">A wider defensive signal.</span></h1>
+<h1 class="display">One life app. <span class="green">Shared protection.</span></h1>
 <div class="impact-grid">
   <div class="impact-story">
-    <div class="impact-step"><b>Personal need</b><span>Make everyday home-server defense understandable and safe to watch.</span></div>
+    <div class="impact-step"><b>Personal need</b><span>Make home-server defense understandable.</span></div>
     <div class="impact-link">↓</div>
-    <div class="impact-step"><b>Community benefit</b><span>Share confirmed attacker intelligence with defenders beyond this server.</span></div>
+    <div class="impact-step"><b>Community benefit</b><span>Share confirmed intelligence beyond this server.</span></div>
     <div class="impact-link">↓</div>
-    <div class="impact-step"><b>Credible claim</b><span>Count reports filed — never claim the internet is “fixed.”</span></div>
+    <div class="impact-step"><b>Credible claim</b><span>Count filed reports — never claim the internet is fixed.</span></div>
   </div>
   <div class="impact-proof">
-    <div class="proof-label">LIVE VERIFIED CONTRIBUTION · REVIEW RENDER</div>
+    <div class="proof-label">VERIFIED CONTRIBUTION · REVIEW RENDER</div>
     <div class="proof-metrics">
       <div class="proof-metric"><b>200</b><span>reports filed</span></div>
       <div class="proof-metric"><b>200</b><span>unique IPs flagged</span></div>
@@ -148,7 +148,7 @@ fonts:
 <div class="corner">VERIFIED RESULT</div>
 <div class="kicker">What shipped</div>
 <div class="rule"></div>
-<h1 class="display">A complete public experience — <span class="green">not a mockup.</span></h1>
+<h1 class="display">Public. Proven. <span class="green">Not a mockup.</span></h1>
 <div class="metric-grid">
   <div class="metric"><b>48K+</b><span>hostile automation events visualized at recording time</span></div>
   <div class="metric"><b>6</b><span>deterministic judge demo modes</span></div>
