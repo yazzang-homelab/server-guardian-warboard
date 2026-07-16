@@ -62,6 +62,8 @@ boundary, the automatic AbuseIPDB contribution pipeline (24h per-IP dedup, rate
 limiting, confirmed-event gate), deterministic demos, verification, and
 documentation. Human decisions set the product direction, visual language,
 privacy boundaries, and final acceptance criteria.
+The deployment-neutral reporter and seven network-free mocked tests are published
+under `source/backend/`, alongside a privacy-safe aggregate evidence snapshot.
 
 ## Privacy and Safety
 
@@ -90,6 +92,8 @@ traffic.
 - A privacy-safe GPT-5.6 collaboration record.
 - An automatic community threat-intel contribution: confirmed attackers filed to
   AbuseIPDB, turning a personal defense into shared internet protection.
+- The executable reporter, aggregate API whitelist, seven mocked tests, and a
+  no-raw-IP evidence snapshot are included in the public repository.
 
 ## Potential Impact
 
@@ -142,6 +146,8 @@ that preserve the same public redaction contract.
       grayscale hierarchy proof, and alignment overlay.
 - [x] Commit and push the v4 application, automatic-reporting feature, motion
       capture/render tooling, and submission documentation. (`432323d`)
+- [x] Publish the deployment-neutral AbuseIPDB reporter, seven network-free tests,
+      aggregate API contract, and privacy-safe evidence snapshot.
 - [ ] Upload v4 video to YouTube as Public and replace the pending URL above. (user)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
 - [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)

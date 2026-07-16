@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "snapshot_at": "2026-07-16T10:00:01.580623+00:00",
+  "live_endpoint": "https://plzhacknono.duckdns.org/api/threat",
+  "contribution": {
+    "reports_filed": 200,
+    "unique_ips_flagged": 200,
+    "average_confidence": 98.0
+  },
+  "reporting_policy": {
+    "confirmed_events_only": true,
+    "minimum_auth_attempts": 5,
+    "dedup_hours": 24,
+    "daily_cap": 200,
+    "victim_data_sent": false,
+    "public_viewer_can_trigger_reports": false,
+    "configured_category_codes": [15, 18, 20, 22]
+  },
+  "privacy": {
+    "raw_ips_in_repository": false,
+    "api_responses_in_repository": false,
+    "api_key_in_repository": false,
+    "private_state_sha256": "74ff6ffe2a05acf66f9c4b00b2892260cbe52eff37953add9a3682019ab09121",
+    "public_aggregate_sha256": "5fc58d1c33de1dc7485347500f2b5cccc8ff721a175ab8b2b05b790244ba8252"
+  },
+  "verification_note": "The hashes commit to private runtime evidence without publishing source addresses. The public endpoint and approved demo video show the aggregate counters."
+}

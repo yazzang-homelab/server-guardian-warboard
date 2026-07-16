@@ -88,6 +88,27 @@ silhouette build, so `app/index.html` remains the judge-facing artifact.
 
 Defending one personal server is a hobby, but the attackers hitting it also hit everyone else. When a honeypot event is confirmed high-confidence, the backend files the source IP to the [AbuseIPDB](https://www.abuseipdb.com/) community threat-intelligence feed. Firewalls, hosting providers, and other defenders worldwide consume that feed, so a small home server quietly contributes to global takedown signal. The claim stays verifiable and modest: the app reports the number of contributions filed, not "the internet is now safe."
 
+### Automatic Reporting Implementation
+
+The executable, deployment-neutral reporter is published at
+[`source/backend/abuse_reporter.py`](source/backend/abuse_reporter.py). It is
+disabled by default and implements the same gates used by the live deployment:
+public-address validation, confirmed payload or repeated-auth classification,
+AbuseIPDB category mapping, 24-hour deduplication, a daily cap, incremental
+interruption-safe state, masked logs, and HTTP 429 backoff. The helper
+`attach_public_contribution()` whitelists only aggregate fields for `/api/threat`.
+
+Run the network-free mocked test suite:
+
+```sh
+python3 -m unittest discover -s source/backend/tests -v
+```
+
+The privacy-safe evidence snapshot is
+[`source/backend/evidence/abuseipdb-snapshot.json`](source/backend/evidence/abuseipdb-snapshot.json).
+It includes aggregate results and hashes committing to private runtime evidence;
+raw addresses, API responses, request IDs, and credentials are never published.
+
 ## Codex and GPT-5.6 Collaboration
 
 Codex and GPT-5.6 were used to:
@@ -112,12 +133,16 @@ credentials, private addresses, hostnames, or raw security-event data.
 - `app/submission-guide.html`: bilingual submission checklist and demo script.
 - `source/src`: browser source modules.
 - `source/tools/build.py`: deterministic frontend builder.
+- `source/backend/abuse_reporter.py`: executable, environment-configured AbuseIPDB reporter.
+- `source/backend/tests`: network-free policy, dedup, cap, rate-limit, and public-API tests.
+- `source/backend/evidence`: aggregate evidence snapshot with no source addresses.
 - `docs/GPT-5.6-USAGE.md`: privacy-safe model collaboration record.
 - `DEVPOST_SUBMISSION.md`: submission copy and final external-action checklist.
 
-The production event adapter and deployment configuration are intentionally not
-published because they contain operational assumptions. The included public
-build is the judge-facing, read-only artifact.
+The production event adapter and deployment configuration remain private because
+they contain operational assumptions. The reporting implementation, safety
+policy, mocked tests, aggregate API contract, and privacy-safe evidence are
+published; the included public build remains the judge-facing read-only artifact.
 
 ## License
 
