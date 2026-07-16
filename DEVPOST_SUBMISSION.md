@@ -36,20 +36,23 @@ https://plzhacknono.duckdns.org/
 
 ## Inspiration
 
-Security logs are useful but difficult to scan quickly and risky to share. This
-project explores whether a read-only visual layer can make hostile automation
-patterns understandable without exposing the protected server or raw attacker
-identifiers.
+Running a personal server is part hobby and part everyday maintenance. The
+security logs are useful, but difficult to scan and risky to share. I wanted a
+life app that makes that daily defense understandable and safe to watch — then
+realized the same high-confidence captures could contribute useful signal to
+defenders beyond my home.
 
 ## What It Does
 
 Server Guardian Warboard, built with Codex and GPT-5.6, converts privacy-filtered
 honeypot-style events into RPG, map, NORAD, battle, and FPS-inspired defense
-scenes. When an event is confirmed high-confidence, the backend automatically
-files the source IP to the AbuseIPDB community threat-intelligence feed, and the
-app shows a live "Global Threat Intel" counter of that contribution. Judges can
-switch between English and Korean and use deterministic demo scenes when live
-event volume is low. The public viewer contains no write controls.
+scenes. Confirmed high-confidence attacks pass a safety gate, 24-hour per-IP
+deduplication, and rate limits before the backend files the attacker address and
+standard categories to the AbuseIPDB community threat-intelligence feed. The
+read-only app shows live reports filed, unique IPs, average confidence, and a
+report badge. At the approved review render it demonstrated 200 reports,
+200 unique IPs, and 98% average confidence. Judges can switch between English
+and Korean and run deterministic demo scenes when live traffic is quiet.
 
 ## How We Built It
 
@@ -87,6 +90,18 @@ traffic.
 - A privacy-safe GPT-5.6 collaboration record.
 - An automatic community threat-intel contribution: confirmed attackers filed to
   AbuseIPDB, turning a personal defense into shared internet protection.
+
+## Potential Impact
+
+The official judging criterion asks for a credible, specific case addressing a
+real problem for a real audience, based on what is demonstrated. This project
+starts with a real personal need: make daily home-server defense understandable
+without exposing the server. Its wider audience includes firewalls, hosting
+providers, security teams, and other home labs that consume community threat
+intelligence. The demonstrated claim is deliberately bounded and measurable:
+200 high-confidence reports filed for 200 unique addresses at 98% average
+confidence during the review render. It does not claim to have “fixed” the
+internet; it proves that one personal defense can contribute shared signal.
 
 ## What We Learned
 
