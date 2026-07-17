@@ -122,7 +122,7 @@ that preserve the same public redaction contract.
 ## Links To Add Before Submission
 
 - Public source repository: https://github.com/yazzang-homelab/server-guardian-warboard
-- Public 3-minute YouTube demo: **pending v5 upload** (supersedes previous v2: https://youtu.be/J-gfPQeM5WA)
+- Public 3-minute YouTube demo: **pending v6 upload** (supersedes previous v2: https://youtu.be/J-gfPQeM5WA)
 - GPT-5.6 usage record: `docs/GPT-5.6-USAGE.md`
 
 ## Final Checklist
@@ -137,12 +137,15 @@ that preserve the same public redaction contract.
 - [x] Privacy-safe GPT-5.6 usage record is included.
 - [x] Repository licensing resolved (MIT + THIRD_PARTY_NOTICES.md).
 - [x] Publish a shareable source repository and insert its URL above.
-- [x] Produce and approve the v5 review master (`video/out/v2/final.mp4`: 2:55,
+- [x] Produce and approve the v6 correction master (`video/out/v2/final.mp4`: 2:55,
       1080p30 H.264/AAC yuv420p, full-frame object-animated presentation,
       upgraded mobile-landscape app footage, 47 burned English subtitle cues,
-      live 200/200/98% AbuseIPDB contribution evidence). Independent visual raters:
-      85.25 / 85.59; conservative combined gate: 85.12 PASS. SHA256:
-      `b69c77d3bc14da46ba1c3ba93a6c26fb396431aec3747e2da8d12880d5e35bcf`.
+      and an on-screen REVIEW SNAPSHOT · VERIFIED JULY 16, 2026 disclosure over
+      the 200/200/98% contribution scene). The v6 render removes all
+      loading-overlay frames and restores the village horizon with the licensed
+      pixel-art forest/mountain atlas. Independent visual raters previously
+      scored the package 85.25 / 85.59; conservative gate: 85.12 PASS. SHA256:
+      `a3f7cacd9ee63389705faff39b78c5a0c4436371412c5cde2aade0e6755ce3ba`.
 - [x] Produce and verify the `SERVER GUARDIAN` 4K/HD custom thumbnail, mobile check,
       grayscale hierarchy check, and alignment overlay.
 - [x] Commit and push the v4 application, automatic-reporting feature, motion
@@ -151,7 +154,7 @@ that preserve the same public redaction contract.
       aggregate API contract, and privacy-safe evidence snapshot.
 - [x] Upgrade and verify the app, presentation, and video with exact six-mode QA,
       candidate/release manifests, Gitleaks positive/negative scans, and NAS hashes.
-- [ ] Upload v5 video to YouTube as Public and replace the pending URL above. (user)
+- [ ] Upload v6 video to YouTube as Public and replace the pending URL above. (user)
 - [ ] Provide the `/feedback` Codex Session ID on the submission form. (user)
 - [ ] Submit the final entry through Devpost before July 21, 2026 5:00 pm PT. (user)
 

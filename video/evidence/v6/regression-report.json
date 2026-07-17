@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "kind": "video-regression-test-report",
+  "result": "PASS",
+  "durationSeconds": 175.0,
+  "videoSha256": "a3f7cacd9ee63389705faff39b78c5a0c4436371412c5cde2aade0e6755ce3ba",
+  "appSha256": "4afd9af9f00332aded13fe6b80766ed3f88d27e4338a2cb914c6aa57a13362ca",
+  "checks": {
+    "bootOverlayExcludedFromFinalAppSegments": true,
+    "transitionWindowsReviewedSeconds": [
+      34,
+      63,
+      102,
+      114,
+      128,
+      139
+    ],
+    "fixedFrameNoZoomCrop": true,
+    "villageAtlasBackdropVisible": true,
+    "reviewContributionSnapshot": "200 reports / 200 unique IPs / 98% average confidence, replayed from the approved 2026-07-16 review render and disclosed on-screen as REVIEW SNAPSHOT \u00b7 VERIFIED JULY 16, 2026",
+    "deckDisclosure": "Slide 07 labels the metrics REVIEW SNAPSHOT \u00b7 JULY 16, 2026 with a growth note; slide 08 headline is Public. Proven. Verifiable.",
+    "mobileLandscapeReviewed": "844x390",
+    "sixModeQa": "PASS via qa-report.json (run qa-6827bc73158b4926aeee10e760fd1828, candidate-bound digests)"
+  },
+  "artifacts": [
+    "contact-sheet.png",
+    "transition-proof.jpg",
+    "app-desktop-1400x900.png",
+    "app-mobile-844x390.png",
+    "review-contribution-200-200-98.png",
+    "slide-07-review-snapshot-disclosure.png",
+    "qa-report.json"
+  ]
+}

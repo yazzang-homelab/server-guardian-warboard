@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "six-mode-qa-evidence",
+  "result": "PASS",
+  "run_id": "qa-6827bc73158b4926aeee10e760fd1828",
+  "candidate_sha256": "4afd9af9f00332aded13fe6b80766ed3f88d27e4338a2cb914c6aa57a13362ca",
+  "seed": "warboard-qa-seed-v1",
+  "fixed_epoch": 1763164800000,
+  "fixture": {
+    "viewport": {
+      "width": 1400,
+      "height": 900
+    },
+    "dpr": 1,
+    "timezone": "UTC",
+    "browser": "chromium-headless",
+    "font": "GalmuriPx",
+    "reduced_motion": "reduce"
+  },
+  "coverage": {
+    "actions": "12/12",
+    "bakes": "9/9",
+    "fx_modes": "6/6"
+  },
+  "modes": {
+    "skirmish": {
+      "status": "OK",
+      "report_sha256": "75d0485c25b9b6d155a0d5e01d6cf92c85e74c360771e36e98b81771142b5718",
+      "report_bytes": 7304402
+    },
+    "srw": {
+      "status": "OK",
+      "report_sha256": "62850b423d3c3ad42ebe5e46c3a294651fc3c46efa4cf0a38d8b15770df18449",
+      "report_bytes": 11514661
+    },
+    "dq": {
+      "status": "OK",
+      "report_sha256": "fedddc8c56337e66b8106c22d1108495864e2d3fe9b41e5179a25138716f59cb",
+      "report_bytes": 16830460
+    },
+    "fps": {
+      "status": "OK",
+      "report_sha256": "da5b3025d50a3cecd5d64f816789cd7cac79ed7c8cf1ae3e4b6405aac9062b8c",
+      "report_bytes": 10439177
+    },
+    "fpss": {
+      "status": "OK",
+      "report_sha256": "a3cadc2bc125c2bb4a2bc0562d893843f92399ccc29deda5726d76447a191d71",
+      "report_bytes": 10901071
+    },
+    "fpsm": {
+      "status": "OK",
+      "report_sha256": "4e92937170318d53ce49e3098c836aabbadc49b038b893a357df1777ac2f0061",
+      "report_bytes": 10885606
+    }
+  },
+  "gate_output": "qa_check: 전 게이트 통과",
+  "note": "Exact six-mode run executed 2026-07-17 against the deployed v6 candidate; per-mode report digests bind this evidence to run qa-6827bc73158b4926aeee10e760fd1828."
+}

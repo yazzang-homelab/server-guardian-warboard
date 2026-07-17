@@ -585,6 +585,12 @@ h1, h2, h3, p { margin: 0; }
   font: 500 18px IBM Plex Mono, monospace;
   background: rgba(99,216,255,.04);
 }
+.proof-note {
+  margin-top: 14px;
+  color: var(--muted);
+  font: 400 16px/1.45 'IBM Plex Sans', sans-serif;
+  animation: sgw-rise .34s var(--motion-ease) calc(var(--capture-delay) + 2.48s) both;
+}
 
 /* Build */
 .build-grid {

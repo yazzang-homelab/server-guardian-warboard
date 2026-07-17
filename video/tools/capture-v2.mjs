@@ -16,6 +16,9 @@ const APP_VIEW = { width: 1440, height: 810 };
 const CHROMIUM = process.env.CHROMIUM_PATH || '/usr/bin/chromium';
 const ONLY = new Set((process.env.CAPTURE_ONLY || '').split(',').filter(Boolean));
 const wants = name => ONLY.size === 0 || ONLY.has(name);
+const APP_CAPTURE_SETTLE_MS = 1_000;
+const APP_USABLE_TAIL_MS = 26_000;
+const CAPTURE_KST_HOUR = 16.5;
 
 mkdirSync(TAKES, { recursive: true });
 
@@ -54,6 +57,20 @@ async function makeContext(recordVideo = false) {
     localStorage.setItem('phn_crt', '0');
     localStorage.setItem('phn_snd', '0');
   });
+  if (recordVideo) {
+    await context.addInitScript(() => {
+      const styleId = 'capture-v2-boot-guard';
+      const installBootGuard = () => {
+        if (document.getElementById(styleId)) return;
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = '#boot{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}';
+        (document.head || document.documentElement).append(style);
+      };
+      installBootGuard();
+      new MutationObserver(installBootGuard).observe(document, { childList: true, subtree: true });
+    });
+  }
   return context;
 }
 
@@ -94,19 +111,31 @@ async function captureSlides() {
 async function waitForApp(page) {
   await page.waitForSelector('#stage, canvas', { state: 'visible', timeout: 30_000 });
   await page.waitForFunction(() => {
-    const boot = document.querySelector('#boot');
-    return !boot || boot.offsetParent === null || getComputedStyle(boot).opacity === '0';
+    const G = window.G;
+    return Boolean(G && G.scene && G.cv && (G.META || G.standin));
   }, undefined, { timeout: 30_000 });
-  await page.evaluate(() => {
+  await page.waitForFunction(() => {
+    const intel = document.querySelector('#intel');
+    return Boolean(window.G?.ST && intel && intel.querySelectorAll('.icell b').length === 3);
+  }, undefined, { timeout: 30_000 });
+  await page.evaluate(hour => {
+    window.G.kstHour = () => hour;
     document.body.classList.remove('crt');
     localStorage.setItem('phn_lang', 'en');
     localStorage.setItem('phn_crt', '0');
     localStorage.setItem('phn_snd', '0');
-    const style = document.createElement('style');
-    style.textContent = '*{cursor:none!important}';
-    document.head.append(style);
-  });
-  await page.waitForTimeout(1_500);
+    if (!document.querySelector('#capture-v2-cursor-style')) {
+      const style = document.createElement('style');
+      style.id = 'capture-v2-cursor-style';
+      style.textContent = '*{cursor:none!important}';
+      document.head.append(style);
+    }
+    document.querySelector('#boot')?.remove();
+  }, CAPTURE_KST_HOUR);
+  await page.evaluate(() => new Promise(resolve => {
+    requestAnimationFrame(() => requestAnimationFrame(resolve));
+  }));
+  console.log(`READY app content; KST hour pinned to ${CAPTURE_KST_HOUR}`);
 }
 
 async function captureApp(name, kind, prepare) {
@@ -119,7 +148,9 @@ async function captureApp(name, kind, prepare) {
     await page.goto(demoUrl(kind), { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await waitForApp(page);
     if (prepare) await prepare(page);
-    await page.waitForTimeout(26_000);
+    await page.waitForTimeout(APP_CAPTURE_SETTLE_MS);
+    console.log(`READY app-${name}; preserving ${APP_USABLE_TAIL_MS / 1_000}s terminal usable tail`);
+    await page.waitForTimeout(APP_USABLE_TAIL_MS);
     await page.close();
     source = await video.path();
     await context.close();

@@ -132,13 +132,14 @@ fonts:
     <div class="impact-step"><b>Credible claim</b><span>Count filed reports — never claim the internet is fixed.</span></div>
   </div>
   <div class="impact-proof">
-    <div class="proof-label">VERIFIED CONTRIBUTION · REVIEW RENDER</div>
+    <div class="proof-label">VERIFIED CONTRIBUTION · REVIEW SNAPSHOT · JULY 16, 2026</div>
     <div class="proof-metrics">
       <div class="proof-metric"><b>200</b><span>reports filed</span></div>
       <div class="proof-metric"><b>200</b><span>unique IPs flagged</span></div>
       <div class="proof-metric"><b>98%</b><span>average confidence</span></div>
     </div>
     <div class="audience-row"><span>Firewalls</span><span>Hosting providers</span><span>Security teams</span><span>Home labs</span></div>
+    <div class="proof-note">Snapshot of AbuseIPDB filings verified at the approved review render. The live counter keeps growing.</div>
   </div>
 </div>
 <div class="footer"><span>SPECIFIC · CREDIBLE · MEASURABLE</span><span>07 / IMPACT</span></div>
@@ -148,7 +149,7 @@ fonts:
 <div class="corner">VERIFIED RESULT</div>
 <div class="kicker">What shipped</div>
 <div class="rule"></div>
-<h1 class="display">Public. Proven. <span class="green">Not a mockup.</span></h1>
+<h1 class="display">Public. Proven. <span class="green">Verifiable.</span></h1>
 <div class="metric-grid">
   <div class="metric"><b>48K+</b><span>hostile automation events visualized at recording time</span></div>
   <div class="metric"><b>6</b><span>deterministic judge demo modes</span></div>

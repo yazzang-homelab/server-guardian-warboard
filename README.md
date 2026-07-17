@@ -26,7 +26,7 @@ evaluate the Build Week work listed below.
 | Period | Work | Evidence |
 | --- | --- | --- |
 | Before the Submission Period (July 10-13, 2026 KST) | Earlier private prototype: honeypot capture, RPG village/battle engine, sprite atlas pipeline, map and NORAD views, audio, FPS mode, visual effects | Pre-existing deployment; summarized in commit `dad3ced` |
-| Submission Period (from July 14, 2026 KST) | Built with Codex + GPT-5.6: bilingual English/Korean UI; backend privacy redaction; the live AbuseIPDB contribution pipeline and "Global Threat Intel" evidence; deterministic demo scenes; upgraded RPG terrain, battle lighting, HUD contrast, and mobile-landscape layout; object-animated 16:9 presentation; fail-closed six-mode QA and candidate/release manifests; independently scored 85+ visual package; submission documentation, public repository, and final video | Dated commit history; live public app; `video/evidence/v5/`; privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
+| Submission Period (from July 14, 2026 KST) | Built with Codex + GPT-5.6: bilingual English/Korean UI; backend privacy redaction; the live AbuseIPDB contribution pipeline and "Global Threat Intel" evidence; deterministic demo scenes; upgraded RPG terrain, battle lighting, HUD contrast, and mobile-landscape layout; object-animated 16:9 presentation; fail-closed six-mode QA and candidate/release manifests; independently scored 85+ visual package; submission documentation, public repository, and final video | Dated commit history; live public app; `video/evidence/v5/` plus the v6 regression proof in `video/evidence/v6/`; privacy-safe session record in `docs/GPT-5.6-USAGE.md` |
 
 All listed Build Week implementation work was performed with Codex and GPT-5.6.
 

@@ -10,6 +10,8 @@ OUT="out/v2"
 SEG="$OUT/segments"
 DURATION=175
 OPENING="$OUT/review/opening-v2-cyber-defense.mp4"
+APP_USABLE_TAIL_SECONDS=26
+IMPACT_USABLE_TAIL_SECONDS=12
 mkdir -p "$SEG"
 
 for tool in ffmpeg ffprobe; do
@@ -27,6 +29,19 @@ done
 [[ -s "$MOTION/app-impact-live.webm" ]] || { echo "ERROR: missing live impact take" >&2; exit 1; }
 
 VOPT=(-c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -r 30 -an)
+require_terminal_usable_take() { # source segment-seconds declared-usable-tail label
+  local source="$1" seconds="$2" usable_tail="$3" label="$4" duration whole
+  duration="$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$source")" \
+    || { echo "ERROR: cannot probe $label take: $source" >&2; exit 1; }
+  whole="${duration%%.*}"
+  [[ "$whole" =~ ^[0-9]+$ ]] || { echo "ERROR: invalid duration for $label take: $duration" >&2; exit 1; }
+  (( seconds <= usable_tail )) \
+    || { echo "ERROR: $label segment (${seconds}s) exceeds its ${usable_tail}s usable-tail contract" >&2; exit 1; }
+  (( whole >= usable_tail )) \
+    || { echo "ERROR: $label take is only ${duration}s; expected a ${usable_tail}s post-ready tail" >&2; exit 1; }
+  echo "RENDER GUARD: $label duration=${duration}s; selecting terminal ${seconds}s from its ${usable_tail}s post-ready tail"
+}
+
 
 slide() { # slide <number> <seconds> <segment> — full 16:9 frame, object animation only
   local fade_start="$(( $2 - 1 )).60"
@@ -36,15 +51,17 @@ slide() { # slide <number> <seconds> <segment> — full 16:9 frame, object anima
 }
 
 app() { # app <take> <seconds> <segment>
-  local fade_start="$(( $2 - 1 )).65"
-  ffmpeg -y -v error -ss 3 -i "$TAKES/app-$1.webm" -t "$2" \
+  local source="$TAKES/app-$1.webm" fade_start="$(( $2 - 1 )).65"
+  require_terminal_usable_take "$source" "$2" "$APP_USABLE_TAIL_SECONDS" "app-$1"
+  ffmpeg -y -v error -sseof "-$2" -i "$source" -t "$2" \
     -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,fade=t=in:st=0:d=0.35,fade=t=out:st=$fade_start:d=0.35,format=yuv420p" \
     "${VOPT[@]}" "$SEG/$3.mp4"
 }
 
 impact_app() { # live public counter + report badge, no crop
-  local seconds="$1" fade_start="$(( $1 - 1 )).60"
-  ffmpeg -y -v error -ss 1.5 -i "$MOTION/app-impact-live.webm" \
+  local source="$MOTION/app-impact-live.webm" seconds="$1" fade_start="$(( $1 - 1 )).60"
+  require_terminal_usable_take "$source" "$seconds" "$IMPACT_USABLE_TAIL_SECONDS" "live impact"
+  ffmpeg -y -v error -sseof "-$seconds" -i "$source" \
     -vf "scale=1920:1080:flags=lanczos,setsar=1,fps=30,tpad=stop_mode=clone:stop_duration=$seconds,trim=duration=$seconds,fade=t=in:st=0:d=0.35,fade=t=out:st=$fade_start:d=0.40,format=yuv420p" \
     "${VOPT[@]}" "$SEG/08_impact_live.mp4"
 }

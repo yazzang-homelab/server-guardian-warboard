@@ -261,7 +261,7 @@ G.regScene('village', {
       for (let i = 0; i < 34; i++) c.fillRect(Math.floor(r() * G.W), Math.floor(r() * 70), 1, 1); }
     drawTiles(c, noFire);
     // 시간대 틴트
-    const tint = sky.stars > 0.05 ? `rgba(10,14,40,${0.38 * sky.stars})` : 'rgba(255,220,150,0.05)';
+    const tint = sky.stars > 0.05 ? `rgba(10,14,40,${0.30 * sky.stars})` : 'rgba(255,220,150,0.05)';
     c.fillStyle = tint; c.fillRect(0, 0, G.W, G.H);
     if (alpha < 1) { c.fillStyle = `rgba(4,6,14,${1 - alpha})`; c.fillRect(0, 0, G.W, G.H); }
     c.restore();
@@ -284,22 +284,18 @@ function drawTiles(c, noFire) {
     for (let i = 0; i < 180; i++) c.fillRect(Math.floor(r() * G.W), 84 + Math.floor(r() * (G.H - 84)), 2, 1);
   }
 
-  // 하늘 아래 먼 언덕 → 나무선 → 들판의 세 단계. 전부 화면 좌표만 사용해 이동/충돌 계약을 건드리지 않는다.
-  const ridge = G.rng(0x6a7e);
-  c.fillStyle = '#294431'; c.beginPath(); c.moveTo(0, 119);
-  for (let x = 0; x <= G.W; x += 24) c.lineTo(x, 102 + Math.floor(ridge() * 12));
-  c.lineTo(G.W, 137); c.lineTo(0, 137); c.fill();
-  c.fillStyle = '#1b3428'; c.beginPath(); c.moveTo(0, 132);
-  for (let x = 0; x <= G.W; x += 16) c.lineTo(x, 114 + Math.floor(ridge() * 13));
-  c.lineTo(G.W, 148); c.lineTo(0, 148); c.fill();
-  c.fillStyle = '#142a22';
-  for (let x = -4; x < G.W + 8; x += 12) {
-    const h = 5 + Math.floor(ridge() * 10), w = 5 + Math.floor(ridge() * 5);
-    c.fillRect(x, 126 - h, w, h + 8);
-    if (ridge() > 0.55) c.fillRect(x - 2, 122 - h, w + 4, 4);
+  // 아틀라스 산맥 → 숲 가장자리 → 밝은 잔디. 정수 좌표·nearest-neighbor로 원본 픽셀을 보존한다.
+  const mountains = G.spr('bg_forest_1'), forest = G.spr('bg_forest_2');
+  if (mountains) {
+    c.save(); c.globalAlpha = 0.38;
+    for (let x = 0; x < G.W; x += mountains[3]) G.drawSpr('bg_forest_1', x, -26, {});
+    c.restore();
   }
-  c.fillStyle = 'rgba(95,208,127,.08)'; c.fillRect(0, 146, G.W, 12);
-  c.fillStyle = 'rgba(5,12,12,.14)'; c.fillRect(0, G.H - 46, G.W, 46);
+  if (forest) {
+    c.save(); c.globalAlpha = 0.9;
+    for (let x = 0; x < G.W; x += forest[3]) G.drawSpr('bg_forest_2', x, 35, {});
+    c.restore();
+  }
 
   // 길은 외곽의 어두운 흙과 밝은 보행선, 고정 시드 조약돌로 깊이를 준다.
   c.fillStyle = '#28251b'; c.fillRect(207, 84, 20, G.H - 84); c.fillRect(57, 194, 306, 18);
